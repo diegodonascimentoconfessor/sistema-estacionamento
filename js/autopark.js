@@ -1,4 +1,6 @@
 const { ipcRenderer } = require('electron');
+
+// JavaScript para interagir com os campos de entrada
 const menuInput = document.getElementById('menu');
 const marcaModeloInput = document.getElementById('marcaModelo');
 const entradaInput = document.getElementById('entrada');
@@ -8,6 +10,7 @@ const placaInput = document.getElementById('placa');
 const saidaInput = document.getElementById('saida');
 const pagamentoInput = document.getElementById('pagamento');
 
+// Função para salvar os dados no localStorage
 function saveToLocalStorage() {
   localStorage.setItem('menu', menuInput.value);
   localStorage.setItem('marcaModelo', marcaModeloInput.value);
@@ -20,6 +23,7 @@ function saveToLocalStorage() {
   console.log("Dados salvos no localStorage");
 }
 
+// Função para carregar os dados do localStorage
 function loadFromLocalStorage() {
   menuInput.value = localStorage.getItem('menu') || '';
   marcaModeloInput.value = localStorage.getItem('marcaModelo') || '';
@@ -32,6 +36,7 @@ function loadFromLocalStorage() {
   console.log("Dados carregados do localStorage");
 }
 
+// Adicione eventos para os campos de entrada
 menuInput.addEventListener('input', saveToLocalStorage);
 marcaModeloInput.addEventListener('input', saveToLocalStorage);
 entradaInput.addEventListener('input', saveToLocalStorage);
@@ -41,7 +46,7 @@ placaInput.addEventListener('input', saveToLocalStorage);
 saidaInput.addEventListener('input', saveToLocalStorage);
 pagamentoInput.addEventListener('input', saveToLocalStorage);
 
-
+// Carregar dados do localStorage quando a página for carregada
 window.addEventListener('load', loadFromLocalStorage);
 
 // Lidar com os eventos do menu
