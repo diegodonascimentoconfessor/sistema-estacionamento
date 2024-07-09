@@ -1,125 +1,91 @@
-const {app, BrowserWindow, Menu, shell} = require ('electron')
-let mainwindow = null
-app.on ('ready', () =>{
-    console.log("inciando electron")
-    mainwindow =  new BrowserWindow({
-        width:800,
-        height:800,
-        //autoHideMenuBar: true,
-        resizable:false,
-        icon:'assets/icone_calculadora.png'
-    })
-    Menu.setApplicationMenu(Menu.buildFromTemplate(Template))
-   mainwindow.loadFile('app/index.html')
+const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
+let mainWindow = null;
 
-}) ;
-
-
-// criando Template Menu 
-const Template = [
+app.on('ready', () => {
+  console.log("Iniciando Electron");
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 800,
+    resizable: false,
+    icon: 'app/assets/icone_calculadora.png',
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+  
+  // Criando Template Menu 
+  const template = [
     {
-
-      label: 'arquivo' ,
-      submenu:[
-
-          {
-            label:'sair',
-            //Evento clique para executar a Função sair 
-             click: ()=>app.quit (),
-             // Criando tecla de atalho
-             accelerator: 'Alt+F4'
-
-          },
-
+      label: 'Menu',
+      submenu: [
+        {
+          label: 'Adicionar Veículo',
+          click: () => {
+            mainWindow.webContents.send('menu-add-vehicle');
+          }
+        },
+        {
+          label: 'Editar Veículo',
+          click: () => {
+            mainWindow.webContents.send('menu-edit-vehicle');
+          }
+        },
+        {
+          label: 'Excluir Veículo',
+          click: () => {
+            mainWindow.webContents.send('menu-delete-vehicle');
+          }
+        },
+        {
+          label: 'Sair',
+          click: () => app.quit(),
+          accelerator: 'Alt+F4'
+        },
       ]
-
     },
-
     {
-        label: 'exibir',
-        submenu: [
-           
-
-          
-            {
-                // para separar submenu com uma linha
-                 type: 'separator'
-
-            },
-
-            {
-                label:'aplicar zoom',
-                role: 'zoomIn'
-            },
-            {
-                label:'Reduzir',
-                role:'zoomOut'
-            },
-
-            {
-                label: 'Restaurar o zoom',
-                role: 'resetZoom'
-            },
-
-            {
-                // para separar submenu com uma linha
-                 type: 'separator'
-
-            },
-
-
-
-            {
-                label: 'ferramenta de dessenvolvedor',
-                role: 'toggleDevTools'
-            },
-
-
-
-        ]
+      label: 'Exibir',
+      submenu: [
+        { type: 'separator' },
+        { label: 'Aplicar Zoom', role: 'zoomIn' },
+        { label: 'Reduzir', role: 'zoomOut' },
+        { label: 'Restaurar o Zoom', role: 'resetZoom' },
+        { type: 'separator' },
+        { label: 'Ferramenta de Desenvolvedor', role: 'toggleDevTools' },
+      ]
     },
-
-{
-    label:'ajuda',
-    submenu:  [
+    {
+      label: 'Ajuda',
+      submenu: [
         {
-        label :'calculadora',
-        click: () => shell.openExternal('https://www.google.com.br/search?q=calculadora+google&rlz=1C2CHZN_pt-BRBR1111BR1113&sca_esv=856bbea95b52671d&sxsrf=ADLYWIIRrySlShsuf4fZIJ1C0clT2upgOQ%3A1719513909290&source=hp&ei=NbN9ZsXnD8TS1sQPtpiuwAI&iflsig=AL9hbdgAAAAAZn3BRVvPuht6AXKdylr61kRiNcn012kH&oq=calculadora++goo&gs_lp=Egdnd3Mtd2l6GgIYAyIQY2FsY3VsYWRvcmEgIGdvbyoCCAAyCBAAGIAEGLEDMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAESNBRUNMJWNFAcAF4AJABAJgBugGgAZQVqgEEMC4xNrgBAcgBAPgBAZgCEaACsBaoAgrCAgcQIxgnGOoCwgIKECMYgAQYJxiKBcICDRAAGIAEGLEDGEMYigXCAgoQABiABBhDGIoFwgITEC4YgAQYsQMY0QMYQxjHARiKBcICDBAAGIAEGEMYigUYCsICDhAAGIAEGLEDGIMBGIoFwgIREC4YgAQYsQMY0QMYgwEYxwHCAgQQIxgnwgIWEC4YgAQYsQMY0QMYQxiDARjHARiKBcICCxAuGIAEGNEDGMcBwgIOEC4YgAQYsQMY0QMYxwHCAgsQABiABBixAxiDAZgDDJIHBDEuMTagB4SLAQ&sclient=gws-wiz')
-    },
-        {
-            type: 'separator'
-
+          label: 'Documentação',
+          click: () => {
+            shell.openExternal('https://electronjs.org/docs');
+          }
         },
-
         {
-            label:'sobre',
-            click: ()=> janelasobre()
+          label: 'Sobre',
+          click: () => {
+            // Lógica para mostrar informações sobre o aplicativo
+          }
         },
-          
-        
-         {
-                   
-              label:'Documentação',
-              click: () => shell.openExternal('https://drive.google.com/file/d/1u07Wab9hcF0b5jXqxZaQ3nZQm9OLjFj0/view?usp=sharing')
+      ]
+    }
+  ];
 
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+  mainWindow.loadFile('index.html');
+});
 
+ipcMain.on('menu-add-vehicle', () => {
+  mainWindow.webContents.send('menu-add-vehicle');
+});
 
+ipcMain.on('menu-edit-vehicle', () => {
+  mainWindow.webContents.send('menu-edit-vehicle');
+});
 
-         },
-
-    ]
-},
-
-]
-
-//criar janela sobre 
-const janelasobre =() =>{
-    const  sobre  = new  BrowserWindow({
-    width:500,
-    height:220,
-     resizable: false,
-     autoHideMenuBar: true,
-   
-    });
-     sobre.loadFile('app/sobre.html')
-   }
+ipcMain.on('menu-delete-vehicle', () => {
+  mainWindow.webContents.send('menu-delete-vehicle');
+});
