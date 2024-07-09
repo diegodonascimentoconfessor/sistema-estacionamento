@@ -6,7 +6,7 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 800,
-    resizable: false,
+    resizable: true ,
     icon: 'app/assets/icone_calculadora.png',
     webPreferences: {
       nodeIntegration: true,
