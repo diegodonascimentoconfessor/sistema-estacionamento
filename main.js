@@ -85,10 +85,19 @@ const template = [
       },
       {
         label: 'Sobre',
-        click: () => {
-          // Lógica para mostrar informações sobre o aplicativo
+        click: () =>  janelasobre()
         }
-      },
     ]
   }
 ];
+
+const janelasobre =() =>{
+    const  sobre  = new  BrowserWindow({
+    width:800,
+    height:800,
+     resizable: false,
+     autoHideMenuBar: true,
+   
+    });
+     sobre.loadFile('app/sobre.html')
+   }
