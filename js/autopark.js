@@ -1,83 +1,58 @@
 const { ipcRenderer } = require('electron');
 
-// JavaScript para interagir com os campos de entrada
-const menuInput = document.getElementById('menu');
-const marcaModeloInput = document.getElementById('marcaModelo');
-const entradaInput = document.getElementById('entrada');
-const toleranciaInput = document.getElementById('tolerancia');
-const pesquisaInput = document.getElementById('pesquisa');
-const placaInput = document.getElementById('placa');
-const saidaInput = document.getElementById('saida');
-const pagamentoInput = document.getElementById('pagamento');
+const inputFields = [
+  'menu',
+  'marcaModelo',
+  'entrada',
+  'tolerancia',
+  'pesquisa',
+  'placa',
+  'saida',
+  'pagamento'
+];
 
-// Função para salvar os dados no localStorage
+const inputs = {};
+
+inputFields.forEach(id => {
+  inputs[id] = document.getElementById(id);
+  inputs[id].addEventListener('input', saveToLocalStorage);
+});
+
 function saveToLocalStorage() {
-  localStorage.setItem('menu', menuInput.value);
-  localStorage.setItem('marcaModelo', marcaModeloInput.value);
-  localStorage.setItem('entrada', entradaInput.value);
-  localStorage.setItem('tolerancia', toleranciaInput.value);
-  localStorage.setItem('pesquisa', pesquisaInput.value);
-  localStorage.setItem('placa', placaInput.value);
-  localStorage.setItem('saida', saidaInput.value);
-  localStorage.setItem('pagamento', pagamentoInput.value);
+  inputFields.forEach(id => {
+    localStorage.setItem(id, inputs[id].value);
+  });
   console.log("Dados salvos no localStorage");
 }
 
-// Função para carregar os dados do localStorage
 function loadFromLocalStorage() {
-  menuInput.value = localStorage.getItem('menu') || '';
-  marcaModeloInput.value = localStorage.getItem('marcaModelo') || '';
-  entradaInput.value = localStorage.getItem('entrada') || '';
-  toleranciaInput.value = localStorage.getItem('tolerancia') || '';
-  pesquisaInput.value = localStorage.getItem('pesquisa') || '';
-  placaInput.value = localStorage.getItem('placa') || '';
-  saidaInput.value = localStorage.getItem('saida') || '';
-  pagamentoInput.value = localStorage.getItem('pagamento') || '';
+  inputFields.forEach(id => {
+    inputs[id].value = localStorage.getItem(id) || '';
+  });
   console.log("Dados carregados do localStorage");
 }
 
-// Adicione eventos para os campos de entrada
-menuInput.addEventListener('input', saveToLocalStorage);
-marcaModeloInput.addEventListener('input', saveToLocalStorage);
-entradaInput.addEventListener('input', saveToLocalStorage);
-toleranciaInput.addEventListener('input', saveToLocalStorage);
-pesquisaInput.addEventListener('input', saveToLocalStorage);
-placaInput.addEventListener('input', saveToLocalStorage);
-saidaInput.addEventListener('input', saveToLocalStorage);
-pagamentoInput.addEventListener('input', saveToLocalStorage);
-
-// Carregar dados do localStorage quando a página for carregada
 window.addEventListener('load', loadFromLocalStorage);
 
-// Lidar com os eventos do menu
 ipcRenderer.on('menu-add-vehicle', () => {
   console.log('Adicionar Veículo');
-  marcaModeloInput.value = '';
-  entradaInput.value = '';
-  toleranciaInput.value = '';
-  pesquisaInput.value = '';
-  placaInput.value = '';
-  saidaInput.value = '';
-  pagamentoInput.value = '';
-  menuInput.value = 'Novo Veículo';
+  inputFields.forEach(id => {
+    inputs[id].value = '';
+  });
+  inputs['menu'].value = 'Novo Veículo';
   saveToLocalStorage();
 });
 
 ipcRenderer.on('menu-edit-vehicle', () => {
   console.log('Editar Veículo');
-  menuInput.value = 'Editando Veículo';
+  inputs['menu'].value = 'Editando Veículo';
   saveToLocalStorage();
 });
 
 ipcRenderer.on('menu-delete-vehicle', () => {
   console.log('Excluir Veículo');
-  menuInput.value = '';
-  marcaModeloInput.value = '';
-  entradaInput.value = '';
-  toleranciaInput.value = '';
-  pesquisaInput.value = '';
-  placaInput.value = '';
-  saidaInput.value = '';
-  pagamentoInput.value = '';
+  inputFields.forEach(id => {
+    inputs[id].value = '';
+  });
   saveToLocalStorage();
 });

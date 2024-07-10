@@ -1,6 +1,5 @@
 body {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -15,6 +14,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 400px;
+  box-sizing: border-box;
 }
 
 .input-group {
@@ -55,3 +55,12 @@ h1 {
 .button:hover {
   background-color: #3e8e41;
 }
+
+#ajudaBtn {
+  margin-top: 20px;
+}
+
+
+
+
+
