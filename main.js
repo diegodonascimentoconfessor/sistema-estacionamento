@@ -3,8 +3,8 @@ let mainWindow = null;
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 2000,
+    height: 1000,
     resizable: true,
     icon: 'app/assets/icone_calculadora.png',
     webPreferences: {
