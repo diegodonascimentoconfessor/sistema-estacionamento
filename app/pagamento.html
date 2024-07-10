@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcular Pagamento - Autopark</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Calcular Pagamento</h1>
+    <div class="input-group">
+      <label for="entradaPagamento">Entrada</label>
+      <input id="entradaPagamento" type="datetime-local" placeholder="Entrada">
+    </div>
+    <div class="input-group">
+      <label for="saidaPagamento">Saída</label>
+      <input id="saidaPagamento" type="datetime-local" placeholder="Saída">
+    </div>
+    <div class="input-group">
+      <label for="toleranciaPagamento">Tolerância</label>
+      <input id="toleranciaPagamento" type="text" placeholder="Tolerância (minutos)" value="10">
+    </div>
+    <div class="input-group">
+      <label for="tarifaPagamento">Tarifa por Hora</label>
+      <input id="tarifaPagamento" type="text" placeholder="Tarifa por Hora" value="10">
+    </div>
+    <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
+    <div id="valorPagamento" class="payment-value"></div>
+  </div>
+  <script src="../js/pagamento.js"></script>
+</body>
+</html>

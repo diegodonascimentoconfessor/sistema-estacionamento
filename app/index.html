@@ -9,14 +9,6 @@
 <body>
   <div class="container">
     <h1>Autopark</h1>
-   
-   
-    <div class="input-group">
-      <label for="pesquisa">Pesquisa</label>
-      <input id="pesquisa" type="text" placeholder="Pesquisa">
-    </div>
-   
-   
     <div class="input-group">
       <label for="menu">Menu</label>
       <input id="menu" type="text" placeholder="Menu">
@@ -29,25 +21,27 @@
       <label for="placa">Placa</label>
       <input id="placa" type="text" placeholder="Placa">
     </div>
-
     <div class="input-group">
       <label for="entrada">Entrada</label>
-      <input id="entrada" type="text" placeholder="Entrada">
+      <input id="entrada" type="datetime-local" placeholder="Entrada">
     </div>
-
     <div class="input-group">
       <label for="saida">Saída</label>
-      <input id="saida" type="text" placeholder="Saída">
-    </div> 
+      <input id="saida" type="datetime-local" placeholder="Saída">
+    </div>
     <div class="input-group">
       <label for="tolerancia">Tolerância</label>
-      <input id="tolerancia" type="text" placeholder="Tolerância">
+      <input id="tolerancia" type="text" placeholder="Tolerância (minutos)">
     </div>
- 
     <div class="input-group">
-      <label for="pagamento">Pagamento</label>
-      <input id="pagamento" type="text" placeholder="Pagamento">
+      <label for="tarifa">Tarifa por Hora</label>
+      <input id="tarifa" type="text" placeholder="Tarifa por Hora">
     </div>
+    <button id="ajudaBtn" class="button">Ajuda</button>
+    <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
+    <div id="valorPagamento" class="payment-value"></div>
+    <div id="vehicleList" class="vehicle-list"></div>
+    <button id="addVehicleBtn" class="button">Adicionar Veículo</button>
   </div>
   <script src="../js/autopark.js"></script>
 </body>

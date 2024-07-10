@@ -1,38 +1,24 @@
-const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
 let mainWindow = null;
+let pagamentoWindow = null;
 
-function createMainWindow() {
+app.on('ready', () => {
+  console.log("Iniciando Electron");
   mainWindow = new BrowserWindow({
-    width: 2000,
-    height: 1000,
+    width: 800,
+    height: 800,
     resizable: true,
-    icon: 'app/assets/icone_calculadora.png',
+    icon: 'assets/icone-estacionamento.png',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
     }
   });
-
-  // Carrega o arquivo HTML principal
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   mainWindow.loadFile('app/index.html');
-}
+});
 
-
-function createPesquisaWindow() {
-  const pesquisaWindow = new BrowserWindow({
-    width: 400,
-    height: 300,
-    resizable: false,
-    autoHideMenuBar: true,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
-    }
-  });
-
-  pesquisaWindow.loadFile('app/pesquisa.html');
-}
-
+// Criando Template Menu 
 const template = [
   {
     label: 'Menu',
@@ -93,12 +79,6 @@ const template = [
     label: 'Ajuda',
     submenu: [
       {
-        label: 'Pesquisar por Placa',
-        click: () => {
-          createPesquisaWindow();
-        }
-      },
-      {
         label: 'Documentação',
         click: () => {
           shell.openExternal('https://electronjs.org/docs');
@@ -106,33 +86,52 @@ const template = [
       },
       {
         label: 'Sobre',
+        click: () =>  janelasobre()
+      },
+      {
+        label: 'Calcular Pagamento',
         click: () => {
-          const sobre = new BrowserWindow({
-            width: 800,
-            height: 800,
-            resizable: false,
-            autoHideMenuBar: true,
-          });
-          sobre.loadFile('app/sobre.html');
+          abrirPagamentoWindow();
         }
       }
     ]
   }
 ];
 
-const menu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(menu);
+const janelasobre = () => {
+  const sobre = new BrowserWindow({
+    width: 800,
+    height: 800,
+    resizable: false,
+    autoHideMenuBar: true,
+  });
+  sobre.loadFile('app/sobre.html');
+}
 
-ipcMain.on('menu-add-vehicle', () => {
-  mainWindow.webContents.send('menu-add-vehicle');
+const abrirPagamentoWindow = () => {
+  if (pagamentoWindow) {
+    pagamentoWindow.focus();
+    return;
+  }
+
+  pagamentoWindow = new BrowserWindow({
+    width: 600,
+    height: 400,
+    resizable: false,
+    autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  pagamentoWindow.loadFile('app/pagamento.html');
+
+  pagamentoWindow.on('closed', () => {
+    pagamentoWindow = null;
+  });
+}
+
+ipcMain.on('open-pagamento-window', () => {
+  abrirPagamentoWindow();
 });
-
-ipcMain.on('menu-edit-vehicle', () => {
-  mainWindow.webContents.send('menu-edit-vehicle');
-});
-
-ipcMain.on('menu-delete-vehicle', () => {
-  mainWindow.webContents.send('menu-delete-vehicle');
-});
-
-app.on('ready', createMainWindow);
