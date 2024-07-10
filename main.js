@@ -117,7 +117,8 @@ const abrirPagamentoWindow = () => {
   pagamentoWindow = new BrowserWindow({
     width: 600,
     height: 400,
-    resizable: false,
+    resizable: true,
+    icon:'assets/icone-estacionamento.png',
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
