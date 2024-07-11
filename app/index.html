@@ -8,11 +8,10 @@
 </head>
 <body>
   
-  
   <div class="container">
     <h1>Autopark</h1>
     <div class="input-group">
-      <label for="menu">opções</label>
+      <label for="menu">Opções</label>
       <input id="menu" type="text" placeholder="Menu">
     </div>
     <div class="input-group">
@@ -46,22 +45,18 @@
   </div>
 
   <div class="container">
-    <!-- Seu formulário existente -->
-    <!-- ... -->
-  
     <!-- Divisão para as informações de vagas -->
     <div class="vagas-info">
       <p>Vagas Ocupadas: <span id="vagasOcupadas">0</span></p>
       <p>Vagas Disponíveis: <span id="vagasDisponiveis">50</span></p>
     </div>
-  </div>
-  <a href="listagem-veiculos.html" class="link">Veículos Cadastrados</a>
-</div>
-  
-  </div>
-  
-  
 
+    <!-- Lista de veículos cadastrados -->
+    <div id="listaVeiculos">
+      <h2>Veículos Cadastrados</h2>
+      <ul id="veiculosCadastrados"></ul>
+    </div>
+  </div>
 
   <script src="../js/autopark.js"></script>
 </body>

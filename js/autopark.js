@@ -184,45 +184,31 @@ document.getElementById('searchBtn').addEventListener('click', () => {
 
 
 
+// listas de carros cadastrado 
+// Função para adicionar veículo à lista de cadastrados
+function adicionarVeiculo() {
+  var marcaModelo = document.getElementById('marcaModelo').value;
+  var placa = document.getElementById('placa').value;
+  var entrada = document.getElementById('entrada').value;
+  var saida = document.getElementById('saida').value;
+  var tolerancia = document.getElementById('tolerancia').value;
+  var tarifa = document.getElementById('tarifa').value;
 
-const addVehicleBtn = document.getElementById('addVehicleBtn');
+  // Validar se todos os campos estão preenchidos
+  if (marcaModelo === '' || placa === '' || entrada === '' || saida === '' || tolerancia === '' || tarifa === '') {
+    alert('Por favor, preencha todos os campos.');
+    return;
+  }
 
-// Seleciona a lista onde os veículos serão adicionados
-const vehicleList = document.getElementById('vehicleList');
+  // Criar um novo item de lista
+  var novoVeiculo = document.createElement('li');
+  novoVeiculo.textContent = marcaModelo + ' - ' + placa;
 
-// Contador para IDs únicos de veículos
-let vehicleId = 1;
+  // Adicionar o novo veículo à lista de veículos cadastrados
+  var listaVeiculos = document.getElementById('veiculosCadastrados');
+  listaVeiculos.appendChild(novoVeiculo);
 
-// Função para adicionar um veículo à lista
-function addVehicleToList(marcaModelo, placa, entrada, saida, tolerancia, tarifa) {
-  // Cria um elemento de lista <li>
-  const listItem = document.createElement('li');
-  listItem.classList.add('vehicle-item');
-
-  // Conteúdo do item da lista
-  listItem.innerHTML = `
-    <strong>${marcaModelo}</strong> - Placa: ${placa}<br>
-    Entrada: ${entrada}, Saída: ${saida}<br>
-    Tolerância: ${tolerancia} min, Tarifa por Hora: ${tarifa}<br>
-  `;
-
-  // Adiciona o item à lista de veículos
-  vehicleList.appendChild(listItem);
-}
-
-// Evento de clique para adicionar veículo quando o botão for clicado
-addVehicleBtn.addEventListener('click', function() {
-  const marcaModelo = document.getElementById('marcaModelo').value;
-  const placa = document.getElementById('placa').value;
-  const entrada = document.getElementById('entrada').value;
-  const saida = document.getElementById('saida').value;
-  const tolerancia = document.getElementById('tolerancia').value;
-  const tarifa = document.getElementById('tarifa').value;
-
-  // Adiciona o veículo à lista
-  addVehicleToList(marcaModelo, placa, entrada, saida, tolerancia, tarifa);
-
-  // Limpa os campos do formulário após adicionar o veículo
+  // Limpar os campos do formulário após adicionar o veículo
   document.getElementById('marcaModelo').value = '';
   document.getElementById('placa').value = '';
   document.getElementById('entrada').value = '';
@@ -230,15 +216,11 @@ addVehicleBtn.addEventListener('click', function() {
   document.getElementById('tolerancia').value = '';
   document.getElementById('tarifa').value = '';
 
-  // Atualiza o número de vagas ocupadas
-  const vagasOcupadasElement = document.getElementById('vagasOcupadas');
-  let vagasOcupadas = parseInt(vagasOcupadasElement.textContent);
-  vagasOcupadas++;
-  vagasOcupadasElement.textContent = vagasOcupadas;
+  // Atualizar o número de vagas ocupadas
+  var vagasOcupadas = parseInt(document.getElementById('vagasOcupadas').textContent);
+  document.getElementById('vagasOcupadas').textContent = vagasOcupadas + 1;
+}
 
-  // Atualiza o número de vagas disponíveis
-  const vagasDisponiveisElement = document.getElementById('vagasDisponiveis');
-  let vagasDisponiveis = parseInt(vagasDisponiveisElement.textContent);
-  vagasDisponiveis--;
-  vagasDisponiveisElement.textContent = vagasDisponiveis;
-});
+// Evento de clique no botão "Adicionar Veículo"
+var addVehicleBtn = document.getElementById('addVehicleBtn');
+addVehicleBtn.addEventListener('click', adicionarVeiculo);
