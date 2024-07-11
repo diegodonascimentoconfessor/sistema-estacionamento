@@ -96,6 +96,15 @@ function adicionarVeiculo(vehicle) {
     ipcRenderer.send('vehicle-added', vehicle);
   }
   
+  function excluirVeiculo(vehicle) {
+    const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+    vehicles.push(vehicle);
+    localStorage.setItem('vehicles', JSON.stringify(vehicles));
+    ipcRenderer.send('vehicle-added', vehicle);
+  }
+
+
+
   document.getElementById('addVehicleBtn').addEventListener('click', () => {
     const vehicle = {
       placa: document.getElementById('placaVeiculo').value,
@@ -103,6 +112,15 @@ function adicionarVeiculo(vehicle) {
       vaga: Math.floor(Math.random() * 100) + 1 
     };
     adicionarVeiculo(vehicle);
+  });
+
+  document.getElementById('addVehicleBtn').addEventListener('click', () => {
+    const vehicle = {
+      placa: document.getElementById('placaVeiculo').value,
+      entrada: document.getElementById('entradaPagamento').value,
+      vaga: Math.floor(Math.random() * 100) + 1 
+    };
+    excluirVeiculo(vehicle);
   });
   
 
