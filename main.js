@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
 let mainWindow = null;
 let pagamentoWindow = null;
+let vagasWindow = null;
 
 app.on('ready', () => {
   console.log("Iniciando Electron");
@@ -39,6 +40,18 @@ const template = [
         label: 'Excluir Veículo',
         click: () => {
           mainWindow.webContents.send('menu-delete-vehicle');
+        }
+      },
+      {
+        label: 'Calcular Pagamento',
+        click: () => {
+          abrirPagamentoWindow();
+        }
+      },
+      {
+        label: 'Vagas',
+        click: () => {
+          abrirVagasWindow();
         }
       },
       {
@@ -86,14 +99,8 @@ const template = [
       },
       {
         label: 'Sobre',
-        click: () =>  janelasobre()
+        click: () => janelasobre()
       },
-      {
-        label: 'Calcular Pagamento',
-        click: () => {
-          abrirPagamentoWindow();
-        }
-      }
     ]
   }
 ];
@@ -130,6 +137,31 @@ const abrirPagamentoWindow = () => {
 
   pagamentoWindow.on('closed', () => {
     pagamentoWindow = null;
+  });
+}
+
+const abrirVagasWindow = () => {
+  if (vagasWindow) {
+    vagasWindow.focus();
+    return;
+  }
+
+  vagasWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    resizable: true,
+    icon: 'assets/icone-estacionamento.png',
+    autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  vagasWindow.loadFile('app/vagas.html');
+
+  vagasWindow.on('closed', () => {
+    vagasWindow = null;
   });
 }
 

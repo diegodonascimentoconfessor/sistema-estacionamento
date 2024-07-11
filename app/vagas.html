@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vagas de Estacionamento - Autopark</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Vagas de Estacionamento</h1>
+    <table id="vagasTable" class="table">
+      <thead>
+        <tr>
+          <th>Placa do Veículo</th>
+          <th>Hora de Entrada</th>
+          <th>Vaga</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Conteúdo será inserido dinamicamente -->
+      </tbody>
+    </table>
+    <div id="vagasInfo" class="vagas-info">
+      <p>Total de Vagas: <span id="totalVagas">100</span></p>
+      <p>Vagas Ocupadas: <span id="vagasOcupadas">0</span></p>
+      <p>Vagas Disponíveis: <span id="vagasDisponiveis">100</span></p>
+    </div>
+  </div>
+  <script src="../js/vagas.js"></script>
+</body>
+</html>

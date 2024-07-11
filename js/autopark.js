@@ -82,3 +82,10 @@ function calcularPagamento() {
 document.getElementById('ajudaBtn').addEventListener('click', () => {
   ipcRenderer.send('open-help');
 });
+
+document.getElementById('calcPagamentoBtn').addEventListener('click', function() {
+  // Lógica para calcular o valor do pagamento
+  const valorPagamento = "20.00"; // Exemplo de valor calculado
+  window.location.href = `pagamento.html?valor=${valorPagamento}`;
+});
+
