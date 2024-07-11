@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listagem de Veículos - Autopark</title>
+  <link rel="stylesheet" href="../assets/styles.css"> <!-- Adiciona o link para o arquivo styles.css -->
+</head>
+<body>
+  <div class="container">
+    <h1>Listagem de Veículos Cadastrados</h1>
+    <table class="vehicle-table">
+      <thead>
+        <tr>
+          <p>Marca/Modelo</p>
+          <th>Placa</>
+          <th>Entrada</th>
+          <th>Saída</th>
+          <th>Tolerância (min)</th>
+          <th>Tarifa por Hora</th>
+        </tr>
+      </thead>
+      <tbody id="vehicleList">
+        <!-- Os veículos cadastrados serão adicionados aqui dinamicamente -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="../js/autopark.js"></script> <!-- Seu script JavaScript -->
+</body>
+</html>

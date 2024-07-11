@@ -2,6 +2,7 @@ const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
 let mainWindow = null;
 let pagamentoWindow = null;
 let vagasWindow = null;
+let pesquisaWindow = null;
 
 app.on('ready', () => {
   console.log("Iniciando Electron");
@@ -15,12 +16,11 @@ app.on('ready', () => {
       contextIsolation: false
     }
   });
-  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+  Menu.setApplicationMenu(Menu.buildFromTemplate(createMenuTemplate()));
   mainWindow.loadFile('app/index.html');
 });
 
-// Criando Template Menu 
-const template = [
+const createMenuTemplate = () => [
   {
     label: 'Menu',
     submenu: [
@@ -99,13 +99,19 @@ const template = [
       },
       {
         label: 'Sobre',
-        click: () => janelasobre()
+        click: () => abrirSobreWindow()
+      },
+      {
+        label: 'Pesquisa de Placas',
+        click: () => {
+          abrirPesquisaWindow();
+        }
       },
     ]
   }
 ];
 
-const janelasobre = () => {
+const abrirSobreWindow = () => {
   const sobre = new BrowserWindow({
     width: 800,
     height: 800,
@@ -125,8 +131,7 @@ const abrirPagamentoWindow = () => {
     width: 600,
     height: 400,
     resizable: true,
-    icon:'assets/icone-estacionamento.png',
-    autoHideMenuBar: true,
+    icon: 'assets/icone-estacionamento.png',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -165,6 +170,34 @@ const abrirVagasWindow = () => {
   });
 }
 
+const abrirPesquisaWindow = () => {
+  if (pesquisaWindow) {
+    pesquisaWindow.focus();
+    return;
+  }
+
+  pesquisaWindow = new BrowserWindow({
+    width: 600,
+    height: 400,
+    resizable: true,
+    icon: 'assets/icone-estacionamento.png',
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  pesquisaWindow.loadFile('app/pesquisa.html');
+
+  pesquisaWindow.on('closed', () => {
+    pesquisaWindow = null;
+  });
+}
+
 ipcMain.on('open-pagamento-window', () => {
   abrirPagamentoWindow();
+});
+
+ipcMain.on('open-pesquisa-window', () => {
+  abrirPesquisaWindow();
 });
