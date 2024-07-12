@@ -77,7 +77,6 @@ function calcularPagamento() {
 
   const valorPagamento = diffHrsComTolerancia * tarifa;
 
-  // Redirecionar para página de pagamento com o valor calculado
   window.location.href = `pagamento.html?valor=${valorPagamento}`;
 }
 

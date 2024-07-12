@@ -8,7 +8,7 @@ let pesquisaWindow = null;
 app.on('ready', () => {
   console.log("Iniciando Electron");
   mainWindow = new BrowserWindow({
-    width: 800,
+    width: 1000,
     height: 800,
     resizable: true,
     icon: 'assets/icone-estacionamento.png',
