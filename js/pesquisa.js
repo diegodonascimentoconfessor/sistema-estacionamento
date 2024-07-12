@@ -32,7 +32,7 @@ document.getElementById('searchBtn').addEventListener('click', () => {
       <p><strong>Tarifa por Hora:</strong> R$ ${vehicle.tarifa}</p>
     `;
     
-    // Limpar detalhes anteriores, se houver
+
     const existingDetails = document.querySelector('.vehicle-details');
     if (existingDetails) {
       container.removeChild(existingDetails);
