@@ -96,7 +96,16 @@ const createMenuTemplate = () => [
         }
       },
       { type: 'separator' },
-      { role: 'quit' }
+     
+      {
+        label:'sair',
+      
+         click: ()=>app.quit (),
+         
+         accelerator: 'Alt+F4'
+
+      },
+
     ]
   },
   {
