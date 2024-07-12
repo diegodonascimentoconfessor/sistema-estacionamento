@@ -55,7 +55,7 @@ const createMenuTemplate = () => [
               contextIsolation: false
             }
           });
-          pesquisaWindow.loadFile('app/ajuda.html');
+          pesquisaWindow.loadFile('app/pesquisa.html');
           pesquisaWindow.on('closed', () => pesquisaWindow = null);
         }
       },
@@ -120,7 +120,7 @@ ipcMain.on('open-help', () => {
       contextIsolation: false
     }
   });
-  pesquisaWindow.loadFile('app/ajuda.html');
+  pesquisaWindow.loadFile('app/pesquisa.html');
   pesquisaWindow.on('closed', () => pesquisaWindow = null);
 });
 
