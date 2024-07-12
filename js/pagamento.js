@@ -20,7 +20,7 @@ function calcularPagamento() {
   const saidaDate = new Date(saida);
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
-  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0); // Deduz a tolerância em horas
+  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0); 
 
   const valorPagamento = diffHrsComTolerancia * tarifa;
   valorPagamentoGlobal = valorPagamento;

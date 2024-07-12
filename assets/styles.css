@@ -64,7 +64,7 @@ h1 {
 }
 
 .payment-value {
-  font-size: .0em;
+  font-size: 1px;
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
