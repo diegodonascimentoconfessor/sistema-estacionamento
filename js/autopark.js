@@ -77,16 +77,8 @@ function calcularPagamento() {
 
   const valorPagamento = diffHrsComTolerancia * tarifa;
 
-  document.getElementById('calcPagamentoBtn').addEventListener('click', function() {
-    // Lógica para calcular o valor do pagamento
-    const valorPagamento = "20.00"; 
-    window.location.href = `pagamento.html?valor=${valorPagamento}`;
-  });
-
-
-
-
-
+  // Redirecionar para página de pagamento com o valor calculado
+  window.location.href = `pagamento.html?valor=${valorPagamento}`;
 }
 
 document.getElementById('ajudaBtn').addEventListener('click', () => {
@@ -126,9 +118,24 @@ function carregarVeiculos() {
   const veiculosCadastrados = document.getElementById('veiculosCadastrados');
   veiculosCadastrados.innerHTML = '';
 
-  vehicles.forEach(vehicle => {
+  vehicles.forEach((vehicle, index) => {
     const li = document.createElement('li');
     li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}, Saída: ${new Date(vehicle.saida).toLocaleString()}`;
+
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Editar';
+    editBtn.addEventListener('click', () => {
+      editarVeiculo(index);
+    });
+    li.appendChild(editBtn);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Excluir';
+    deleteBtn.addEventListener('click', () => {
+      excluirVeiculo(index);
+    });
+    li.appendChild(deleteBtn);
+
     veiculosCadastrados.appendChild(li);
   });
 
@@ -139,3 +146,38 @@ function carregarVeiculos() {
 }
 
 window.addEventListener('DOMContentLoaded', carregarVeiculos);
+
+function editarVeiculo(index) {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const vehicle = vehicles[index];
+
+  inputs['marcaModelo'].value = vehicle.marcaModelo;
+  inputs['placa'].value = vehicle.placa;
+  inputs['entrada'].value = vehicle.entrada;
+  inputs['saida'].value = vehicle.saida;
+  inputs['tolerancia'].value = vehicle.tolerancia;
+  inputs['tarifa'].value = vehicle.tarifa;
+
+  // Salvar o índice do veículo em localStorage para referência durante a edição
+  localStorage.setItem('editIndex', index);
+
+  // Mudar o texto do campo menu para indicar que está editando
+  inputs['menu'].value = 'Editando Veículo';
+}
+
+function excluirVeiculo(index) {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const deletedVehicle = vehicles.splice(index, 1)[0];
+  localStorage.setItem('vehicles', JSON.stringify(vehicles));
+  carregarVeiculos(); // Recarregar a lista após a exclusão
+
+  // Atualizar contagem de vagas ocupadas e disponíveis
+  const vagasOcupadas = vehicles.length;
+  const vagasDisponiveis = 50 - vagasOcupadas;
+  document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
+  document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
+
+  // Informar sobre a exclusão via IPC Renderer, se necessário
+  ipcRenderer.send('vehicle-deleted', deletedVehicle);
+}
+
