@@ -9,7 +9,7 @@ app.on('ready', () => {
   console.log("Iniciando Electron");
   mainWindow = new BrowserWindow({
     width: 1000,
-    height: 800,
+    height: 1000,
     resizable: true,
     icon: 'assets/icone-estacionamento.png',
     webPreferences: {
@@ -50,9 +50,11 @@ const createMenuTemplate = () => [
             width: 800,
             height: 600,
             resizable: true,
+            icon:'assets/icone-estacionamento.png',
             webPreferences: {
               nodeIntegration: true,
-              contextIsolation: false
+              contextIsolation: false,
+              
             }
           });
           pesquisaWindow.loadFile('app/pesquisa.html');
@@ -67,6 +69,8 @@ const createMenuTemplate = () => [
               width: 800,
               height: 600,
               resizable: true,
+              icon: 'assets/icone-estacionamento.png',
+
               webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false
@@ -126,7 +130,8 @@ ipcMain.on('open-help', () => {
     resizable: true,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      icon: 'assets/icone-estacionamento.png',
     }
   });
   pesquisaWindow.loadFile('app/pesquisa.html');

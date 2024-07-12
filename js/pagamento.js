@@ -26,6 +26,7 @@ function calcularPagamento() {
   valorPagamentoGlobal = valorPagamento;
   entradaGlobal = entrada;
   saidaGlobal = saida;
+  
 
   document.getElementById('valorPagamento').innerText = `Valor a Pagar: R$ ${valorPagamento.toFixed(2)}`;
   document.getElementById('gerarCupomBtn').style.display = 'block';
