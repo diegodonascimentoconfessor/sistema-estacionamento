@@ -39,10 +39,14 @@
     </div>
     <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
     <button id="addVehicleBtn" class="button">Adicionar Veículo</button>
-    <button id="ajudaBtn" class="button">Ajuda</button>
     <div id="vehicleList" class="vehicle-list"></div>
   </div>
   <div class="container">
+    <div id="pesquisaVeiculos">
+      <h2>Pesquisar Veículos</h2>
+      <input type="text" id="searchPlaca" placeholder="Pesquisar por Placa...">
+      <button id="searchBtn" class="button">Pesquisar</button>
+    </div>
     <div class="vagas-info">
       <p>Vagas Ocupadas: <span id="vagasOcupadas">0</span></p>
       <p>Vagas Disponíveis: <span id="vagasDisponiveis">50</span></p>
@@ -52,6 +56,5 @@
       <ul id="veiculosCadastrados"></ul>
     </div>
   </div>
+  <div id="vehicleDetailsContainer" class="vehicle-details-container"></div>
   <script src="../js/autopark.js"></script>
-</body>
-</html>

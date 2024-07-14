@@ -94,15 +94,44 @@ h1 {
 .link {
   display: inline-block;
   padding: 10px 20px;
-  background-color: hsl(0, 2%, 10%);
+  background-color: hsl(0, 43%, 95%);
   color: white;
   text-decoration: none;
   border-radius: 5px;
   margin-top: 20px;
 }
-
-.link:hover {
-  background-color: #3b9bbb;
+.result-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
+.result-container h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+}
 
+.result-container p {
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.result-container .button {
+  background-color: #0a0a0a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+.result-container .button:hover {
+  background-color: #105F71;
+}

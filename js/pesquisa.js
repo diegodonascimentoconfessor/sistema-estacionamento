@@ -28,11 +28,9 @@ document.getElementById('searchBtn').addEventListener('click', () => {
       <p><strong>Marca/Modelo:</strong> ${vehicle.marcaModelo}</p>
       <p><strong>Entrada:</strong> ${new Date(vehicle.entrada).toLocaleString()}</p>
       <p><strong>Saída:</strong> ${new Date(vehicle.saida).toLocaleString()}</p>
-      <p><strong>Tolerância:</strong> ${vehicle.tolerancia} minutos</p>
-      <p><strong>Tarifa por Hora:</strong> R$ ${vehicle.tarifa}</p>
+      
     `;
     
-
     const existingDetails = document.querySelector('.vehicle-details');
     if (existingDetails) {
       container.removeChild(existingDetails);
