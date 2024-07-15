@@ -117,7 +117,7 @@ const createMenuTemplate = () => [
     submenu: [
       {
         label: 'Manual do Usuário',
-        click: () => shell.openExternal('https://example.com/manual')
+        click: () => shell.openExternal('https://drive.google.com/file/d/12JhKKndXFXm_xFKNp9yiLbwvQTBijOdm/view?usp=sharing')
       }
     ]
   }
