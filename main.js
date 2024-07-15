@@ -118,7 +118,13 @@ const createMenuTemplate = () => [
       {
         label: 'Manual do Usuário',
         click: () => shell.openExternal('https://drive.google.com/file/d/12JhKKndXFXm_xFKNp9yiLbwvQTBijOdm/view?usp=sharing')
-      }
+      },
+      {
+        label: 'ferramenta de dessenvolvedor',
+        role: 'toggleDevTools'
+    },
+
+
     ]
   }
 ];
