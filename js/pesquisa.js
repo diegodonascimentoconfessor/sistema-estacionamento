@@ -1,5 +1,5 @@
 document.getElementById('searchBtn').addEventListener('click', () => {
-    const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase(); // Converter para maiúsculas para padronizar
+    const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase(); 
     if (searchPlaca) {
       pesquisarPlaca(searchPlaca);
     } else {

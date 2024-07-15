@@ -100,6 +100,7 @@ const { ipcRenderer } = require('electron');
       limparCampos();
       carregarVeiculos();
       ipcRenderer.send('vehicle-added', vehicle);
+     
     }
 
     function limparCampos() {
@@ -153,10 +154,8 @@ const { ipcRenderer } = require('electron');
       inputs['tolerancia'].value = vehicle.tolerancia;
       inputs['tarifa'].value = vehicle.tarifa;
 
-      // Salvar o índice do veículo em localStorage para referência durante a edição
       localStorage.setItem('editIndex', index);
 
-      // Mudar o texto do campo menu para indicar que está editando
       inputs['menu'].value = 'Editando Veículo';
     }
 
@@ -164,25 +163,25 @@ const { ipcRenderer } = require('electron');
       const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
       const deletedVehicle = vehicles.splice(index, 1)[0];
       localStorage.setItem('vehicles', JSON.stringify(vehicles));
-      carregarVeiculos(); // Recarregar a lista após a exclusão
+      carregarVeiculos(); 
 
-      // Atualizar contagem de vagas ocupadas e disponíveis
       const vagasOcupadas = vehicles.length;
       const vagasDisponiveis = 50 - vagasOcupadas;
       document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
       document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
 
-      // Informar sobre a exclusão via IPC Renderer, se necessário
+    
       ipcRenderer.send('vehicle-deleted', deletedVehicle);
     }
 
     document.getElementById('searchBtn').addEventListener('click', () => {
-      const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase(); // Converter para maiúsculas para padronizar
+      const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase(); 
       if (searchPlaca) {
         pesquisarPlaca(searchPlaca);
       } else {
         alert('Por favor, insira uma placa para pesquisar.');
       }
+      
     });
 
     function pesquisarPlaca(placa) {
@@ -194,11 +193,12 @@ const { ipcRenderer } = require('electron');
       } else {
         alert(`Veículo com a placa ${placa} não encontrado.`);
       }
+      
     }
 
     function mostrarDetalhesVeiculo(vehicle) {
       const detailsContainer = document.getElementById('vehicleDetailsContainer');
-      detailsContainer.innerHTML = ''; // Limpar qualquer conteúdo existente
+      detailsContainer.innerHTML = ''; 
 
       const detailsElement = document.createElement('div');
       detailsElement.classList.add('vehicle-details');
