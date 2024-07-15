@@ -1,214 +1,210 @@
 const { ipcRenderer } = require('electron');
 
-    const inputFields = [
-      'menu',
-      'marcaModelo',
-      'entrada',
-      'tolerancia',
-      'placa',
-      'saida',
-      'tarifa'
-    ];
+const inputFields = [
+  'menu',
+  'marcaModelo',
+  'entrada',
+  'tolerancia',
+  'placa',
+  'saida',
+  'tarifa'
+];
 
-    const inputs = {};
+const inputs = {};
 
-    inputFields.forEach(id => {
-      inputs[id] = document.getElementById(id);
-      inputs[id].addEventListener('input', saveToLocalStorage);
+inputFields.forEach(id => {
+  inputs[id] = document.getElementById(id);
+  inputs[id].addEventListener('input', saveToLocalStorage);
+});
+
+function saveToLocalStorage() {
+  inputFields.forEach(id => {
+    localStorage.setItem(id, inputs[id].value);
+  });
+  console.log("Dados salvos no localStorage");
+}
+
+function loadFromLocalStorage() {
+  inputFields.forEach(id => {
+    inputs[id].value = localStorage.getItem(id) || '';
+  });
+  console.log("Dados carregados do localStorage");
+}
+
+window.addEventListener('load', loadFromLocalStorage);
+
+ipcRenderer.on('menu-add-vehicle', () => {
+  console.log('Adicionar Veículo');
+  inputFields.forEach(id => {
+    inputs[id].value = '';
+  });
+  inputs['menu'].value = 'Novo Veículo';
+  saveToLocalStorage();
+});
+
+ipcRenderer.on('menu-edit-vehicle', () => {
+  console.log('Editar Veículo');
+  inputs['menu'].value = 'Editando Veículo';
+  saveToLocalStorage();
+});
+
+ipcRenderer.on('menu-delete-vehicle', () => {
+  console.log('Excluir Veículo');
+  inputFields.forEach(id => {
+    inputs[id].value = '';
+  });
+  saveToLocalStorage();
+});
+
+document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
+
+function calcularPagamento() {
+  const entrada = document.getElementById('entrada').value;
+  const saida = document.getElementById('saida').value;
+  const tarifa = parseFloat(document.getElementById('tarifa').value);
+  const tolerancia = parseInt(document.getElementById('tolerancia').value);
+
+  if (!entrada || !saida || isNaN(tarifa) || isNaN(tolerancia)) {
+    alert('Por favor, preencha todos os campos necessários.');
+    return;
+  }
+
+  const entradaDate = new Date(entrada);
+  const saidaDate = new Date(saida);
+  const diffMs = saidaDate - entradaDate;
+  const diffHrs = diffMs / (1000 * 60 * 60);
+  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
+
+  const valorPagamento = diffHrsComTolerancia * tarifa;
+
+  window.location.href = `pagamento.html?valor=${valorPagamento}`;
+}
+
+document.getElementById('addVehicleBtn').addEventListener('click', () => {
+  const vehicle = {
+    marcaModelo: inputs['marcaModelo'].value,
+    placa: inputs['placa'].value,
+    entrada: inputs['entrada'].value,
+    saida: inputs['saida'].value,
+    tolerancia: inputs['tolerancia'].value,
+    tarifa: inputs['tarifa'].value
+  };
+
+  adicionarVeiculo(vehicle);
+});
+
+function adicionarVeiculo(vehicle) {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  vehicles.push(vehicle);
+  localStorage.setItem('vehicles', JSON.stringify(vehicles));
+  limparCampos();
+  carregarVeiculos();
+  ipcRenderer.send('vehicle-added', vehicle);
+}
+
+function limparCampos() {
+  inputFields.forEach(id => {
+    inputs[id].value = '';
+  });
+}
+
+function carregarVeiculos() {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const veiculosCadastrados = document.getElementById('veiculosCadastrados');
+  veiculosCadastrados.innerHTML = '';
+
+  vehicles.forEach((vehicle, index) => {
+    const li = document.createElement('li');
+    li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}, Saída: ${new Date(vehicle.saida).toLocaleString()}`;
+
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Editar';
+    editBtn.addEventListener('click', () => {
+      editarVeiculo(index);
     });
+    li.appendChild(editBtn);
 
-    function saveToLocalStorage() {
-      inputFields.forEach(id => {
-        localStorage.setItem(id, inputs[id].value);
-      });
-      console.log("Dados salvos no localStorage");
-    }
-
-    function loadFromLocalStorage() {
-      inputFields.forEach(id => {
-        inputs[id].value = localStorage.getItem(id) || '';
-      });
-      console.log("Dados carregados do localStorage");
-    }
-
-    window.addEventListener('load', loadFromLocalStorage);
-
-    ipcRenderer.on('menu-add-vehicle', () => {
-      console.log('Adicionar Veículo');
-      inputFields.forEach(id => {
-        inputs[id].value = '';
-      });
-      inputs['menu'].value = 'Novo Veículo';
-      saveToLocalStorage();
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Excluir';
+    deleteBtn.addEventListener('click', () => {
+      excluirVeiculo(index);
     });
+    li.appendChild(deleteBtn);
 
-    ipcRenderer.on('menu-edit-vehicle', () => {
-      console.log('Editar Veículo');
-      inputs['menu'].value = 'Editando Veículo';
-      saveToLocalStorage();
-    });
+    veiculosCadastrados.appendChild(li);
+  });
 
-    ipcRenderer.on('menu-delete-vehicle', () => {
-      console.log('Excluir Veículo');
-      inputFields.forEach(id => {
-        inputs[id].value = '';
-      });
-      saveToLocalStorage();
-    });
+  const vagasOcupadas = vehicles.length;
+  const vagasDisponiveis = 50 - vagasOcupadas;
+  document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
+  document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
+}
 
-    document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
+window.addEventListener('DOMContentLoaded', carregarVeiculos);
 
-    function calcularPagamento() {
-      const entrada = document.getElementById('entrada').value;
-      const saida = document.getElementById('saida').value;
-      const tarifa = parseFloat(document.getElementById('tarifa').value);
-      const tolerancia = parseInt(document.getElementById('tolerancia').value);
+function editarVeiculo(index) {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const vehicle = vehicles[index];
 
-      if (!entrada || !saida || isNaN(tarifa) || isNaN(tolerancia)) {
-        alert('Por favor, preencha todos os campos necessários.');
-        return;
-      }
+  inputs['marcaModelo'].value = vehicle.marcaModelo;
+  inputs['placa'].value = vehicle.placa;
+  inputs['entrada'].value = vehicle.entrada;
+  inputs['saida'].value = vehicle.saida;
+  inputs['tolerancia'].value = vehicle.tolerancia;
+  inputs['tarifa'].value = vehicle.tarifa;
 
-      const entradaDate = new Date(entrada);
-      const saidaDate = new Date(saida);
-      const diffMs = saidaDate - entradaDate;
-      const diffHrs = diffMs / (1000 * 60 * 60);
-      const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
+  localStorage.setItem('editIndex', index);
 
-      const valorPagamento = diffHrsComTolerancia * tarifa;
+  inputs['menu'].value = 'Editando Veículo';
+}
 
-      window.location.href = `pagamento.html?valor=${valorPagamento}`;
-    }
+function excluirVeiculo(index) {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const deletedVehicle = vehicles.splice(index, 1)[0];
+  localStorage.setItem('vehicles', JSON.stringify(vehicles));
+  carregarVeiculos(); 
 
-    document.getElementById('addVehicleBtn').addEventListener('click', () => {
-      const vehicle = {
-        marcaModelo: inputs['marcaModelo'].value,
-        placa: inputs['placa'].value,
-        entrada: inputs['entrada'].value,
-        saida: inputs['saida'].value,
-        tolerancia: inputs['tolerancia'].value,
-        tarifa: inputs['tarifa'].value
-      };
+  const vagasOcupadas = vehicles.length;
+  const vagasDisponiveis = 50 - vagasOcupadas;
+  document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
+  document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
 
-      adicionarVeiculo(vehicle);
-    });
+  ipcRenderer.send('vehicle-deleted', deletedVehicle);
+}
 
-    function adicionarVeiculo(vehicle) {
-      const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-      vehicles.push(vehicle);
-      localStorage.setItem('vehicles', JSON.stringify(vehicles));
-      limparCampos();
-      carregarVeiculos();
-      ipcRenderer.send('vehicle-added', vehicle);
-     
-    }
+document.getElementById('searchBtn').addEventListener('click', () => {
+  const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase(); 
+  if (searchPlaca) {
+    pesquisarPlaca(searchPlaca);
+  } else {
+    alert('Por favor, insira uma placa para pesquisar.');
+  }
+});
 
-    function limparCampos() {
-      inputFields.forEach(id => {
-        inputs[id].value = '';
-      });
-    }
+function pesquisarPlaca(placa) {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const vehicle = vehicles.find(v => v.placa === placa);
 
-    function carregarVeiculos() {
-      const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-      const veiculosCadastrados = document.getElementById('veiculosCadastrados');
-      veiculosCadastrados.innerHTML = '';
+  if (vehicle) {
+    mostrarDetalhesVeiculo(vehicle);
+  } else {
+    alert(`Veículo com a placa ${placa} não encontrado.`);
+  }
+}
 
-      vehicles.forEach((vehicle, index) => {
-        const li = document.createElement('li');
-        li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}, Saída: ${new Date(vehicle.saida).toLocaleString()}`;
+function mostrarDetalhesVeiculo(vehicle) {
+  const resultadoPesquisa = document.getElementById('resultadoPesquisa');
+  resultadoPesquisa.innerHTML = ''; 
 
-        const editBtn = document.createElement('button');
-        editBtn.textContent = 'Editar';
-        editBtn.addEventListener('click', () => {
-          editarVeiculo(index);
-        });
-        li.appendChild(editBtn);
+  const detailsElement = document.createElement('div');
+  detailsElement.classList.add('vehicle-details');
+  detailsElement.innerHTML = `
+    <h2>Detalhes do Veículo</h2>
+    <p><strong>Placa:</strong> ${vehicle.placa}</p>
+    <p><strong>Marca/Modelo:</strong> ${vehicle.marcaModelo}</p>
+    <p><strong>Entrada:</strong> ${new Date(vehicle.entrada).toLocaleString()}</p>
+    <p><strong>Saída:</strong> ${new Date(vehicle.saida).toLocaleString()}</p>
+  `;
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Excluir';
-        deleteBtn.addEventListener('click', () => {
-          excluirVeiculo(index);
-        });
-        li.appendChild(deleteBtn);
-
-        veiculosCadastrados.appendChild(li);
-      });
-
-      const vagasOcupadas = vehicles.length;
-      const vagasDisponiveis = 50 - vagasOcupadas;
-      document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
-      document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
-    }
-
-    window.addEventListener('DOMContentLoaded', carregarVeiculos);
-
-    function editarVeiculo(index) {
-      const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-      const vehicle = vehicles[index];
-
-      inputs['marcaModelo'].value = vehicle.marcaModelo;
-      inputs['placa'].value = vehicle.placa;
-      inputs['entrada'].value = vehicle.entrada;
-      inputs['saida'].value = vehicle.saida;
-      inputs['tolerancia'].value = vehicle.tolerancia;
-      inputs['tarifa'].value = vehicle.tarifa;
-
-      localStorage.setItem('editIndex', index);
-
-      inputs['menu'].value = 'Editando Veículo';
-    }
-
-    function excluirVeiculo(index) {
-      const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-      const deletedVehicle = vehicles.splice(index, 1)[0];
-      localStorage.setItem('vehicles', JSON.stringify(vehicles));
-      carregarVeiculos(); 
-
-      const vagasOcupadas = vehicles.length;
-      const vagasDisponiveis = 50 - vagasOcupadas;
-      document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
-      document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
-
-    
-      ipcRenderer.send('vehicle-deleted', deletedVehicle);
-    }
-
-    document.getElementById('searchBtn').addEventListener('click', () => {
-      const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase(); 
-      if (searchPlaca) {
-        pesquisarPlaca(searchPlaca);
-      } else {
-        alert('Por favor, insira uma placa para pesquisar.');
-      }
-      
-    });
-
-    function pesquisarPlaca(placa) {
-      const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-      const vehicle = vehicles.find(v => v.placa === placa);
-
-      if (vehicle) {
-        mostrarDetalhesVeiculo(vehicle);
-      } else {
-        alert(`Veículo com a placa ${placa} não encontrado.`);
-      }
-      
-    }
-
-    function mostrarDetalhesVeiculo(vehicle) {
-      const detailsContainer = document.getElementById('vehicleDetailsContainer');
-      detailsContainer.innerHTML = ''; 
-
-      const detailsElement = document.createElement('div');
-      detailsElement.classList.add('vehicle-details');
-      detailsElement.innerHTML = `
-        <h2>Detalhes do Veículo</h2>
-        <p><strong>Placa:</strong> ${vehicle.placa}</p>
-        <p><strong>Marca/Modelo:</strong> ${vehicle.marcaModelo}</p>
-        <p><strong>Entrada:</strong> ${new Date(vehicle.entrada).toLocaleString()}</p>
-        <p><strong>Saída:</strong> ${new Date(vehicle.saida).toLocaleString()}</p>
-      `;
-
-      detailsContainer.appendChild(detailsElement);
-    }
+  resultadoPesquisa.appendChild(detailsElement);
+}
