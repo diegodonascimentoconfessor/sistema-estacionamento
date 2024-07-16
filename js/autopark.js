@@ -1,7 +1,6 @@
-// Verifica se está rodando no Electron
+
 const isElectron = typeof window !== 'undefined' && window.process && window.process.type === 'renderer';
 
-// Variável para armazenar o ipcRenderer do Electron, se disponível
 const ipcRenderer = isElectron ? require('electron').ipcRenderer : null;
 
 const inputFields = [
