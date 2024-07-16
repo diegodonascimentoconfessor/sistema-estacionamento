@@ -6,7 +6,6 @@ const inputFields = [
   'entrada',
   'tolerancia',
   'placa',
-  'saida',
   'tarifa'
 ];
 
@@ -60,17 +59,16 @@ document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPa
 
 function calcularPagamento() {
   const entrada = document.getElementById('entrada').value;
-  const saida = document.getElementById('saida').value;
   const tarifa = parseFloat(document.getElementById('tarifa').value);
   const tolerancia = parseInt(document.getElementById('tolerancia').value);
 
-  if (!entrada || !saida || isNaN(tarifa) || isNaN(tolerancia)) {
+  if (!entrada || isNaN(tarifa) || isNaN(tolerancia)) {
     alert('Por favor, preencha todos os campos necessários.');
     return;
   }
 
   const entradaDate = new Date(entrada);
-  const saidaDate = new Date(saida);
+  const saidaDate = new Date();
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
   const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
@@ -85,7 +83,6 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
     marcaModelo: inputs['marcaModelo'].value,
     placa: inputs['placa'].value,
     entrada: inputs['entrada'].value,
-    saida: inputs['saida'].value,
     tolerancia: inputs['tolerancia'].value,
     tarifa: inputs['tarifa'].value
   };
@@ -115,7 +112,7 @@ function carregarVeiculos() {
 
   vehicles.forEach((vehicle, index) => {
     const li = document.createElement('li');
-    li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}, Saída: ${new Date(vehicle.saida).toLocaleString()}`;
+    li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
 
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Editar';
@@ -131,6 +128,13 @@ function carregarVeiculos() {
     });
     li.appendChild(deleteBtn);
 
+    const payBtn = document.createElement('button');
+    payBtn.textContent = 'Pagamento';
+    payBtn.addEventListener('click', () => {
+      calcularPagamentoVeiculo(vehicle);
+    });
+    li.appendChild(payBtn);
+
     veiculosCadastrados.appendChild(li);
   });
 
@@ -140,7 +144,17 @@ function carregarVeiculos() {
   document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
 }
 
-window.addEventListener('DOMContentLoaded', carregarVeiculos);
+function calcularPagamentoVeiculo(vehicle) {
+  const entradaDate = new Date(vehicle.entrada);
+  const saidaDate = new Date();
+  const diffMs = saidaDate - entradaDate;
+  const diffHrs = diffMs / (1000 * 60 * 60);
+  const diffHrsComTolerancia = Math.max(diffHrs - (parseInt(vehicle.tolerancia) / 60), 0);
+
+  const valorPagamento = diffHrsComTolerancia * parseFloat(vehicle.tarifa);
+
+  window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
+}
 
 function editarVeiculo(index) {
   const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
@@ -149,7 +163,6 @@ function editarVeiculo(index) {
   inputs['marcaModelo'].value = vehicle.marcaModelo;
   inputs['placa'].value = vehicle.placa;
   inputs['entrada'].value = vehicle.entrada;
-  inputs['saida'].value = vehicle.saida;
   inputs['tolerancia'].value = vehicle.tolerancia;
   inputs['tarifa'].value = vehicle.tarifa;
 
@@ -203,8 +216,9 @@ function mostrarDetalhesVeiculo(vehicle) {
     <p><strong>Placa:</strong> ${vehicle.placa}</p>
     <p><strong>Marca/Modelo:</strong> ${vehicle.marcaModelo}</p>
     <p><strong>Entrada:</strong> ${new Date(vehicle.entrada).toLocaleString()}</p>
-    <p><strong>Saída:</strong> ${new Date(vehicle.saida).toLocaleString()}</p>
   `;
 
   resultadoPesquisa.appendChild(detailsElement);
 }
+
+window.addEventListener('DOMContentLoaded', carregarVeiculos);

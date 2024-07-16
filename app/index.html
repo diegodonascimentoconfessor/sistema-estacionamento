@@ -26,10 +26,6 @@
       <input id="entrada" type="datetime-local" placeholder="Entrada">
     </div>
     <div class="input-group">
-      <label for="saida">Saída</label>
-      <input id="saida" type="datetime-local" placeholder="Saída">
-    </div>
-    <div class="input-group">
       <label for="tolerancia">Tolerância</label>
       <input id="tolerancia" type="text" placeholder="Tolerância (minutos)">
     </div>
@@ -50,11 +46,14 @@
     <div class="vagas-info">
       <p>Vagas Ocupadas: <span id="vagasOcupadas">0</span></p>
       <p>Vagas Disponíveis: <span id="vagasDisponiveis">50</span></p>
+    </div>
+    <div id="resultadoPesquisaContainer">
       <div id="resultadoPesquisa"></div>
     </div>
     <div id="listaVeiculos">
       <h2>Veículos Cadastrados</h2>
       <ul id="veiculosCadastrados"></ul>
+      <a href="listaveiculos-cadastrados.html" class="button">Ver Veículos Cadastrados</a>
     </div>
   </div>
   <div id="vehicleDetailsContainer" class="vehicle-details-container"></div>
