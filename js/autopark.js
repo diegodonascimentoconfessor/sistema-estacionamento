@@ -257,3 +257,34 @@ function carregarListaVeiculos() {
     });
   }
 }
+window.addEventListener('DOMContentLoaded', () => {
+  carregarListaVeiculos();
+});
+
+
+document.getElementById('addVehicleBtn').addEventListener('click', () => {
+  const marcaModelo = document.getElementById('marcaModelo').value;
+  const placa = document.getElementById('placa').value;
+  const entrada = document.getElementById('entrada').value;
+  const tolerancia = document.getElementById('tolerancia').value;
+  const tarifa = document.getElementById('tarifa').value;
+
+  if (marcaModelo && placa && entrada && tolerancia && tarifa) {
+    const newVehicle = {
+      marcaModelo,
+      placa,
+      entrada,
+      tolerancia,
+      tarifa
+    };
+
+    let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+    vehicles.push(newVehicle);
+    localStorage.setItem('vehicles', JSON.stringify(vehicles));
+
+    alert('Veículo adicionado com sucesso!');
+    carregarListaVeiculos();
+  } else {
+    alert('Por favor, preencha todos os campos.');
+  }
+});
