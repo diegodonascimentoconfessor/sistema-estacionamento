@@ -1,4 +1,8 @@
-const { ipcRenderer } = require('electron');
+// Verifica se está rodando no Electron
+const isElectron = typeof window !== 'undefined' && window.process && window.process.type === 'renderer';
+
+// Variável para armazenar o ipcRenderer do Electron, se disponível
+const ipcRenderer = isElectron ? require('electron').ipcRenderer : null;
 
 const inputFields = [
   'menu',
@@ -32,28 +36,31 @@ function loadFromLocalStorage() {
 
 window.addEventListener('load', loadFromLocalStorage);
 
-ipcRenderer.on('menu-add-vehicle', () => {
-  console.log('Adicionar Veículo');
-  inputFields.forEach(id => {
-    inputs[id].value = '';
+// Se estiver no Electron, configure os listeners do ipcRenderer
+if (isElectron) {
+  ipcRenderer.on('menu-add-vehicle', () => {
+    console.log('Adicionar Veículo');
+    inputFields.forEach(id => {
+      inputs[id].value = '';
+    });
+    inputs['menu'].value = 'Novo Veículo';
+    saveToLocalStorage();
   });
-  inputs['menu'].value = 'Novo Veículo';
-  saveToLocalStorage();
-});
 
-ipcRenderer.on('menu-edit-vehicle', () => {
-  console.log('Editar Veículo');
-  inputs['menu'].value = 'Editando Veículo';
-  saveToLocalStorage();
-});
-
-ipcRenderer.on('menu-delete-vehicle', () => {
-  console.log('Excluir Veículo');
-  inputFields.forEach(id => {
-    inputs[id].value = '';
+  ipcRenderer.on('menu-edit-vehicle', () => {
+    console.log('Editar Veículo');
+    inputs['menu'].value = 'Editando Veículo';
+    saveToLocalStorage();
   });
-  saveToLocalStorage();
-});
+
+  ipcRenderer.on('menu-delete-vehicle', () => {
+    console.log('Excluir Veículo');
+    inputFields.forEach(id => {
+      inputs[id].value = '';
+    });
+    saveToLocalStorage();
+  });
+}
 
 document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
 
@@ -96,7 +103,11 @@ function adicionarVeiculo(vehicle) {
   localStorage.setItem('vehicles', JSON.stringify(vehicles));
   limparCampos();
   carregarVeiculos();
-  ipcRenderer.send('vehicle-added', vehicle);
+
+  // Se estiver no Electron, envie o evento de veículo adicionado
+  if (isElectron) {
+    ipcRenderer.send('vehicle-added', vehicle);
+  }
 }
 
 function limparCampos() {
@@ -184,7 +195,10 @@ function excluirVeiculo(index) {
   document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
   document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
 
-  ipcRenderer.send('vehicle-deleted', deletedVehicle);
+  // Se estiver no Electron, envie o evento de veículo excluído
+  if (isElectron) {
+    ipcRenderer.send('vehicle-deleted', deletedVehicle);
+  }
 }
 
 document.getElementById('searchBtn').addEventListener('click', () => {

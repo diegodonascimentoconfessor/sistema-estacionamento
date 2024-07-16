@@ -177,13 +177,11 @@ function openListaVeiculosWindow() {
 }
 
 ipcMain.on('get-vehicles', (event) => {
-  // Simulando dados de veículos cadastrados (substitua com seus dados reais)
   const veiculosCadastrados = [
     { placa: '', marca: '', modelo: '' }
   ];
 
-  // Enviar os dados para a janela de lista de veículos cadastrados
   if (listaVeiculosWindow) {
-    listaVeiculosWindow.webContents.send('listaveiculos-caastrados.html', veiculosCadastrados);
+    listaVeiculosWindow.webContents.send('listaveiculos-cadastrados', veiculosCadastrados);
   }
 });
