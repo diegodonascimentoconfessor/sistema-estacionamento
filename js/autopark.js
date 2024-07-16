@@ -108,40 +108,42 @@ function limparCampos() {
 function carregarVeiculos() {
   const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
   const veiculosCadastrados = document.getElementById('veiculosCadastrados');
-  veiculosCadastrados.innerHTML = '';
+  if (veiculosCadastrados) {
+    veiculosCadastrados.innerHTML = '';
 
-  vehicles.forEach((vehicle, index) => {
-    const li = document.createElement('li');
-    li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
+    vehicles.forEach((vehicle, index) => {
+      const li = document.createElement('li');
+      li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
 
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Editar';
-    editBtn.addEventListener('click', () => {
-      editarVeiculo(index);
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Editar';
+      editBtn.addEventListener('click', () => {
+        editarVeiculo(index);
+      });
+      li.appendChild(editBtn);
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Excluir';
+      deleteBtn.addEventListener('click', () => {
+        excluirVeiculo(index);
+      });
+      li.appendChild(deleteBtn);
+
+      const payBtn = document.createElement('button');
+      payBtn.textContent = 'Pagamento';
+      payBtn.addEventListener('click', () => {
+        calcularPagamentoVeiculo(vehicle);
+      });
+      li.appendChild(payBtn);
+
+      veiculosCadastrados.appendChild(li);
     });
-    li.appendChild(editBtn);
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Excluir';
-    deleteBtn.addEventListener('click', () => {
-      excluirVeiculo(index);
-    });
-    li.appendChild(deleteBtn);
-
-    const payBtn = document.createElement('button');
-    payBtn.textContent = 'Pagamento';
-    payBtn.addEventListener('click', () => {
-      calcularPagamentoVeiculo(vehicle);
-    });
-    li.appendChild(payBtn);
-
-    veiculosCadastrados.appendChild(li);
-  });
-
-  const vagasOcupadas = vehicles.length;
-  const vagasDisponiveis = 50 - vagasOcupadas;
-  document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
-  document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
+    const vagasOcupadas = vehicles.length;
+    const vagasDisponiveis = 50 - vagasOcupadas;
+    document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
+    document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
+  }
 }
 
 function calcularPagamentoVeiculo(vehicle) {
@@ -221,4 +223,24 @@ function mostrarDetalhesVeiculo(vehicle) {
   resultadoPesquisa.appendChild(detailsElement);
 }
 
-window.addEventListener('DOMContentLoaded', carregarVeiculos);
+window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
+
+function carregarListaVeiculos() {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const veiculosList = document.getElementById('veiculos-list');
+
+  if (veiculosList) {
+    veiculosList.innerHTML = '';
+
+    vehicles.forEach((vehicle) => {
+      const vehicleElement = document.createElement('div');
+      vehicleElement.classList.add('vehicle-item');
+      vehicleElement.innerHTML = `
+        <p><strong>Placa:</strong> ${vehicle.placa}</p>
+        <p><strong>Marca/Modelo:</strong> ${vehicle.marcaModelo}</p>
+        <p><strong>Entrada:</strong> ${new Date(vehicle.entrada).toLocaleString()}</p>
+      `;
+      veiculosList.appendChild(vehicleElement);
+    });
+  }
+}
