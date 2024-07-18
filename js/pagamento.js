@@ -1,5 +1,8 @@
 document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
 document.getElementById('gerarCupomBtn').addEventListener('click', gerarCupom);
+document.getElementById('voltarBtn').addEventListener('click', function() {
+  window.location.href = 'index.html';
+});
 
 let valorPagamentoGlobal = 0;
 let entradaGlobal = '';
@@ -20,13 +23,12 @@ function calcularPagamento() {
   const saidaDate = new Date(saida);
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
-  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0); 
+  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
 
   const valorPagamento = diffHrsComTolerancia * tarifa;
   valorPagamentoGlobal = valorPagamento;
   entradaGlobal = entrada;
   saidaGlobal = saida;
-  
 
   document.getElementById('valorPagamento').innerText = `Valor a Pagar: R$ ${valorPagamento.toFixed(2)}`;
   document.getElementById('gerarCupomBtn').style.display = 'block';
