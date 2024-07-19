@@ -127,7 +127,7 @@ h1 {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  display: inline-block;
+  display: flex;
   margin-top: 10px;
   text-decoration: none;
 }
