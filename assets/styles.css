@@ -49,13 +49,13 @@ h1 {
 .button {
   background-color: #0a0a0a;
   color: white;
-  padding: 5px 10px; /* Diminuir o padding */
+  padding: 5px 10px; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 12px; /* Diminuir o tamanho da fonte */
+  font-size: 12px; 
   display: block;
-  width: 80%; /* Diminuir a largura */
+  width: 80%; 
   text-align: center;
   margin-top: 20px;
   margin-left: auto;
@@ -96,7 +96,7 @@ h1 {
 
 .link {
   display: inline-block;
-  padding: 5px 10px; /* Diminuir o padding */
+  padding: 5px 10px; 
   background-color: hsl(0, 43%, 95%);
   color: white;
   text-decoration: none;
@@ -126,11 +126,11 @@ h1 {
 .result-container .button {
   background-color: #0a0a0a;
   color: white;
-  padding: 5px 10px; /* Diminuir o padding */
+  padding: 5px 10px; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 12px; /* Diminuir o tamanho da fonte */
+  font-size: 12px; 
   display: flex;
   margin-top: 10px;
   text-decoration: none;
@@ -141,13 +141,13 @@ h1 {
 }
 
 .vehicle-list {
-  max-height: 200px; /* Altura máxima da lista */
-  overflow-y: auto; /* Adiciona rolagem vertical */
-  margin-bottom: 20px; /* Espaço inferior para evitar que o botão se mova */
+  max-height: 200px; 
+  overflow-y: auto; 
+  margin-bottom: 20px; 
 }
 
 #veiculosCadastrados {
-  max-height: 200px; /* Altura máxima da lista */
-  overflow-y: auto; /* Adiciona rolagem vertical */
-  margin-bottom: 20px; /* Espaço inferior para evitar que o botão se mova */
+  max-height: 200px; 
+  overflow-y: auto; 
+  margin-bottom: 20px; 
 }

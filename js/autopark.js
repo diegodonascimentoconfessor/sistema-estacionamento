@@ -199,7 +199,7 @@ function calcularPagamentoVeiculo(vehicle) {
   const diffHrsComTolerancia = Math.max(diffHrs - (vehicle.tolerancia / 60), 0);
   const valorPagamento = diffHrsComTolerancia * parseFloat(vehicle.tarifa);
 
-  alert(`Valor do pagamento para o veículo com placa ${vehicle.placa}: R$ ${valorPagamento.toFixed(2)}`);
+  window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
 }
 
 window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
