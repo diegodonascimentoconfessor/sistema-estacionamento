@@ -116,33 +116,33 @@ function carregarListaVeiculos() {
     veiculosList.innerHTML = ''; // Limpa a lista atual
 
     if (vehicles.length > 0) {
-      const lastVehicle = vehicles[vehicles.length - 1];
+      vehicles.forEach((vehicle, index) => {
+        const li = document.createElement('li');
+        li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
 
-      const li = document.createElement('li');
-      li.textContent = `Placa: ${lastVehicle.placa}, Marca/Modelo: ${lastVehicle.marcaModelo}, Entrada: ${new Date(lastVehicle.entrada).toLocaleString()}`;
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Editar';
+        editBtn.addEventListener('click', () => {
+          editarVeiculo(index);
+        });
+        li.appendChild(editBtn);
 
-      const editBtn = document.createElement('button');
-      editBtn.textContent = 'Editar';
-      editBtn.addEventListener('click', () => {
-        editarVeiculo(vehicles.length - 1);
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Excluir';
+        deleteBtn.addEventListener('click', () => {
+          excluirVeiculo(index);
+        });
+        li.appendChild(deleteBtn);
+
+        const payBtn = document.createElement('button');
+        payBtn.textContent = 'Pagamento';
+        payBtn.addEventListener('click', () => {
+          calcularPagamentoVeiculo(vehicle);
+        });
+        li.appendChild(payBtn);
+
+        veiculosList.appendChild(li);
       });
-      li.appendChild(editBtn);
-
-      const deleteBtn = document.createElement('button');
-      deleteBtn.textContent = 'Excluir';
-      deleteBtn.addEventListener('click', () => {
-        excluirVeiculo(vehicles.length - 1);
-      });
-      li.appendChild(deleteBtn);
-
-      const payBtn = document.createElement('button');
-      payBtn.textContent = 'Pagamento';
-      payBtn.addEventListener('click', () => {
-        calcularPagamentoVeiculo(lastVehicle);
-      });
-      li.appendChild(payBtn);
-
-      veiculosList.appendChild(li);
     }
   }
 
