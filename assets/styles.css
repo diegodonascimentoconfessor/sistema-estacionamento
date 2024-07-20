@@ -1,17 +1,17 @@
-body {
+body{
   display: flex;
-    justify-content: center;
-    height: 80vh;
-    margin: 0;
-    background-color: #105F71 ;
-    font-family: Arial, sans-serif;
-    border: rgb(0, 102, 255) ;
-    margin-top: 100px;
+  justify-content: center;
+  height: 80vh;
+  margin: 0;
+  background-color: #105F71;
+  font-family: Arial, sans-serif;
+  border: rgb(0, 102, 255);
+  margin-top: 100px;
 }
 
 .container, .payment-container {
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 400px;
@@ -49,15 +49,17 @@ h1 {
 .button {
   background-color: #0a0a0a;
   color: white;
-  padding: 10px 20px;
+  padding: 5px 10px; /* Diminuir o padding */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 12px; /* Diminuir o tamanho da fonte */
   display: block;
-  width: 100%;
+  width: 80%; /* Diminuir a largura */
   text-align: center;
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .button:hover {
@@ -70,22 +72,23 @@ h1 {
   margin-bottom: 20px;
   text-align: center;
 }
+
 .container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   margin-right: 10px;
 }
 
 .input-group,
 .vagas-info {
-  width: calc(50% - 10px); 
+  width: calc(50% - 10px);
   box-sizing: border-box;
 }
 
 .vagas-info {
-  background-color: #f0f0f0; 
+  background-color: #f0f0f0;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -93,13 +96,14 @@ h1 {
 
 .link {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 5px 10px; /* Diminuir o padding */
   background-color: hsl(0, 43%, 95%);
   color: white;
   text-decoration: none;
   border-radius: 5px;
   margin-top: 20px;
 }
+
 .result-container {
   background-color: #ffffff;
   padding: 20px;
@@ -122,11 +126,11 @@ h1 {
 .result-container .button {
   background-color: #0a0a0a;
   color: white;
-  padding: 10px 20px;
+  padding: 5px 10px; /* Diminuir o padding */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 12px; /* Diminuir o tamanho da fonte */
   display: flex;
   margin-top: 10px;
   text-decoration: none;
@@ -136,5 +140,14 @@ h1 {
   background-color: #105F71;
 }
 
+.vehicle-list {
+  max-height: 200px; /* Altura máxima da lista */
+  overflow-y: auto; /* Adiciona rolagem vertical */
+  margin-bottom: 20px; /* Espaço inferior para evitar que o botão se mova */
+}
 
-
+#veiculosCadastrados {
+  max-height: 200px; /* Altura máxima da lista */
+  overflow-y: auto; /* Adiciona rolagem vertical */
+  margin-bottom: 20px; /* Espaço inferior para evitar que o botão se mova */
+}

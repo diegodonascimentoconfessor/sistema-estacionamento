@@ -32,20 +32,22 @@
     <div class="input-group">
       <label for="tarifa">Tarifa por Hora</label>
       <input id="tarifa" type="text" placeholder="Tarifa por Hora">
-    </div>
-    <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
+    </div><br>
     <button id="addVehicleBtn" class="button">Adicionar Veículo</button>
+    <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
     <div id="vehicleList" class="vehicle-list"></div>
   </div>
   <div class="container">
-    <div id="pesquisaVeiculos">
-      <h2>Pesquisar Veículos</h2>
-      <input type="text" id="searchPlaca" placeholder="Pesquisar por Placa...">
-      <button id="searchBtn" class="button">Pesquisar</button>
-    </div>
-    <div class="vagas-info">
-      <p>Vagas Ocupadas: <span id="vagasOcupadas">0</span></p>
-      <p>Vagas Disponíveis: <span id="vagasDisponiveis">50</span></p>
+    <div class="container-row">
+      <div id="pesquisaVeiculos">
+        <h2>Pesquisar Veículos</h2>
+        <input type="text" id="searchPlaca" placeholder="Pesquisar por Placa...">
+        <button id="searchBtn" class="button">Pesquisar</button>
+      </div>
+      <div class="vagas-info">
+        <p>Vagas Ocupadas: <span id="vagasOcupadas">0</span></p>
+        <p>Vagas Disponíveis: <span id="vagasDisponiveis">50</span></p>
+      </div>
     </div>
     <div id="resultadoPesquisaContainer">
       <div id="resultadoPesquisa"></div>
