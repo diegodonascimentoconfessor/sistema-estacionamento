@@ -5,7 +5,8 @@ let mainWindow = null;
 let pagamentoWindow = null;
 let vagasWindow = null;
 let pesquisaWindow = null;
-let listaVeiculosWindow = null; // Adicionando a variável para a janela de veículos cadastrados
+let listaVeiculosWindow = null;
+let relatoriosWindow = null; // Adicionando a variável para a janela de relatórios financeiros
 
 app.on('ready', () => {
   console.log("Iniciando Electron");
@@ -68,6 +69,13 @@ const createMenuTemplate = () => [
         label: 'Lista de Veículos Cadastrados',
         click: () => {
           openListaVeiculosWindow();
+        }
+      },
+      { type: 'separator' },
+      {
+        label: 'Relatórios Financeiros',
+        click: () => {
+          openRelatoriosWindow();
         }
       },
       { type: 'separator' },
@@ -172,6 +180,27 @@ function openListaVeiculosWindow() {
 
     listaVeiculosWindow.on('closed', () => {
       listaVeiculosWindow = null;
+    });
+  }
+}
+
+function openRelatoriosWindow() {
+  if (!relatoriosWindow) {
+    relatoriosWindow = new BrowserWindow({
+      width: 800,
+      height: 600,
+      resizable: true,
+      icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false
+      }
+    });
+
+    relatoriosWindow.loadFile(path.join(__dirname, 'app', 'relatorios.html'));
+
+    relatoriosWindow.on('closed', () => {
+      relatoriosWindow = null;
     });
   }
 }

@@ -80,7 +80,7 @@ h1 {
   width: 80%;
 
   flex-wrap: wrap;
-  margin-right: 10px;
+  margin-right: 20px;
   margin-top: 20px;
   align-content: space-between;
   justify-content: space-evenly;
@@ -185,5 +185,5 @@ h1 {
 }
 
 .button:hover {
-  background-color: #0056b3; /* Ajusta a cor do botão ao passar o mouse */
+  background-color: #0056b3; 
 }
