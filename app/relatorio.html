@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <title>Relatórios Financeiros</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório Financeiro</title>
 </head>
 <body>
-  <h1>Relatórios Financeiros</h1>
- 
+  <h1>Relatório Financeiro</h1>
+  <ul id="relatorioPagamentos"></ul>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
+      const relatorioPagamentos = document.getElementById('relatorioPagamentos');
+
+      if (pagamentos.length > 0) {
+        pagamentos.forEach(pagamento => {
+          const li = document.createElement('li');
+          li.textContent = `ID: ${pagamento.id}, Valor: R$ ${pagamento.valor}, Data: ${pagamento.data}`;
+          relatorioPagamentos.appendChild(li);
+        });
+      } else {
+        relatorioPagamentos.textContent = 'Nenhum pagamento registrado.';
+      }
+    });
+  </script>
 </body>
 </html>

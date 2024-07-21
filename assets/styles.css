@@ -187,3 +187,16 @@ h1 {
 .button:hover {
   background-color: #0056b3; 
 }
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table, th, td {
+  border: 1px solid black;
+}
+th, td {
+  padding: 8px;
+  text-align: left;
+}

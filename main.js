@@ -214,3 +214,4 @@ ipcMain.on('get-vehicles', (event) => {
     listaVeiculosWindow.webContents.send('listaveiculos-cadastrados', veiculosCadastrados);
   }
 });
+
