@@ -1,15 +1,14 @@
-// Função para carregar dados do localStorage e exibir na tabela
+
 function carregarPagamentos() {
-    // Buscar dados do localStorage
+    
     const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
   
-    // Selecionar o corpo da tabela
     const tabelaPagamentos = document.getElementById('tabelaPagamentos');
   
-    // Limpar tabela antes de inserir novos dados
+ 
     tabelaPagamentos.innerHTML = '';
   
-    // Iterar sobre os pagamentos e criar linhas na tabela
+   
     pagamentos.forEach(pagamento => {
       const linha = document.createElement('tr');
   
@@ -29,6 +28,6 @@ function carregarPagamentos() {
     });
   }
   
-  // Carregar pagamentos ao carregar a página
+
   window.onload = carregarPagamentos;
   
