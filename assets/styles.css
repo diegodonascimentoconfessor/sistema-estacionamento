@@ -171,19 +171,19 @@ h1 {
 }
 
 #listaVeiculos {
-  text-align: center; /* Centraliza o texto dentro do botão */
+  text-align: center; 
 }
 
 .button {
   margin-top: 10px;
   display: inline-block;
-  text-align: center; /* Certifica-se de que o texto dentro do botão está centralizado */
-  padding: 10px 20px; /* Ajusta o padding para garantir que o botão tenha tamanho adequado */
-  background-color: #141516; /* Ajusta a cor do botão conforme necessário */
-  color: white; /* Ajusta a cor do texto do botão */
-  border: none; /* Remove a borda padrão do botão */
-  border-radius: 5px; /* Adiciona borda arredondada ao botão */
-  cursor: pointer; /* Adiciona cursor de ponteiro ao passar o mouse */
+  text-align: center; 
+  padding: 10px 20px; 
+  background-color: #141516; 
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
 }
 
 .button:hover {
@@ -205,10 +205,6 @@ th, td {
 
 
 
-
-body {
-  font-family: "Lato", sans-serif;
-}
 
 .sidebar {
   height: 100%;
