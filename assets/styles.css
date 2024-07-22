@@ -1,20 +1,25 @@
 body {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 75vh;
+  height: 100vh;
   margin: 0;
   background-color: #105F71;
   font-family: Arial, sans-serif;
-  margin-top: 100px;
 }
 
-.container, .payment-container {
+#main {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.container {
   background-color: #fff;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 48%;
+  margin: 1%;
   box-sizing: border-box;
   border: green solid 1px;
 }
@@ -34,7 +39,6 @@ body {
 .input-group input[type="text"],
 .input-group input[type="datetime-local"] {
   width: 100%;
-  height: 100%;
   padding: 7px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -59,89 +63,10 @@ h1 {
   display: block;
   width: 70%; 
   text-align: center;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px auto;
 }
 
 .button:hover {
-  background-color: #105F71;
-}
-
-.payment-value {
-  font-size: 1px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-  margin-right: 20px;
-  margin-top: 20px;
-  align-content: space-between;
-  justify-content: space-evenly;
-  align-items: baseline;
-}
-
-.input-group,
-.vagas-info {
-  width: calc(50% - 10px);
-  box-sizing: border-box;
-}
-
-.vagas-info {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.link {
-  display: inline-block;
-  padding: 5px 10px; 
-  background-color: hsl(0, 43%, 95%);
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  margin-top: 20px;
-}
-
-.result-container {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.result-container h2 {
-  margin-bottom: 10px;
-  font-size: 10px;
-  color: #333;
-}
-
-.result-container p {
-  margin-bottom: 5px;
-  font-size: 16px;
-}
-
-.result-container .button {
-  background-color: #0a0a0a;
-  color: white;
-  padding: 5px 10px; 
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 12px; 
-  display: flex;
-  margin-top: 10px;
-  text-decoration: none;
-}
-
-.result-container .button:hover {
   background-color: #105F71;
 }
 
@@ -172,39 +97,15 @@ h1 {
   text-align: center; 
 }
 
-.button {
-  margin-top: 10px;
-  display: inline-block;
-  text-align: center; 
-  padding: 10px 20px; 
-  background-color: #141516; 
-  color: white; 
-  border: none; 
-  border-radius: 5px; 
-  cursor: pointer; 
-}
-
-.button:hover {
-  background-color: #0056b3; 
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table, th, td {
-  border: 1px solid black;
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
+.vagas-info {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar {
-  height: 50%;
-  margin-top: 160px;
+  height: 100%;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -252,4 +153,5 @@ th, td {
 #main {
   transition: margin-left .5s;
   padding: 16px;
+  width: 100%;
 }
