@@ -202,8 +202,6 @@ function calcularPagamentoVeiculo(vehicle) {
   window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
 }
 
-window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
-
 document.getElementById('searchBtn').addEventListener('click', () => {
   const searchPlaca = document.getElementById('searchPlaca').value;
   const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
@@ -245,8 +243,8 @@ document.getElementById('searchBtn').addEventListener('click', () => {
 
 
 function openNav() {
-  document.getElementById("sidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
+  document.getElementById("sidebar").style.width = "200px";
+  document.getElementById("main").style.marginLeft = "200px";
 }
 
 function closeNav() {

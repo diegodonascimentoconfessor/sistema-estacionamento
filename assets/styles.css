@@ -155,3 +155,39 @@ h1 {
   padding: 16px;
   width: 100%;
 }
+
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.button {
+  padding: 5px 10px;
+  font-size: 14px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.vehicle-list, #resultadoPesquisa {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.vehicle-list button, #resultadoPesquisa button {
+  padding: 2px 2px;
+  font-size: 12px;
+  margin-right: 0px;
+  margin-top: 3px;
+}

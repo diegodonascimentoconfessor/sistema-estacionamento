@@ -6,18 +6,18 @@
   <title>Autopark</title>
   <link rel="stylesheet" href="../assets/styles.css">
 </head>
-<body> 
+<body>
   <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">Início</a>
-    <a href="#">Lista de Veículos</a>
-    <a href="#">Pesquisar Veículos</a>
-    <a href="#">Pagamento</a>
-    <a href="#">Relatório</a>
+    <a href="index.html">Início</a>
+    <a href="listaveiculos-cadastrados.html">Lista de Veículos</a>
+    <a href="pesquisa.html">Pesquisar Veículos</a>
+    <a href="pagamento.html">Pagamento</a>
+    <a href="relatorio.html">Relatório</a>
   </div>
 
   <div id="main">
-    <span class="openbtn" onclick="openNav()">&#9776; </span>
+    <span class="openbtn" onclick="openNav()">&#9776;</span>
     <div class="container">
       <h1>Autopark</h1>
       <div class="input-group">
@@ -48,7 +48,7 @@
       <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
       <div id="vehicleList" class="vehicle-list"></div>
     </div>
-    
+
     <div class="container">
       <div class="container-row">
         <div id="pesquisaVeiculos">
@@ -64,8 +64,8 @@
       <div id="resultadoPesquisaContainer">
         <div id="resultadoPesquisa"></div>
       </div>
-      <button id="verRelatorioBtn">Ver Relatório</button>
-      
+      <button id="verRelatorioBtn" class="button">Ver Relatório</button>
+
       <div id="listaVeiculos">
         <h2>Veículos Cadastrados</h2>
         <ul id="veiculosCadastrados"></ul>
