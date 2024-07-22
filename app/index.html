@@ -7,71 +7,81 @@
   <link rel="stylesheet" href="../assets/styles.css">
 </head>
 <body> 
-  <div class="container">
-    <h1>Autopark</h1>
-    <div class="input-group">
-      <label class="label" for="menu">Opções</label>
-      <input id="menu" type="text" placeholder="Menu">
-    </div>
-    <br><br>
-    
-    <div class="input-group">
-      <label class="label" for="marcaModelo">Marca/Modelo</label>
-      <input id="marcaModelo" type="text" placeholder="Marca/Modelo">
-    </div>
-    <div class="input-group">
-      <label class="label" for="placa">Placa</label>
-      <input id="placa" type="text" placeholder="Placa">
-    </div>
-    <div class="input-group">
-      <label class="label" for="entrada">Entrada</label>
-      <input id="entrada" type="datetime-local" placeholder="Entrada">
-    </div>
-    <div class="input-group">
-      <label class="label" for="tolerancia">Tolerância</label>
-      <input id="tolerancia" type="text" placeholder="Tolerância (minutos)">
-    </div>
-    <div class="input-group">
-      <label class="label" for="tarifa">Tarifa por Hora</label>
-      <input id="tarifa" type="text" placeholder="Tarifa por Hora">
-    </div><br>
-    <button id="addVehicleBtn" class="button">Adicionar Veículo</button>
-    <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
-    <div id="vehicleList" class="vehicle-list"></div>
+  <div id="sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Home</a>
+    <a href="#">listaveiculoscadastrados</a>
+    <a href="#">Pesquisar Veículos</a>
+    <a href="#"> Pagamento</a>
+    <a href="#">Relatório</a>
+    <a href="#"></a>
   </div>
-  <div class="container">
-    <div class="container-row">
-      <div id="pesquisaVeiculos">
-        <h2>Pesquisar Veículos</h2>
-        <input type="text" id="searchPlaca" placeholder="Pesquisar por Placa...">
-        <button id="searchBtn" class="button">Pesquisar</button>
+
+  <div id="main">
+    <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
+    <div class="container">
+      <h1>Autopark</h1>
+      <div class="input-group">
+        <label class="label" for="menu">Opções</label>
+        <input id="menu" type="text" placeholder="Menu">
       </div>
-      <div class="vagas-info">
-        <p>Vagas Ocupadas: <span id="vagasOcupadas">0</span></p>
-        <p>Vagas Disponíveis: <span id="vagasDisponiveis">50</span></p>
+      <br><br>
+      
+      <div class="input-group">
+        <label class="label" for="marcaModelo">Marca/Modelo</label>
+        <input id="marcaModelo" type="text" placeholder="Marca/Modelo">
       </div>
+      <div class="input-group">
+        <label class="label" for="placa">Placa</label>
+        <input id="placa" type="text" placeholder="Placa">
+      </div>
+      <div class="input-group">
+        <label class="label" for="entrada">Entrada</label>
+        <input id="entrada" type="datetime-local" placeholder="Entrada">
+      </div>
+      <div class="input-group">
+        <label class="label" for="tolerancia">Tolerância</label>
+        <input id="tolerancia" type="text" placeholder="Tolerância (minutos)">
+      </div>
+      <div class="input-group">
+        <label class="label" for="tarifa">Tarifa por Hora</label>
+        <input id="tarifa" type="text" placeholder="Tarifa por Hora">
+      </div><br>
+      <button id="addVehicleBtn" class="button">Adicionar Veículo</button>
+      <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
+      <div id="vehicleList" class="vehicle-list"></div>
     </div>
-    <div id="resultadoPesquisaContainer">
-      <div id="resultadoPesquisa"></div>
+    <div class="container">
+      <div class="container-row">
+        <div id="pesquisaVeiculos">
+          <h2>Pesquisar Veículos</h2>
+          <input type="text" id="searchPlaca" placeholder="Pesquisar por Placa...">
+          <button id="searchBtn" class="button">Pesquisar</button>
+        </div>
+        <div class="vagas-info">
+          <p>Vagas Ocupadas: <span id="vagasOcupadas">0</span></p>
+          <p>Vagas Disponíveis: <span id="vagasDisponiveis">50</span></p>
+        </div>
+      </div>
+      <div id="resultadoPesquisaContainer">
+        <div id="resultadoPesquisa"></div>
+      </div>
+      <button id="verRelatorioBtn">Ver Relatório</button>
+
+      <script>
+        document.getElementById('verRelatorioBtn').addEventListener('click', () => {
+          window.location.href = 'relatorio.html';
+        });
+      </script>
+      
+      <div id="listaVeiculos">
+        <h2>Veículos Cadastrados</h2>
+        <ul id="veiculosCadastrados"></ul>
+      </div>
+      <a href="listaveiculos-cadastrados.html" class="button">Ver Veículos Cadastrados</a>
     </div>
-    <button id="verRelatorioBtn">Ver Relatório</button>
-
-    <script>
-      document.getElementById('verRelatorioBtn').addEventListener('click', () => {
-        window.location.href = 'relatorio.html';
-      });
-    </script>
-    
-
-
-
-    <div id="listaVeiculos">
-      <h2>Veículos Cadastrados</h2>
-      <ul id="veiculosCadastrados"></ul>
-    </div>
-    <a href="listaveiculos-cadastrados.html" class="button">Ver Veículos Cadastrados</a>
+    <div id="vehicleDetailsContainer" class="vehicle-details-container"></div>
+    <script src="../js/autopark.js"></script>
   </div>
-  <div id="vehicleDetailsContainer" class="vehicle-details-container"></div>
-  <script src="../js/autopark.js"></script>
 </body>
 </html>
