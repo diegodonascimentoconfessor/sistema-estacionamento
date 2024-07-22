@@ -9,12 +9,11 @@
 <body> 
   <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">inicio</a>
-    <a href="#">lista de Veículos</a>
+    <a href="#">Início</a>
+    <a href="#">Lista de Veículos</a>
     <a href="#">Pesquisar Veículos</a>
-    <a href="#"> Pagamento</a>
+    <a href="#">Pagamento</a>
     <a href="#">Relatório</a>
-    <a href="#"></a>
   </div>
 
   <div id="main">
@@ -25,8 +24,6 @@
         <label class="label" for="menu">Opções</label>
         <input id="menu" type="text" placeholder="Menu">
       </div>
-      <br><br>
-      
       <div class="input-group">
         <label class="label" for="marcaModelo">Marca/Modelo</label>
         <input id="marcaModelo" type="text" placeholder="Marca/Modelo">
@@ -46,11 +43,12 @@
       <div class="input-group">
         <label class="label" for="tarifa">Tarifa por Hora</label>
         <input id="tarifa" type="text" placeholder="Tarifa por Hora">
-      </div><br>
+      </div>
       <button id="addVehicleBtn" class="button">Adicionar Veículo</button>
       <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
       <div id="vehicleList" class="vehicle-list"></div>
     </div>
+    
     <div class="container">
       <div class="container-row">
         <div id="pesquisaVeiculos">
@@ -67,12 +65,6 @@
         <div id="resultadoPesquisa"></div>
       </div>
       <button id="verRelatorioBtn">Ver Relatório</button>
-
-      <script>
-        document.getElementById('verRelatorioBtn').addEventListener('click', () => {
-          window.location.href = 'relatorio.html';
-        });
-      </script>
       
       <div id="listaVeiculos">
         <h2>Veículos Cadastrados</h2>

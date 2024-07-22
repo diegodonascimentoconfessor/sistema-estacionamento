@@ -1,11 +1,11 @@
 body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   height: 75vh;
   margin: 0;
   background-color: #105F71;
   font-family: Arial, sans-serif;
-  border: rgb(0, 102, 255);
   margin-top: 100px;
 }
 
@@ -77,9 +77,8 @@ h1 {
 
 .container {
   display: flex;
-  width: 80%;
-
   flex-wrap: wrap;
+  width: 80%;
   margin-right: 20px;
   margin-top: 20px;
   align-content: space-between;
@@ -87,11 +86,9 @@ h1 {
   align-items: baseline;
 }
 
-
 .input-group,
 .vagas-info {
   width: calc(50% - 10px);
-
   box-sizing: border-box;
 }
 
@@ -160,6 +157,7 @@ h1 {
   margin-bottom: 20px; 
   text-decoration: none;
 }
+
 .container-row {
   display: flex;
   justify-content: space-between;
@@ -190,24 +188,23 @@ h1 {
   background-color: #0056b3; 
 }
 
-
 table {
   width: 100%;
   border-collapse: collapse;
 }
+
 table, th, td {
   border: 1px solid black;
 }
+
 th, td {
   padding: 8px;
   text-align: left;
 }
 
-
-
 .sidebar {
   height: 50%;
-margin-top: 160px;
+  margin-top: 160px;
   position: fixed;
   z-index: 1;
   top: 0;
