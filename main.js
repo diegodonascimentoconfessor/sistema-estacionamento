@@ -197,7 +197,7 @@ function openRelatoriosWindow() {
       }
     });
 
-    relatoriosWindow.loadFile(path.join(__dirname, 'app', 'relatorios.html'));
+    relatoriosWindow.loadFile(path.join(__dirname, 'app', 'relatorio.html'));
 
     relatoriosWindow.on('closed', () => {
       relatoriosWindow = null;

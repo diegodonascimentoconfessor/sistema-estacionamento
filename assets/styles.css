@@ -157,6 +157,7 @@ h1 {
   max-height: 200px; 
   overflow-y: auto; 
   margin-bottom: 20px; 
+  text-decoration: none;
 }
 .container-row {
   display: flex;
