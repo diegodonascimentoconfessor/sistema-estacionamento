@@ -1,29 +1,30 @@
 body {
   display: flex;
-  height: 100vh;
-  margin: 0;
+  flex-direction: column;
+  width: 100%;
+  height: 80vh;
   background-color: #105F71;
   font-family: Arial, sans-serif;
 }
 
 .sidebar {
-  display: block;
-  height: 80%;
-  position: fixed;
+  height: 100%;
+  width: 200px; /* Defina a largura fixa da sidebar */
+  position: fixed; /* Faz a sidebar ficar fixa */
   z-index: 1;
   top: 0;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
+  padding-top: 20px;
   transition: 0.5s;
-  padding-top: 60px;
 }
 
 .sidebar a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 16px;
   text-decoration: none;
-  font-size: 18px;
-  color: #f1f1f1;
+  font-size: 25px;
+  color: #818181;
   display: block;
   transition: 0.3s;
 }
@@ -32,7 +33,7 @@ body {
   color: #f1f1f1;
 }
 
-.sidebar .closebtn {
+.closebtn {
   position: absolute;
   top: 0;
   right: 25px;
@@ -40,18 +41,33 @@ body {
   margin-left: 50px;
 }
 
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+  margin-left: 200px; /* Adicione uma margem inicial para alinhar com a sidebar */
+}
+
 .openbtn {
   font-size: 20px;
   cursor: pointer;
-  background-color: #105F71;
+  background-color: #111;
   color: white;
   padding: 10px 15px;
   border: none;
 }
 
 .openbtn:hover {
-  background-color: #105F71;
+  background-color: #444;
 }
+
+
+
+
+
+
+
+
+
 
 #main {
   transition: margin-left .5s;
@@ -66,18 +82,18 @@ body {
 .input-group label {
   display: block;
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 .input-group input {
   width: 100%;
   padding: 5px;
-  font-size: 14px;
+  font-size: 10px;
 }
 
 .button {
   padding: 5px 10px;
-  font-size: 14px;
+  font-size: 10px;
   margin-right: 5px;
   margin-top: 5px;
 }
@@ -103,14 +119,14 @@ body {
 
 .container {
   background-color: #fff;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
+  width: 80%;
   margin: 1%;
+  height: 100%;
   box-sizing: border-box;
   border: green solid 1px;
- 
 }
 
 .input-group {
@@ -128,7 +144,7 @@ body {
 .input-group input[type="text"],
 .input-group input[type="datetime-local"] {
   width: 100%;
-  padding: 2px;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -144,11 +160,11 @@ h1 {
 .button {
   background-color: #0a0a0a;
   color: white;
-  padding: 1px 0px; 
+  padding: 5px 10px; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 12px; 
+  font-size: 14px; 
   display: block;
   width: 40%; 
   text-align: center;
@@ -176,7 +192,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 20px;
 }
 
 #pesquisaVeiculos, #listaVeiculos {
@@ -189,7 +205,7 @@ h1 {
 }
 
 .vagas-info {
-  margin-top: 100px;
+  margin-top: 20px;
   background-color: #f0f0f0;
   padding: 10px;
   height: 34%;
@@ -207,7 +223,7 @@ h1 {
 
 .vagas-info {
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;

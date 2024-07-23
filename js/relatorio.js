@@ -1,33 +1,62 @@
+document.addEventListener('DOMContentLoaded', carregarRelatorio);
 
-function carregarPagamentos() {
-    
-    const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
-  
-    const tabelaPagamentos = document.getElementById('tabelaPagamentos');
-  
- 
-    tabelaPagamentos.innerHTML = '';
-  
-   
-    pagamentos.forEach(pagamento => {
-      const linha = document.createElement('tr');
-  
-      const colunaId = document.createElement('td');
-      colunaId.textContent = pagamento.id;
-      linha.appendChild(colunaId);
-  
-      const colunaValor = document.createElement('td');
-      colunaValor.textContent = pagamento.valor;
-      linha.appendChild(colunaValor);
-  
-      const colunaData = document.createElement('td');
-      colunaData.textContent = pagamento.data;
-      linha.appendChild(colunaData);
-  
-      tabelaPagamentos.appendChild(linha);
-    });
+function carregarRelatorio() {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const relatorioContainer = document.getElementById('relatorioContainer');
+
+  if (vehicles.length === 0) {
+    relatorioContainer.innerHTML = '<p>Nenhum veículo registrado.</p>';
+    return;
   }
-  
 
-  window.onload = carregarPagamentos;
-  
+  let totalRecebido = 0;
+
+  const relatorioTable = document.createElement('table');
+  relatorioTable.innerHTML = `
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Marca/Modelo</th>
+        <th>Entrada</th>
+        <th>Saída</th>
+        <th>Tempo (Horas)</th>
+        <th>Valor Recebido</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  `;
+
+  const tbody = relatorioTable.querySelector('tbody');
+
+  vehicles.forEach(vehicle => {
+    const entradaDate = new Date(vehicle.entrada);
+    const saidaDate = new Date(); // Usando a data atual como data de saída
+    const diffMs = saidaDate - entradaDate;
+    const diffHrs = diffMs / (1000 * 60 * 60);
+    const diffHrsComTolerancia = Math.max(diffHrs - (vehicle.tolerancia / 60), 0);
+    const valorRecebido = diffHrsComTolerancia * parseFloat(vehicle.tarifa);
+
+    totalRecebido += valorRecebido;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${vehicle.placa}</td>
+      <td>${vehicle.marcaModelo}</td>
+      <td>${entradaDate.toLocaleString()}</td>
+      <td>${saidaDate.toLocaleString()}</td>
+      <td>${diffHrs.toFixed(2)}</td>
+      <td>R$ ${valorRecebido.toFixed(2)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  const resumo = document.createElement('div');
+  resumo.innerHTML = `
+    <p>Total Recebido: R$ ${totalRecebido.toFixed(2)}</p>
+    <p>Total de Veículos: ${vehicles.length}</p>
+  `;
+
+  relatorioContainer.appendChild(resumo);
+  relatorioContainer.appendChild(relatorioTable);
+}
