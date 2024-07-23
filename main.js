@@ -100,6 +100,11 @@ const createMenuTemplate = () => [
         role: 'toggleDevTools'
       },
       {
+        // para separar submenu com uma linha
+         type: 'separator'
+
+    },
+      {
         label:'aplicar zoom',
         role: 'zoomIn'
     },
