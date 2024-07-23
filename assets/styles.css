@@ -99,12 +99,12 @@ body {
   display: flex;
   flex-direction: row;
   margin-top: 20px;
-  width: 100%;
+  width: 80%;
 }
 
 .container {
   background-color: #fff;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 48%;
@@ -128,7 +128,7 @@ body {
 .input-group input[type="text"],
 .input-group input[type="datetime-local"] {
   width: 100%;
-  padding: 7px;
+  padding: 2px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
