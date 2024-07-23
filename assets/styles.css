@@ -1,6 +1,5 @@
 body {
   display: flex;
-  
   height: 100vh;
   margin: 0;
   background-color: #105F71;
@@ -189,6 +188,7 @@ h1 {
 }
 
 .vagas-info {
+  margin-top: 100px;
   background-color: #f0f0f0;
   padding: 10px;
   height: 34%;
