@@ -183,7 +183,9 @@ h1 {
 }
 
 #listaVeiculos {
+  display: flex;
   text-align: center; 
+  
 }
 
 .vagas-info {

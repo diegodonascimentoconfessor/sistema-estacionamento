@@ -42,3 +42,17 @@ window.addEventListener('DOMContentLoaded', () => {
   carregarListaVeiculos();
 });
 
+function openNav() {
+  document.getElementById("sidebar").style.width = "200px";
+  document.getElementById("main").style.marginLeft = "200px";
+}
+
+function closeNav() {
+  document.getElementById("sidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft = "0";
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelector('.openbtn').addEventListener('click', openNav);
+  document.querySelector('.closebtn').addEventListener('click', closeNav);
+});

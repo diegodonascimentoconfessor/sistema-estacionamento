@@ -98,7 +98,23 @@ const createMenuTemplate = () => [
       {
         label: 'Ferramentas de Desenvolvedor',
         role: 'toggleDevTools'
-      }
+      },
+      {
+        label:'aplicar zoom',
+        role: 'zoomIn'
+    },
+    {
+        label:'Reduzir',
+        role:'zoomOut'
+    },
+
+    {
+        label: 'Restaurar o zoom',
+        role: 'resetZoom'
+    },
+
+  
+
     ]
   }
 ];
