@@ -187,8 +187,8 @@ function openListaVeiculosWindow() {
 function openRelatoriosWindow() {
   if (!relatoriosWindow) {
     relatoriosWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
+      width: 400,
+      height: 400,
       resizable: true,
       icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
       webPreferences: {
