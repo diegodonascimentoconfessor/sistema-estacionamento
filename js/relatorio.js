@@ -21,6 +21,7 @@ function carregarRelatorio() {
         <th>Saída</th>
         <th>Tempo (Horas)</th>
         <th>Valor Recebido</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +30,7 @@ function carregarRelatorio() {
 
   const tbody = relatorioTable.querySelector('tbody');
 
-  vehicles.forEach(vehicle => {
+  vehicles.forEach((vehicle, index) => {
     const entradaDate = new Date(vehicle.entrada);
     const saidaDate = new Date(); // Usando a data atual como data de saída
     const diffMs = saidaDate - entradaDate;
@@ -47,6 +48,7 @@ function carregarRelatorio() {
       <td>${saidaDate.toLocaleString()}</td>
       <td>${diffHrs.toFixed(2)}</td>
       <td>R$ ${valorRecebido.toFixed(2)}</td>
+      <td><button onclick="excluirVeiculo(${index})">Excluir</button></td>
     `;
     tbody.appendChild(tr);
   });
@@ -59,4 +61,11 @@ function carregarRelatorio() {
 
   relatorioContainer.appendChild(resumo);
   relatorioContainer.appendChild(relatorioTable);
+}
+
+function excluirVeiculo(index) {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  vehicles.splice(index, 1);
+  localStorage.setItem('vehicles', JSON.stringify(vehicles));
+  carregarRelatorio(); // Recarrega o relatório para atualizar a lista
 }
