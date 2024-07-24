@@ -71,7 +71,14 @@ function calcularPagamento() {
   }
 
   const entradaDate = new Date(entrada);
-  const saidaDate = new Date();
+  const saidaInput = prompt('Digite a data de saída (formato: YYYY-MM-DDTHH:MM:SS):');
+  const saidaDate = new Date(saidaInput);
+
+  if (isNaN(saidaDate.getTime())) {
+    alert('Data de saída inválida.');
+    return;
+  }
+
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
   const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
@@ -193,7 +200,14 @@ function excluirVeiculo(index) {
 
 function calcularPagamentoVeiculo(vehicle) {
   const entradaDate = new Date(vehicle.entrada);
-  const saidaDate = new Date();
+  const saidaInput = prompt('Digite a data de saída (formato: YYYY-MM-DDTHH:MM:SS):');
+  const saidaDate = new Date(saidaInput);
+
+  if (isNaN(saidaDate.getTime())) {
+    alert('Data de saída inválida.');
+    return;
+  }
+
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
   const diffHrsComTolerancia = Math.max(diffHrs - (vehicle.tolerancia / 60), 0);
@@ -241,7 +255,6 @@ document.getElementById('searchBtn').addEventListener('click', () => {
   }
 });
 
-
 function openNav() {
   document.getElementById("sidebar").style.width = "200px";
   document.getElementById("main").style.marginLeft = "200px";
@@ -252,7 +265,7 @@ function closeNav() {
   document.getElementById("main").style.marginLeft = "0";
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.openbtn').addEventListener('click', openNav);
   document.querySelector('.closebtn').addEventListener('click', closeNav);
 });
