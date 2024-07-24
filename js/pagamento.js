@@ -7,16 +7,50 @@ document.getElementById('voltarBtn').addEventListener('click', function() {
 let valorPagamentoGlobal = 0;
 let entradaGlobal = '';
 let saidaGlobal = '';
+let metodoPagamentoGlobal = '';
+let numeroCartaoGlobal = '';
+let nomeTitularGlobal = '';
+let validadeCartaoGlobal = '';
+let cvvCartaoGlobal = '';
+
+document.getElementById('metodoPagamento').addEventListener('change', function() {
+  const metodoPagamento = this.value;
+  const cartaoInfo = document.getElementById('cartaoInfo');
+
+  if (metodoPagamento === 'credito' || metodoPagamento === 'debito') {
+    cartaoInfo.style.display = 'block';
+  } else {
+    cartaoInfo.style.display = 'none';
+  }
+});
 
 function calcularPagamento() {
   const entrada = document.getElementById('entradaPagamento').value;
   const saida = document.getElementById('saidaPagamento').value;
   const tarifa = parseFloat(document.getElementById('tarifaPagamento').value) || 10;
   const tolerancia = parseInt(document.getElementById('toleranciaPagamento').value) || 10;
+  const metodoPagamento = document.getElementById('metodoPagamento').value;
 
   if (!entrada || !saida || isNaN(tarifa) || isNaN(tolerancia)) {
     alert('Por favor, preencha todos os campos necessários.');
     return;
+  }
+
+  if (metodoPagamento === 'credito' || metodoPagamento === 'debito') {
+    const numeroCartao = document.getElementById('numeroCartao').value;
+    const nomeTitular = document.getElementById('nomeTitular').value;
+    const validadeCartao = document.getElementById('validadeCartao').value;
+    const cvvCartao = document.getElementById('cvvCartao').value;
+
+    if (!numeroCartao || !nomeTitular || !validadeCartao || !cvvCartao) {
+      alert('Por favor, preencha todos os campos do cartão.');
+      return;
+    }
+
+    numeroCartaoGlobal = numeroCartao;
+    nomeTitularGlobal = nomeTitular;
+    validadeCartaoGlobal = validadeCartao;
+    cvvCartaoGlobal = cvvCartao;
   }
 
   const entradaDate = new Date(entrada);
@@ -29,6 +63,7 @@ function calcularPagamento() {
   valorPagamentoGlobal = valorPagamento;
   entradaGlobal = entrada;
   saidaGlobal = saida;
+  metodoPagamentoGlobal = metodoPagamento;
 
   document.getElementById('valorPagamento').innerText = `Valor a Pagar: R$ ${valorPagamento.toFixed(2)}`;
   document.getElementById('gerarCupomBtn').style.display = 'block';
@@ -55,9 +90,31 @@ function gerarCupom() {
         <p><strong>Tarifa por Hora:</strong> R$ 10.00</p>
         <p><strong>Tolerância:</strong> 10 minutos</p>
         <p><strong>Valor a Pagar:</strong> R$ ${valorPagamentoGlobal.toFixed(2)}</p>
+        <p><strong>Método de Pagamento:</strong> ${getMetodoPagamentoTexto(metodoPagamentoGlobal)}</p>
+        ${metodoPagamentoGlobal === 'credito' || metodoPagamentoGlobal === 'debito' ? `
+          <p><strong>Número do Cartão:</strong> ${numeroCartaoGlobal}</p>
+          <p><strong>Nome do Titular:</strong> ${nomeTitularGlobal}</p>
+          <p><strong>Validade:</strong> ${validadeCartaoGlobal}</p>
+          <p><strong>CVV:</strong> ${cvvCartaoGlobal}</p>
+        ` : ''}
       </div>
       <button onclick="window.print();">Imprimir Cupom</button>
     </body>
     </html>
   `);
+}
+
+function getMetodoPagamentoTexto(metodo) {
+  switch (metodo) {
+    case 'dinheiro':
+      return 'Dinheiro';
+    case 'credito':
+      return 'Cartão de Crédito';
+    case 'debito':
+      return 'Cartão de Débito';
+    case 'pix':
+      return 'PIX';
+    default:
+      return 'Não especificado';
+  }
 }

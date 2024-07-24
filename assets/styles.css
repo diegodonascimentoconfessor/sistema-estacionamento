@@ -245,3 +245,133 @@ h1 {
 .back-button:hover {
   background-color: #0a0a0a;
 }
+
+
+* Estiliza o container principal do pagamento */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(100% - 220px); /* Ajuste para compensar a sidebar */
+    height: 100px;
+    margin-left: 220px; /* Compensar a sidebar */
+    box-sizing: border-box;
+    max-width: 800px; /* Largura máxima para não estourar em telas grandes */
+  }
+  
+  /* Estiliza o título da página de pagamento */
+  .container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0f0f0f;
+  }
+  
+  /* Estiliza o grupo de inputs */
+  .input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Estiliza o label dos inputs */
+  .input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Estiliza os inputs */
+  .input-group input[type="text"],
+  .input-group input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Estiliza o botão de calcular pagamento */
+  #calcPagamentoBtn {
+    
+ background-color: #0a0a0a;
+  color: white;
+  padding: 5px 10px; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px; 
+  display: block;
+  width: 40%; 
+  text-align: center;
+  margin: 5px auto;
+}
+  
+  #calcPagamentoBtn:hover {
+    background-color:#105F71 ;
+  }
+  
+  /* Estiliza a área de valor de pagamento */
+  #valorPagamento {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  /* Estiliza o botão de gerar cupom */
+  #gerarCupomBtn {
+    background-color: #020505;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 50%;
+    margin-top: 10px;
+  }
+  
+  #gerarCupomBtn:hover {
+    background-color: #0a0a0a;
+  }
+  
+  /* Estiliza o botão de voltar */
+  #voltarBtn {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  #voltarBtn:hover {
+    background-color: #222;
+  }
+  
+  /* Estiliza a página de cupom */
+  @media print {
+    .container {
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+    }
+    
+    .button {
+      display: none;
+    }
+    
+    #valorPagamento {
+      font-size: 20px;
+    }
+  }
+  
