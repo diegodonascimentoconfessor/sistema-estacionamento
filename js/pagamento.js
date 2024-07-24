@@ -1,39 +1,120 @@
-document.addEventListener('DOMContentLoaded', carregarResumoPagamento);
+document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
+document.getElementById('gerarCupomBtn').addEventListener('click', gerarCupom);
+document.getElementById('voltarBtn').addEventListener('click', function() {
+  window.location.href = 'index.html';
+});
 
-function carregarResumoPagamento() {
-  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-  const pagamentoContainer = document.getElementById('pagamentoContainer'); // Substitua pelo ID do seu container de pagamento
+let valorPagamentoGlobal = 0;
+let entradaGlobal = '';
+let saidaGlobal = '';
+let metodoPagamentoGlobal = '';
+let numeroCartaoGlobal = '';
+let nomeTitularGlobal = '';
+let validadeCartaoGlobal = '';
+let cvvCartaoGlobal = '';
 
-  if (vehicles.length === 0) {
-    pagamentoContainer.innerHTML = '<p>Nenhum veículo registrado.</p>';
+document.getElementById('metodoPagamento').addEventListener('change', function() {
+  const metodoPagamento = this.value;
+  const cartaoInfo = document.getElementById('cartaoInfo');
+
+  if (metodoPagamento === 'credito' || metodoPagamento === 'debito') {
+    cartaoInfo.style.display = 'block';
+  } else {
+    cartaoInfo.style.display = 'none';
+  }
+});
+
+function calcularPagamento() {
+  const entrada = document.getElementById('entradaPagamento').value;
+  const saida = document.getElementById('saidaPagamento').value;
+  const tarifa = parseFloat(document.getElementById('tarifaPagamento').value) || 10;
+  const tolerancia = parseInt(document.getElementById('toleranciaPagamento').value) || 10;
+  const metodoPagamento = document.getElementById('metodoPagamento').value;
+
+  if (!entrada || !saida || isNaN(tarifa) || isNaN(tolerancia)) {
+    alert('Por favor, preencha todos os campos necessários.');
     return;
   }
 
-  let totalRecebido = 0;
+  if (metodoPagamento === 'credito' || metodoPagamento === 'debito') {
+    const numeroCartao = document.getElementById('numeroCartao').value;
+    const nomeTitular = document.getElementById('nomeTitular').value;
+    const validadeCartao = document.getElementById('validadeCartao').value;
+    const cvvCartao = document.getElementById('cvvCartao').value;
 
-  const resumoPagamento = document.createElement('div');
-  resumoPagamento.innerHTML = `
-    <h2>Resumo de Pagamento</h2>
-    <ul>
-      ${vehicles.map(vehicle => {
-        const entradaDate = new Date(vehicle.entrada);
-        const saidaDate = new Date();
-        const diffMs = saidaDate - entradaDate;
-        const diffHrs = diffMs / (1000 * 60 * 60);
-        const diffHrsComTolerancia = Math.max(diffHrs - (vehicle.tolerancia / 60), 0);
-        const valorRecebido = diffHrsComTolerancia * parseFloat(vehicle.tarifa);
+    if (!numeroCartao || !nomeTitular || !validadeCartao || !cvvCartao) {
+      alert('Por favor, preencha todos os campos do cartão.');
+      return;
+    }
 
-        totalRecebido += valorRecebido;
+    numeroCartaoGlobal = numeroCartao;
+    nomeTitularGlobal = nomeTitular;
+    validadeCartaoGlobal = validadeCartao;
+    cvvCartaoGlobal = cvvCartao;
+  }
 
-        return `
-          <li>
-            Placa: ${vehicle.placa}, Entrada: ${entradaDate.toLocaleString()}, Saída: ${saidaDate.toLocaleString()}, Valor: R$ ${valorRecebido.toFixed(2)}
-          </li>
-        `;
-      }).join('')}
-    </ul>
-    <p>Total Recebido: R$ ${totalRecebido.toFixed(2)}</p>
-  `;
+  const entradaDate = new Date(entrada);
+  const saidaDate = new Date(saida);
+  const diffMs = saidaDate - entradaDate;
+  const diffHrs = diffMs / (1000 * 60 * 60);
+  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
 
-  pagamentoContainer.appendChild(resumoPagamento);
+  const valorPagamento = diffHrsComTolerancia * tarifa;
+  valorPagamentoGlobal = valorPagamento;
+  entradaGlobal = entrada;
+  saidaGlobal = saida;
+  metodoPagamentoGlobal = metodoPagamento;
+
+  document.getElementById('valorPagamento').innerText = `Valor a Pagar: R$ ${valorPagamento.toFixed(2)}`;
+  document.getElementById('gerarCupomBtn').style.display = 'block';
+}
+
+function gerarCupom() {
+  const cupomWindow = window.open('', 'Cupom', 'width=600,height=400');
+  cupomWindow.document.write(`
+    <html>
+    <head>
+      <title>Cupom de Pagamento - Autopark</title>
+      <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { text-align: center; }
+        .cupom { border: 1px solid #000; padding: 20px; margin-top: 20px; }
+        .cupom p { margin: 5px 0; }
+      </style>
+    </head>
+    <body>
+      <h1>Cupom de Pagamento</h1>
+      <div class="cupom">
+        <p><strong>Entrada:</strong> ${entradaGlobal}</p>
+        <p><strong>Saída:</strong> ${saidaGlobal}</p>
+        <p><strong>Tarifa por Hora:</strong> R$ 10.00</p>
+        <p><strong>Tolerância:</strong> 10 minutos</p>
+        <p><strong>Valor a Pagar:</strong> R$ ${valorPagamentoGlobal.toFixed(2)}</p>
+        <p><strong>Método de Pagamento:</strong> ${getMetodoPagamentoTexto(metodoPagamentoGlobal)}</p>
+        ${metodoPagamentoGlobal === 'credito' || metodoPagamentoGlobal === 'debito' ? `
+          <p><strong>Número do Cartão:</strong> ${numeroCartaoGlobal}</p>
+          <p><strong>Nome do Titular:</strong> ${nomeTitularGlobal}</p>
+          <p><strong>Validade:</strong> ${validadeCartaoGlobal}</p>
+          <p><strong>CVV:</strong> ${cvvCartaoGlobal}</p>
+        ` : ''}
+      </div>
+      <button onclick="window.print();">Imprimir Cupom</button>
+    </body>
+    </html>
+  `);
+}
+
+function getMetodoPagamentoTexto(metodo) {
+  switch (metodo) {
+    case 'dinheiro':
+      return 'Dinheiro';
+    case 'credito':
+      return 'Cartão de Crédito';
+    case 'debito':
+      return 'Cartão de Débito';
+    case 'pix':
+      return 'PIX';
+    default:
+      return 'Não especificado';
+  }
 }
