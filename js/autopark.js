@@ -1,3 +1,4 @@
+// Adicione ao início do seu arquivo JavaScript principal
 const isElectron = typeof window !== 'undefined' && window.process && window.process.type === 'renderer';
 const ipcRenderer = isElectron ? require('electron').ipcRenderer : null;
 
@@ -71,21 +72,28 @@ function calcularPagamento() {
   }
 
   const entradaDate = new Date(entrada);
-  const saidaInput = prompt('Digite a data de saída (formato: YYYY-MM-DDTHH:MM:SS):');
-  const saidaDate = new Date(saidaInput);
-
-  if (isNaN(saidaDate.getTime())) {
-    alert('Data de saída inválida.');
-    return;
-  }
-
+  const saidaDate = new Date();
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
   const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
 
   const valorPagamento = diffHrsComTolerancia * tarifa;
 
+  // Salvar pagamento no localStorage
+  salvarPagamento(valorPagamento);
+
   window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
+}
+
+function salvarPagamento(valorPagamento) {
+  const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
+  const novoPagamento = {
+    id: pagamentos.length + 1,
+    valor: valorPagamento.toFixed(2),
+    data: new Date().toLocaleString()
+  };
+  pagamentos.push(novoPagamento);
+  localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
 }
 
 document.getElementById('addVehicleBtn').addEventListener('click', () => {
@@ -200,21 +208,18 @@ function excluirVeiculo(index) {
 
 function calcularPagamentoVeiculo(vehicle) {
   const entradaDate = new Date(vehicle.entrada);
-  const saidaInput = prompt('Digite a data de saída (formato: YYYY-MM-DDTHH:MM:SS):');
-  const saidaDate = new Date(saidaInput);
-
-  if (isNaN(saidaDate.getTime())) {
-    alert('Data de saída inválida.');
-    return;
-  }
-
+  const saidaDate = new Date();
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
   const diffHrsComTolerancia = Math.max(diffHrs - (vehicle.tolerancia / 60), 0);
   const valorPagamento = diffHrsComTolerancia * parseFloat(vehicle.tarifa);
 
+  salvarPagamento(valorPagamento);
+
   window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
 }
+
+window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
 
 document.getElementById('searchBtn').addEventListener('click', () => {
   const searchPlaca = document.getElementById('searchPlaca').value;
@@ -253,19 +258,4 @@ document.getElementById('searchBtn').addEventListener('click', () => {
   } else {
     resultadoPesquisaContainer.textContent = 'Veículo não encontrado.';
   }
-});
-
-function openNav() {
-  document.getElementById("sidebar").style.width = "200px";
-  document.getElementById("main").style.marginLeft = "200px";
-}
-
-function closeNav() {
-  document.getElementById("sidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft = "0";
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector('.openbtn').addEventListener('click', openNav);
-  document.querySelector('.closebtn').addEventListener('click', closeNav);
 });

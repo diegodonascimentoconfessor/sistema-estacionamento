@@ -24,20 +24,24 @@
       <input id="placaVeiculo" type="text" placeholder="Placa do Veículo">
     </div>
     <div class="input-group">
+      <label for="marcaModelo">Marca e Modelo</label>
+      <input id="marcaModelo" type="text" placeholder="Marca e Modelo">
+    </div>
+    <div class="input-group">
       <label for="entradaPagamento">Entrada</label>
-      <input id="entradaPagamento" type="datetime-local" placeholder="Entrada">
+      <input id="entradaPagamento" type="datetime-local">
     </div>
     <div class="input-group">
       <label for="saidaPagamento">Saída</label>
-      <input id="saidaPagamento" type="datetime-local" placeholder="Saída">
+      <input id="saidaPagamento" type="datetime-local">
     </div>
     <div class="input-group">
-      <label for="toleranciaPagamento">Tolerância</label>
-      <input id="toleranciaPagamento" type="text" placeholder="Tolerância (minutos)" value="10">
+      <label for="toleranciaPagamento">Tolerância (minutos)</label>
+      <input id="toleranciaPagamento" type="number" placeholder="Tolerância (minutos)" value="10">
     </div>
     <div class="input-group">
       <label for="tarifaPagamento">Tarifa por Hora</label>
-      <input id="tarifaPagamento" type="text" placeholder="Tarifa por Hora" value="10">
+      <input id="tarifaPagamento" type="number" step="0.01" placeholder="Tarifa por Hora" value="10">
     </div>
     <div class="input-group">
       <label for="metodoPagamento">Método de Pagamento</label>
@@ -72,7 +76,7 @@
     <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
     <div id="valorPagamento" class="payment-value"></div>
     <button id="gerarCupomBtn" class="button" style="display:none;">Gerar Cupom</button>
-    <button id="voltarBtn" class="button">Voltar</button>
+    <button id="voltarBtn" class="button" onclick="window.location.href='index.html';">Voltar</button>
   </div>
   <script src="../js/pagamento.js"></script>
 </body>

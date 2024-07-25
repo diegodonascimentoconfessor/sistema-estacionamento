@@ -1,9 +1,3 @@
-document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
-document.getElementById('gerarCupomBtn').addEventListener('click', gerarCupom);
-document.getElementById('voltarBtn').addEventListener('click', function() {
-  window.location.href = 'index.html';
-});
-
 let valorPagamentoGlobal = 0;
 let entradaGlobal = '';
 let saidaGlobal = '';
@@ -24,14 +18,21 @@ document.getElementById('metodoPagamento').addEventListener('change', function()
   }
 });
 
+document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
+document.getElementById('gerarCupomBtn').addEventListener('click', gerarCupom);
+document.getElementById('voltarBtn').addEventListener('click', function() {
+  window.location.href = 'index.html';
+});
+
 function calcularPagamento() {
+  const placaVeiculo = document.getElementById('placaVeiculo').value;
   const entrada = document.getElementById('entradaPagamento').value;
   const saida = document.getElementById('saidaPagamento').value;
   const tarifa = parseFloat(document.getElementById('tarifaPagamento').value) || 10;
   const tolerancia = parseInt(document.getElementById('toleranciaPagamento').value) || 10;
   const metodoPagamento = document.getElementById('metodoPagamento').value;
 
-  if (!entrada || !saida || isNaN(tarifa) || isNaN(tolerancia)) {
+  if (!placaVeiculo || !entrada || !saida || isNaN(tarifa) || isNaN(tolerancia)) {
     alert('Por favor, preencha todos os campos necessários.');
     return;
   }
@@ -70,6 +71,8 @@ function calcularPagamento() {
 }
 
 function gerarCupom() {
+  const placaVeiculo = document.getElementById('placaVeiculo').value;
+
   const cupomWindow = window.open('', 'Cupom', 'width=600,height=400');
   cupomWindow.document.write(`
     <html>
@@ -85,10 +88,11 @@ function gerarCupom() {
     <body>
       <h1>Cupom de Pagamento</h1>
       <div class="cupom">
+        <p><strong>Placa do Veículo:</strong> ${placaVeiculo}</p>
         <p><strong>Entrada:</strong> ${entradaGlobal}</p>
         <p><strong>Saída:</strong> ${saidaGlobal}</p>
-        <p><strong>Tarifa por Hora:</strong> R$ 10.00</p>
-        <p><strong>Tolerância:</strong> 10 minutos</p>
+        <p><strong>Tarifa por Hora:</strong> R$ ${document.getElementById('tarifaPagamento').value}</p>
+        <p><strong>Tolerância:</strong> ${document.getElementById('toleranciaPagamento').value} minutos</p>
         <p><strong>Valor a Pagar:</strong> R$ ${valorPagamentoGlobal.toFixed(2)}</p>
         <p><strong>Método de Pagamento:</strong> ${getMetodoPagamentoTexto(metodoPagamentoGlobal)}</p>
         ${metodoPagamentoGlobal === 'credito' || metodoPagamentoGlobal === 'debito' ? `
@@ -102,6 +106,19 @@ function gerarCupom() {
     </body>
     </html>
   `);
+
+  // Armazenar informações de pagamento em localStorage
+  let pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
+  pagamentos.push({
+    placa: placaVeiculo,
+    marcaModelo: document.getElementById('marcaModelo').value,
+    entrada: entradaGlobal,
+    saida: saidaGlobal,
+    valorRecebido: valorPagamentoGlobal,
+    tarifa: document.getElementById('tarifaPagamento').value,
+    tolerancia: document.getElementById('toleranciaPagamento').value
+  });
+  localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
 }
 
 function getMetodoPagamentoTexto(metodo) {
