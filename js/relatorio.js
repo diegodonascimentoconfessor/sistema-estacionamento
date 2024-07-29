@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const tabelaPagamentos = document.getElementById('tabelaPagamentos');
 
-  // Recuperar os dados do localStorage
+  
   const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
 
   console.log('Pagamentos recuperados do localStorage:', pagamentos);
 
-  // Iterar sobre os dados e criar linhas na tabela
+ 
   pagamentos.forEach(pagamento => {
       const tr = document.createElement('tr');
       
