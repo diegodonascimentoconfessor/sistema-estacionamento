@@ -67,7 +67,7 @@ function calcularPagamento() {
   metodoPagamentoGlobal = metodoPagamento;
 
   document.getElementById('valorPagamento').innerText = `Valor a Pagar: R$ ${valorPagamento.toFixed(2)}`;
-  document.getElementById('gerarCupomBtn').style.display = 'block';
+  document.getElementById('gerarCupomBtn').style.display = 'inline-block';
 }
 
 function gerarCupom() {
@@ -118,7 +118,10 @@ function gerarCupom() {
     tarifa: document.getElementById('tarifaPagamento').value,
     tolerancia: document.getElementById('toleranciaPagamento').value
   });
+
+  console.log('Pagamentos antes de salvar no localStorage:', pagamentos);
   localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
+  console.log('Dados de pagamento armazenados no localStorage.');
 }
 
 function getMetodoPagamentoTexto(metodo) {
@@ -132,6 +135,6 @@ function getMetodoPagamentoTexto(metodo) {
     case 'pix':
       return 'PIX';
     default:
-      return 'Não especificado';
+      return '';
   }
 }

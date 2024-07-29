@@ -1,61 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Relatório de Pagamento - Autopark</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { text-align: center; }
-    .relatorio { border: 1px solid #000; padding: 20px; margin-top: 20px; }
-    .relatorio p { margin: 5px 0; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Pagamentos - Autopark</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid #ddd; }
+        th, td { padding: 10px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
 </head>
 <body>
-  <h1>Relatório de Pagamento</h1>
-  <div id="relatorio" class="relatorio"></div>
-  <button onclick="window.print();">Imprimir Relatório</button>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const relatorio = JSON.parse(localStorage.getItem('relatorioPagamento'));
 
-      if (!relatorio) {
-        document.getElementById('relatorio').innerHTML = '<p>Nenhum dado de pagamento encontrado.</p>';
-        return;
-      }
-
-      document.getElementById('relatorio').innerHTML = `
-        <p><strong>Placa do Veículo:</strong> ${relatorio.placaVeiculo}</p>
-        <p><strong>Entrada:</strong> ${relatorio.entrada}</p>
-        <p><strong>Saída:</strong> ${relatorio.saida}</p>
-        <p><strong>Tarifa por Hora:</strong> R$ ${relatorio.tarifa}</p>
-        <p><strong>Tolerância:</strong> ${relatorio.tolerancia} minutos</p>
-        <p><strong>Valor a Pagar:</strong> R$ ${relatorio.valorPagamento.toFixed(2)}</p>
-        <p><strong>Método de Pagamento:</strong> ${getMetodoPagamentoTexto(relatorio.metodoPagamento)}</p>
-        ${relatorio.metodoPagamento === 'credito' || relatorio.metodoPagamento === 'debito' ? `
-          <p><strong>Número do Cartão:</strong> ${relatorio.numeroCartao}</p>
-          <p><strong>Nome do Titular:</strong> ${relatorio.nomeTitular}</p>
-          <p><strong>Validade:</strong> ${relatorio.validadeCartao}</p>
-          <p><strong>CVV:</strong> ${relatorio.cvvCartao}</p>
-        ` : ''}
-      `;
-    });
-
-    function getMetodoPagamentoTexto(metodo) {
-      switch (metodo) {
-        case 'dinheiro':
-          return 'Dinheiro';
-        case 'credito':
-          return 'Cartão de Crédito';
-        case 'debito':
-          return 'Cartão de Débito';
-        case 'pix':
-          return 'PIX';
-        default:
-          return 'Não especificado';
-      }
-    }
-  </script>
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html"><i class="fas fa-home"></i> Início</a>
+        <a href="listaveiculos-cadastrados.html"><i class="fas fa-list"></i> Lista de Veículos</a>
+        <a href="pesquisa.html"><i class="fas fa-search"></i> Pesquisar Veículos</a>
+        <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
+        <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
+      </div>
+    
+    <h1>Relatório de Pagamentos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Placa</th>
+                <th>Marca/Modelo</th>
+                <th>Entrada</th>
+                <th>Saída</th>
+                <th>Valor Recebido</th>
+                <th>Tarifa</th>
+                <th>Tolerância</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaPagamentos">
+            <!-- Dados dos pagamentos serão inseridos aqui -->
+        </tbody>
+    </table>
+    <script src="../js/relatorio.js"></script>
 </body>
 </html>

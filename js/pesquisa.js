@@ -1,9 +1,9 @@
 document.getElementById('searchBtn').addEventListener('click', () => {
   const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase(); 
   if (searchPlaca) {
-    pesquisarPlaca(searchPlaca);
+      pesquisarPlaca(searchPlaca);
   } else {
-    alert('Por favor, insira uma placa para pesquisar.');
+      alert('Por favor, insira uma placa para pesquisar.');
   }
 });
 
@@ -16,9 +16,9 @@ function pesquisarPlaca(placa) {
   const vehicle = vehicles.find(v => v.placa === placa);
 
   if (vehicle) {
-    mostrarDetalhesVeiculo(vehicle);
+      mostrarDetalhesVeiculo(vehicle);
   } else {
-    alert(`Veículo com a placa ${placa} não encontrado.`);
+      alert(`Veículo com a placa ${placa} não encontrado.`);
   }
 }
 
@@ -27,21 +27,20 @@ function mostrarDetalhesVeiculo(vehicle) {
   const detailsElement = document.createElement('div');
   detailsElement.classList.add('vehicle-details');
   detailsElement.innerHTML = `
-    <h2>Detalhes do Veículo</h2>
-    <p><strong>Placa:</strong> ${vehicle.placa}</p>
-    <p><strong>Marca/Modelo:</strong> ${vehicle.marcaModelo}</p>
-    <p><strong>Entrada:</strong> ${new Date(vehicle.entrada).toLocaleString()}</p>
-    <p><strong>Saída:</strong> ${new Date(vehicle.saida).toLocaleString()}</p>
+      <h2>Detalhes do Veículo</h2>
+      <p><strong>Placa:</strong> ${vehicle.placa}</p>
+      <p><strong>Marca/Modelo:</strong> ${vehicle.marcaModelo}</p>
+      <p><strong>Entrada:</strong> ${new Date(vehicle.entrada).toLocaleString()}</p>
+      <p><strong>Saída:</strong> ${new Date(vehicle.saida).toLocaleString()}</p>
   `;
   
   const existingDetails = document.querySelector('.vehicle-details');
   if (existingDetails) {
-    container.removeChild(existingDetails);
+      container.removeChild(existingDetails);
   }
   
   container.appendChild(detailsElement);
 }
-
 
 function openNav() {
   document.getElementById("sidebar").style.width = "200px";
@@ -56,4 +55,4 @@ function closeNav() {
 document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelector('.openbtn').addEventListener('click', openNav);
   document.querySelector('.closebtn').addEventListener('click', closeNav);
-});
+}); 
