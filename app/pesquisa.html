@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pesquisa de Placa</title>
-    <link rel="stylesheet" href="../assets/pesquissa.css">
+    <link rel="stylesheet" href="../assets/styles.css">
     
 <body>
     <div id="sidebar" class="sidebar">
@@ -15,16 +15,18 @@
         <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
         <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
     </div>
-
-    <div id="main" class="main-container">
-        <h1>Pesquisa de Placa</h1>
-        <div class="input-group">
-            <input type="text" id="searchPlaca" placeholder="Digite a placa do veículo">
+    <div class="container">
+        <div class="container-row">
+          <div id="pesquisaVeiculos">
+            <h2>Pesquisar Veículos</h2>
+            <input type="text" id="searchPlaca" placeholder="Pesquisar por Placa...">
             <button id="searchBtn" class="button">Pesquisar</button>
-            <button id="backBtn" class="button">Voltar</button>
+          </div>
         </div>
-    </div>
-
+        <div id="resultadoPesquisaContainer">
+          <div id="resultadoPesquisa"></div>
+        </div>
+   
     <script src="../js/pesquisa.js"></script>
 </body>
 </html>

@@ -146,8 +146,7 @@ body {
     #calcPagamentoBtn:hover {
       background-color:#105F71 ;
     }
-  
-  /* Estiliza a área de valor de pagamento */
+
   #valorPagamento {
     text-align: center;
     font-size: 18px;
@@ -155,7 +154,7 @@ body {
     font-weight: bold;
   }
   
-  /* Estiliza o botão de gerar cupom */
+ 
   #gerarCupomBtn {
     background-color: #105F71;
     color: white;

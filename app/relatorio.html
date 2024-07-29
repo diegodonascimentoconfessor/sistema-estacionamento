@@ -1,40 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Pagamentos - Autopark</title>
-    <link rel="stylesheet" href="../assets/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-   
-
-
-    <div id="sidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.html"><i class="fas fa-home"></i> Início</a>
-        <a href="listaveiculos-cadastrados.html"><i class="fas fa-list"></i> Lista de Veículos</a>
-        <a href="pesquisa.html"><i class="fas fa-search"></i> Pesquisar Veículos</a>
-        <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
-        <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
-      </div>
-    
-    <h1>Relatório de Pagamentos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Placa</th>
-                <th>Marca/Modelo</th>
-                <th>Entrada</th>
-                <th>Saída</th>
-                <th>Valor Recebido</th>
-                <th>Tarifa</th>
-                <th>Tolerância</th>
-            </tr>
-        </thead>
-        <tbody id="tabelaPagamentos">
-           
-        </tbody>
-    </table>
-    <script src="../js/relatorio.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento de Estacionamento</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Gerenciamento de Estacionamento</h1>
+  
+  <!-- Botão para gerar o relatório -->
+  <button id="generateReportBtn">Gerar Relatório</button>
+  
+  <script src="../js/relatorio.js"></script>
 </body>
 </html>
