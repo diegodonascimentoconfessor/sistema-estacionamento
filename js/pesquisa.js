@@ -21,7 +21,6 @@ function pesquisarPlaca(placa) {
       alert(`Veículo com a placa ${placa} não encontrado.`);
   }
 }
-
 function mostrarDetalhesVeiculo(vehicle) {
   const container = document.querySelector('.container');
   const detailsElement = document.createElement('div');
