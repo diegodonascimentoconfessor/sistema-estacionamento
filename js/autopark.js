@@ -128,7 +128,7 @@ function carregarListaVeiculos() {
   const veiculosList = document.getElementById('veiculosCadastrados');
 
   if (veiculosList) {
-    veiculosList.innerHTML = ''; // Limpa a lista atual
+    veiculosList.innerHTML = ''; 
 
     if (vehicles.length > 0) {
       vehicles.forEach((vehicle, index) => {
