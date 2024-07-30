@@ -3,15 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciamento de Estacionamento</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Relatório</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
 </head>
 <body>
-  <h1>Gerenciamento de Estacionamento</h1>
+  <h1>Relatório de Veículos e Pagamentos</h1>
   
-  <!-- Botão para gerar o relatório -->
-  <button id="generateReportBtn">Gerar Relatório</button>
-  
+  <h2>Veículos Cadastrados</h2>
+  <table id="vehiclesTable">
+    <thead>
+      <tr>
+        <th>Placa</th>
+        <th>Marca/Modelo</th>
+        <th>Entrada</th>
+        <th>Tolerância</th>
+        <th>Tarifa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dados dos veículos serão inseridos aqui -->
+    </tbody>
+  </table>
+
+  <h2>Pagamentos Registrados</h2>
+  <table id="paymentsTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Valor</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dados dos pagamentos serão inseridos aqui -->
+    </tbody>
+  </table>
+
   <script src="../js/relatorio.js"></script>
 </body>
 </html>

@@ -1,19 +1,18 @@
-/* Estiliza o body da página */
+
 body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh; /* Ajuste para ocupar a altura total da tela */
+    height: 100vh; 
     background-color: #105F71;
     font-family: Arial, sans-serif;
-    margin: 0; /* Remove a margem padrão */
+    margin: 0; 
   }
-  
-  /* Estiliza a sidebar */
+
   .sidebar {
     height: 100%;
-    width: 200px; /* Largura fixa da sidebar */
-    position: fixed; /* Sidebar fixa */
+    width: 200px; 
+    position: fixed; 
     z-index: 1;
     top: 0;
     left: 0;
@@ -23,7 +22,7 @@ body {
     transition: 0.5s;
   }
   
-  /* Estiliza os links da sidebar */
+  
   .sidebar a {
     padding: 8px 16px;
     text-decoration: none;
@@ -33,12 +32,12 @@ body {
     transition: 0.3s;
   }
   
-  /* Estiliza o hover dos links da sidebar */
+
   .sidebar a:hover {
     color: #f1f1f1;
   }
   
-  /* Estiliza o botão de fechar a sidebar */
+
   .closebtn {
     position: absolute;
     top: 0;
@@ -47,15 +46,14 @@ body {
     cursor: pointer;
   }
   
-  /* Estiliza o conteúdo principal */
   #main {
     transition: margin-left .5s;
     padding: 16px;
-    margin-left: 200px; /* Espaço para a sidebar */
-    width: calc(100% - 200px); /* Largura ajustada para compensar a sidebar */
+    margin-left: 200px; 
+    width: calc(100% - 200px);
   }
   
-  /* Estiliza o botão de abrir a sidebar */
+ 
   .openbtn {
     font-size: 20px;
     cursor: pointer;
@@ -65,39 +63,39 @@ body {
     border: none;
   }
   
-  /* Estiliza o hover do botão de abrir a sidebar */
+  
   .openbtn:hover {
     background-color: #444;
   }
   
-  /* Estiliza o container do pagamento */
+ 
   .container {
-    background-color: #fff; /* Fundo branco para o container */
+    background-color: #fff; 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: calc(100% - 220px); /* Ajuste para compensar a sidebar e o padding */
-    margin-left: 220px; /* Compensa a sidebar */
+    width: calc(100% - 220px); 
+    margin-left: 220px;
     box-sizing: border-box;
-    max-width: 800px; /* Largura máxima */
-    margin-top: 20px; /* Espaço superior */
+    max-width: 800px; 
+    margin-top: 20px; 
   }
   
-  /* Estiliza o título do container de pagamento */
+ 
   .container h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #070707; /* Cor de destaque */
+    color: #070707;
   }
   
-  /* Estiliza os grupos de input */
   .input-group {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
+    width: 50%;
   }
   
-  /* Estiliza o label dos inputs */
+
   .input-group label {
     font-size: 14px;
     margin-bottom: 5px;
@@ -106,7 +104,7 @@ body {
     width: 50%;
   }
   
-  /* Estiliza os inputs */
+  
   .input-group input[type="text"],
   .input-group input[type="datetime-local"] {
     width: 50%;
@@ -118,9 +116,9 @@ body {
     color: #333;
   }
   
-  /* Estiliza o campo de seleção do método de pagamento */
+  
   .input-group select {
-    width: 50%; /* Define a largura para 50% */
+    width: 50%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -129,7 +127,7 @@ body {
     color: #333;
   }
   
-  /* Estiliza o botão de calcular pagamento */
+  
   #calcPagamentoBtn {
     background-color: #333;
     color: white;
@@ -172,7 +170,7 @@ body {
     background-color: #0a0a0a;
   }
   
-  /* Estiliza o botão de voltar */
+  
   #voltarBtn {
     background-color: #333;
     color: white;
@@ -190,7 +188,7 @@ body {
     background-color:#105F71 ;
   }
   
-  /* Estiliza a página de cupom para impressão */
+
   @media print {
     .container {
       width: 100%;
