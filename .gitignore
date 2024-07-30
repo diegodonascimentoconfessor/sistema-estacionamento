@@ -42,4 +42,5 @@ yarn.lock
 
 # Ignorar lockfile do npm se estiver usando yarn
 package-lock.json
+package.jon
 " > .gitignore
