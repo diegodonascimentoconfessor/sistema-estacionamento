@@ -79,7 +79,7 @@ function calcularPagamento() {
 
   const valorPagamento = diffHrsComTolerancia * tarifa;
 
-  // Salvar pagamento no localStorage
+  
   salvarPagamento(valorPagamento);
 
   window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
