@@ -6,6 +6,8 @@
   <title>Relatório</title>
   <link rel="stylesheet" href="../assets/relatorio.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
   <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="index.html"><i class="fas fa-home"></i> Início</a>
@@ -14,39 +16,42 @@
     <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
     <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
   </div>
-</head>
 
-  <h1>Relatório de Veículos e Pagamentos</h1>
+  <div id="main">
+    <h1>Relatório de Veículos e Pagamentos</h1>
+    
+    <div class="content-container">
+      <h2>Veículos Cadastrados</h2>
+      <table id="vehiclesTable">
+        <thead>
+          <tr>
+            <th>Placa</th>
+            <th>Marca/Modelo</th>
+            <th>Entrada</th>
+            <th>Tolerância</th>
+            <th>Tarifa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dados da tabela vão aqui -->
+        </tbody>
+      </table>
   
-  <h2>Veículos Cadastrados</h2>
-  <table id="vehiclesTable">
-    <thead>
-      <tr>
-        <th>Placa</th>
-        <th>Marca/Modelo</th>
-        <th>Entrada</th>
-        <th>Tolerância</th>
-        <th>Tarifa</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-    </tbody>
-  </table>
-
-  <h2>Pagamentos Registrados</h2>
-  <table id="paymentsTable">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Valor</th>
-        <th>Data</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-    </tbody>
-  </table>
+      <h2>Pagamentos Registrados</h2>
+      <table id="paymentsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Valor</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dados da tabela vão aqui -->
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <script src="../js/relatorio.js"></script>
 </body>

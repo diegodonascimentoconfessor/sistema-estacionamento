@@ -1,83 +1,73 @@
 body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+#sidebar {
+  height: 100vh;
+  width: 200px; /* Largura da sidebar */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+  transition: 0.5s;
+}
+
+#main {
+  margin-left: 250px; /* Largura da sidebar */
+  padding: 20px;
+  width: calc(100% - 250px); /* Ajusta a largura do conteúdo principal */
+  box-sizing: border-box;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.content-container {
+  max-width: 1200px; /* Largura máxima do conteúdo */
+  margin: 0 auto; /* Centraliza o conteúdo */
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.sidebar a {
+  padding: 15px 80px; /* Aumenta o padding para mais espaço vertical */
+  text-decoration: none;
+  font-size: 18px; /* Tamanho da fonte na sidebar */
+  color: #818181;
   display: flex;
   flex-direction: column;
-    font-family: Arial, sans-serif;
-    width: 100%;
-    height: 80vh;
-    margin: 20px;
-   
-  }
-  
-  h1, h2 {
-    text-align: center;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
+  transition: 0.3s;
+}
 
-  .sidebar {
-    height: 100%;
-    width: 100px; /* Defina a largura fixa da sidebar */
-    position: fixed; /* Faz a sidebar ficar fixa */
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 20px;
-    transition: 0.5s;
-  }
-  
-  .sidebar a {
-    padding: 8px 8px 8px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  .sidebar a:hover {
-    color: #f1f1f1;
-  }
-  
-  .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
-  
-  #main {
-    transition: margin-left .5s;
-    padding: 16px;
-    margin-left: 200px; /* Adicione uma margem inicial para alinhar com a sidebar */
-  }
-  
-  .openbtn {
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #111;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-  }
-  
-  .openbtn:hover {
-    background-color: #444;
-  }
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
