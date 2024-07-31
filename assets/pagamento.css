@@ -101,7 +101,7 @@ body {
     margin-bottom: 5px;
     font-weight: bold;
     color: #333;
-    width: 50%;
+    width: 40%;
   }
   
   
@@ -118,7 +118,7 @@ body {
   
   
   .input-group select {
-    width: 50%;
+    width: 30%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -204,4 +204,3 @@ body {
       font-size: 20px;
     }
   }
-  
