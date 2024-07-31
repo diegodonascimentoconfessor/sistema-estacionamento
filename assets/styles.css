@@ -5,7 +5,8 @@ body {
   height: 80vh;
   background-color: #105F71;
   font-family: Arial, sans-serif;
-}
+  border: red solid 1px;
+} 
 
 .sidebar {
   height: 100%;
@@ -21,7 +22,7 @@ body {
 }
 
 .sidebar a {
-  padding: 8px 8px 8px 16px;
+  padding: 25px 25px 25px 26px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
@@ -73,6 +74,7 @@ body {
   transition: margin-left .5s;
   padding: 16px;
   width: 100%;
+  
 }
 
 .input-group {
@@ -115,6 +117,9 @@ body {
   flex-direction: row;
   margin-top: 20px;
   width: 80%;
+  border-radius: 10px;
+  border: red 1px;
+
 }
 
 .container {
@@ -127,6 +132,7 @@ body {
   height: 100%;
   box-sizing: border-box;
   border: green solid 1px;
+  border: red 1px;
 }
 
 .input-group {
@@ -204,6 +210,16 @@ h1 {
   display: flex;
   text-align: center; 
 }
+#top-info{
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
 
 .vagas-info {
   margin-top: 20px;
@@ -212,6 +228,8 @@ h1 {
   height: 34%;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
 }
 
 .container {
@@ -228,6 +246,7 @@ h1 {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  border: red 1px;
 }
 
 .back-button {
