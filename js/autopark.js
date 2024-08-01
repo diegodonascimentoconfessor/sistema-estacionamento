@@ -132,12 +132,12 @@ function carregarListaVeiculos() {
 
     if (vehicles.length > 0) {
       vehicles.forEach((vehicle, index) => {
-        if (index >= 5) return;
+        if (index >= 4) return;
         const li = document.createElement('li');
         li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
 
         const editBtn = document.createElement('button');
-        editBtn.textContent = 'Editar';
+        editBtn.textContent = '';
         editBtn.addEventListener('click', () => {
           editarVeiculo(index);
         });
