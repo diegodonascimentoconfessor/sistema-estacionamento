@@ -30,7 +30,7 @@ body {
 }
 
 .sidebar a {
-  padding: 25px 25px 25px 26px;
+  padding: 35px 35px 35px 36px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
@@ -69,7 +69,12 @@ body {
   background-color: #444;
 }
 
+.p{
+display: flex;
+flex-direction: column;
+font-size: 14px;
 
+}
 
 
 
@@ -116,10 +121,17 @@ body {
 }
 
 .vehicle-list button, #resultadoPesquisa button {
-  padding: 2px 2px;
-  font-size: 12px;
-  margin-right: 0px;
-  margin-top: 3px;
+  background-color: #105F71;
+  color: white;
+  padding: 5px 10px; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px; 
+  display: block;
+  width: 40%; 
+  text-align: center;
+  margin: 5px auto;
 }
 
 #main {
@@ -200,12 +212,12 @@ h1 {
   justify-content: center; 
   height: 160px;
   background-color: #fff;
-  padding: 25px;
+  padding: 20px;
   border-radius: 20px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   margin-top: 10px;
-  font-size: 14px;
-  font-family: 'Arial', sans-serif; 
+  font-size: 18px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 #top-info .number {
