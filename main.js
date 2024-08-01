@@ -12,7 +12,7 @@ app.on('ready', () => {
   console.log("Iniciando Electron");
   mainWindow = new BrowserWindow({
     width: 1000,
-    height: 1000,
+    height: 920,
     resizable: true,
     icon: 'assets/icone-estacionamento.png',
     webPreferences: {
