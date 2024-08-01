@@ -12,7 +12,7 @@ body {
   height: 80vh;
   background-color: #105F71;
   font-family: Arial, sans-serif;
- 
+ overflow: hidden;
   
 } 
 
