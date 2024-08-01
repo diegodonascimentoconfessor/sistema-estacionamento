@@ -15,6 +15,7 @@ function carregarVeiculos() {
     row.insertCell(2).textContent = new Date(vehicle.entrada).toLocaleString();
     row.insertCell(3).textContent = vehicle.tolerancia;
     row.insertCell(4).textContent = vehicle.tarifa;
+    row.insertCell(5).textContent = pagamento.valor;
   });
 }
 
