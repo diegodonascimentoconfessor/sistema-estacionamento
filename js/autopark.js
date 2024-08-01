@@ -132,6 +132,7 @@ function carregarListaVeiculos() {
 
     if (vehicles.length > 0) {
       vehicles.forEach((vehicle, index) => {
+        if (index >= 5) return;
         const li = document.createElement('li');
         li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
 

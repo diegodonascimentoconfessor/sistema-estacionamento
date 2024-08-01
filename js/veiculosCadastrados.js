@@ -1,3 +1,4 @@
+// JavaScript (veiculosCadastrados.js)
 function carregarListaVeiculos() {
   const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
   const veiculosList = document.getElementById('veiculos-list');
