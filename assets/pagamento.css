@@ -156,7 +156,7 @@ body {
   
  
   #gerarCupomBtn {
-    background-color: #105F71;
+    background-color: #010607;
     color: white;
     padding: 10px;
     border: none;
@@ -164,12 +164,12 @@ body {
     cursor: pointer;
     font-size: 16px;
     display: block;
-    width: 100%;
+    width: 50%;
     margin-top: 10px;
   }
   
   #gerarCupomBtn:hover {
-    background-color: #0a0a0a;
+    background-color: #105F71 ;
   }
   
   
@@ -202,7 +202,11 @@ body {
       display: none;
     }
     
-    #valorPagamento {
-      font-size: 20px;
-    }
+   
+  #valorPagamento {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px; /* Reduzido para ajustar o espaço */
+    font-weight: bold;
   }
+}

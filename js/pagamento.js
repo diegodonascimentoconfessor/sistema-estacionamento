@@ -1,6 +1,6 @@
 let valorPagamentoGlobal = 0;
 let entradaGlobal = '';
-let saidaGlobal = '';
+let saidaGlobal = ''; // Armazenar a saída global
 let metodoPagamentoGlobal = '';
 let numeroCartaoGlobal = '';
 let nomeTitularGlobal = '';
@@ -11,11 +11,7 @@ document.getElementById('metodoPagamento').addEventListener('change', function()
   const metodoPagamento = this.value;
   const cartaoInfo = document.getElementById('cartaoInfo');
 
-  if (metodoPagamento === 'credito' || metodoPagamento === 'debito') {
-    cartaoInfo.style.display = 'block';
-  } else {
-    cartaoInfo.style.display = 'none';
-  }
+  cartaoInfo.style.display = (metodoPagamento === 'credito' || metodoPagamento === 'debito') ? 'block' : 'none';
 });
 
 document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
@@ -27,12 +23,11 @@ document.getElementById('voltarBtn').addEventListener('click', function() {
 function calcularPagamento() {
   const placaVeiculo = document.getElementById('placaVeiculo').value;
   const entrada = document.getElementById('entradaPagamento').value;
-  const saida = document.getElementById('saidaPagamento').value;
   const tarifa = parseFloat(document.getElementById('tarifaPagamento').value) || 10;
   const tolerancia = parseInt(document.getElementById('toleranciaPagamento').value) || 10;
   const metodoPagamento = document.getElementById('metodoPagamento').value;
 
-  if (!placaVeiculo || !entrada || !saida || isNaN(tarifa) || isNaN(tolerancia)) {
+  if (!placaVeiculo || !entrada || isNaN(tarifa) || isNaN(tolerancia)) {
     alert('Por favor, preencha todos os campos necessários.');
     return;
   }
@@ -55,7 +50,7 @@ function calcularPagamento() {
   }
 
   const entradaDate = new Date(entrada);
-  const saidaDate = new Date(saida);
+  const saidaDate = new Date(); // Data e hora atuais para a saída
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
   const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
@@ -63,10 +58,11 @@ function calcularPagamento() {
   const valorPagamento = diffHrsComTolerancia * tarifa;
   valorPagamentoGlobal = valorPagamento;
   entradaGlobal = entrada;
-  saidaGlobal = saida;
+  saidaGlobal = saidaDate.toISOString(); // Armazena a data de saída globalmente
+
   metodoPagamentoGlobal = metodoPagamento;
 
-  document.getElementById('valorPagamento').innerText = `Valor a Pagar: R$ ${valorPagamento.toFixed(2)}`;
+  document.getElementById('valorPagamento').innerText = ` R$ ${valorPagamento.toFixed(2)}`;
   document.getElementById('gerarCupomBtn').style.display = 'inline-block';
 }
 
@@ -110,18 +106,23 @@ function gerarCupom() {
   // Armazenar informações de pagamento em localStorage
   let pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
   pagamentos.push({
+    id: pagamentos.length + 1, // Gerar um ID simples para o pagamento
     placa: placaVeiculo,
     marcaModelo: document.getElementById('marcaModelo').value,
     entrada: entradaGlobal,
     saida: saidaGlobal,
     valorRecebido: valorPagamentoGlobal,
     tarifa: document.getElementById('tarifaPagamento').value,
-    tolerancia: document.getElementById('toleranciaPagamento').value
+    tolerancia: document.getElementById('toleranciaPagamento').value,
+    metodoPagamento: metodoPagamentoGlobal,
+    numeroCartao: numeroCartaoGlobal,
+    nomeTitular: nomeTitularGlobal,
+    validadeCartao: validadeCartaoGlobal,
+    cvvCartao: cvvCartaoGlobal,
+    data: new Date().toISOString()
   });
 
-  console.log('Pagamentos antes de salvar no localStorage:', pagamentos);
   localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
-  console.log('Dados de pagamento armazenados no localStorage.');
 }
 
 function getMetodoPagamentoTexto(metodo) {
@@ -137,4 +138,38 @@ function getMetodoPagamentoTexto(metodo) {
     default:
       return '';
   }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  carregarVeiculos();
+  carregarPagamentos();
+});
+
+function carregarVeiculos() {
+  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+  const vehiclesTableBody = document.getElementById('vehiclesTable').getElementsByTagName('tbody')[0];
+
+  vehicles.forEach(vehicle => {
+    const row = vehiclesTableBody.insertRow();
+    
+    row.insertCell(0).textContent = vehicle.placa;
+    row.insertCell(1).textContent = vehicle.marcaModelo;
+    row.insertCell(2).textContent = new Date(vehicle.entrada).toLocaleString();
+    row.insertCell(3).textContent = vehicle.tolerancia;
+    row.insertCell(4).textContent = vehicle.tarifa;
+    row.insertCell(5).textContent = vehicle.valorRecebido || 'N/A'; // Adiciona valor recebido, se disponível
+  });
+}
+
+function carregarPagamentos() {
+  const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
+  const paymentsTableBody = document.getElementById('paymentsTable').getElementsByTagName('tbody')[0];
+
+  pagamentos.forEach(pagamento => {
+    const row = paymentsTableBody.insertRow();
+    
+    row.insertCell(0).textContent = pagamento.id;
+    row.insertCell(1).textContent = `R$ ${pagamento.valorRecebido.toFixed(2)}`;
+    row.insertCell(2).textContent = new Date(pagamento.data).toLocaleString();
+  });
 }
