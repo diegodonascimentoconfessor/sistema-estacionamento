@@ -173,3 +173,14 @@ function carregarPagamentos() {
     row.insertCell(2).textContent = new Date(pagamento.data).toLocaleString();
   });
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  let marcaModelo = localStorage.getItem("marcaModelo");
+  let entrada = localStorage.getItem("entrada");
+  let placa = localStorage.getItem("placa");
+
+  document.getElementById("marcaModelo").value = marcaModelo;
+  document.getElementById("entradaPagamento").value = entrada;
+  document.getElementById("placaVeiculo").value = placa;
+});
