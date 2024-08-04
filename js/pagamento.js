@@ -184,3 +184,40 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("entradaPagamento").value = entrada;
   document.getElementById("placaVeiculo").value = placa;
 });
+
+
+document.getElementById('calcPagamentoBtn').addEventListener('click', function() {
+  var placa = document.getElementById('placaVeiculo').value;
+  var marcaModelo = document.getElementById('marcaModelo').value;
+  var entrada = document.getElementById('entradaPagamento').value;
+  var tolerancia = document.getElementById('toleranciaPagamento').value;
+  var tarifa = document.getElementById('tarifaPagamento').value;
+  
+  // Aqui você calcula o valor do pagamento, substitua pelo cálculo real
+  var valorPagamento = calcularPagamento(entrada, tolerancia, tarifa); 
+
+  // Armazena os dados no localStorage
+  localStorage.setItem('placa', placa);
+  localStorage.setItem('marcaModelo', marcaModelo);
+  localStorage.setItem('entrada', entrada);
+  localStorage.setItem('tolerancia', tolerancia);
+  localStorage.setItem('tarifa', tarifa);
+  localStorage.setItem('valorPagamento', valorPagamento);
+
+  // Exibe o valor de pagamento
+  document.getElementById('valorPagamento').textContent = 'Valor a Pagar: R$ ' + valorPagamento.toFixed(2);
+
+  // Mostra o botão de gerar cupom
+  document.getElementById('gerarCupomBtn').style.display = 'inline';
+});
+
+function calcularPagamento(entrada, tolerancia, tarifa) {
+  // Implementar a lógica de cálculo real
+  // Exemplo simplificado
+  var entradaDate = new Date(entrada);
+  var agora = new Date();
+  var tempoEstacionado = (agora - entradaDate) / (1000 * 60 * 60); // tempo em horas
+  var tarifaPorHora = parseFloat(tarifa);
+  
+  return tempoEstacionado * tarifaPorHora;
+}
