@@ -63,8 +63,8 @@ document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPa
 
 function calcularPagamento() {
   const entrada = document.getElementById('entrada').value;
-  const tarifa = parseFloat(document.getElementById('tarifa').value);
-  const tolerancia = parseInt(document.getElementById('tolerancia').value);
+  const tarifa = parseFloat(document.getElementById('tarifa').value) || 10;
+  const tolerancia = parseInt(document.getElementById('tolerancia').value) || 10   ;
 
   if (!entrada || isNaN(tarifa) || isNaN(tolerancia)) {
     alert('Por favor, preencha todos os campos necessários.');
