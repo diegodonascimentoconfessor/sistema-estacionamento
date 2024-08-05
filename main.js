@@ -13,13 +13,15 @@ app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 920,
-    resizable: true,
+    resizable: false,
     icon: 'assets/icone-estacionamento.png',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
     }
   });
+  
+  mainWindow.maximize();
   Menu.setApplicationMenu(Menu.buildFromTemplate(createMenuTemplate()));
   mainWindow.loadFile('app/index.html');
 });
