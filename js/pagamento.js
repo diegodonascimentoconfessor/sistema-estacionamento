@@ -184,3 +184,70 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("entradaPagamento").value = entrada;
   document.getElementById("placaVeiculo").value = placa;
 });
+
+
+
+function calcularPagamento() {
+  const placaVeiculo = document.getElementById('placaVeiculo').value;
+  const entrada = document.getElementById('entradaPagamento').value;
+  const tarifa = parseFloat(document.getElementById('tarifaPagamento').value) || 10;
+  const tolerancia = parseInt(document.getElementById('toleranciaPagamento').value) || 10;
+  const metodoPagamento = document.getElementById('metodoPagamento').value;
+
+  if (!placaVeiculo || !entrada || isNaN(tarifa) || isNaN(tolerancia)) {
+    alert('Por favor, preencha todos os campos necessários.');
+    return;
+  }
+
+  if (metodoPagamento === 'credito' || metodoPagamento === 'debito') {
+    const numeroCartao = document.getElementById('numeroCartao').value;
+    const nomeTitular = document.getElementById('nomeTitular').value;
+    const validadeCartao = document.getElementById('validadeCartao').value;
+    const cvvCartao = document.getElementById('cvvCartao').value;
+
+    if (!numeroCartao || !nomeTitular || !validadeCartao || !cvvCartao) {
+      alert('Por favor, preencha todos os campos do cartão.');
+      return;
+    }
+
+    numeroCartaoGlobal = numeroCartao;
+    nomeTitularGlobal = nomeTitular;
+    validadeCartaoGlobal = validadeCartao;
+    cvvCartaoGlobal = cvvCartao;
+  }
+
+  const entradaDate = new Date(entrada);
+  const saidaDate = new Date(); // Data e hora atuais para a saída
+  const diffMs = saidaDate - entradaDate;
+  const diffHrs = diffMs / (1000 * 60 * 60);
+  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
+
+  const valorPagamento = diffHrsComTolerancia * tarifa;
+  valorPagamentoGlobal = valorPagamento;
+  entradaGlobal = entrada;
+  saidaGlobal = saidaDate.toISOString(); // Armazena a data de saída globalmente
+
+  metodoPagamentoGlobal = metodoPagamento;
+
+  document.getElementById('valorPagamento').innerText = `R$ ${valorPagamento.toFixed(2)}`;
+  document.getElementById('gerarCupomBtn').style.display = 'inline-block';
+
+  // Armazenar o valor de pagamento no localStorage
+  let veiculos = JSON.parse(localStorage.getItem('vehicles')) || [];
+  let veiculoExistente = veiculos.find(v => v.placa === placaVeiculo);
+  
+  if (veiculoExistente) {
+    veiculoExistente.valorRecebido = valorPagamentoGlobal;
+  } else {
+    veiculos.push({
+      placa: placaVeiculo,
+      marcaModelo: document.getElementById('marcaModelo').value,
+      entrada: entradaGlobal,
+      tarifa: document.getElementById('tarifaPagamento').value,
+      tolerancia: document.getElementById('toleranciaPagamento').value,
+      valorRecebido: valorPagamentoGlobal
+    });
+  }
+
+  localStorage.setItem('vehicles', JSON.stringify(veiculos));
+}
