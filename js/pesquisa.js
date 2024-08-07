@@ -1,57 +1,38 @@
 document.getElementById('searchBtn').addEventListener('click', () => {
-  const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase(); 
-  if (searchPlaca) {
-      pesquisarPlaca(searchPlaca);
-  } else {
-      alert('Por favor, insira uma placa para pesquisar.');
-  }
-});
-
-document.getElementById('backBtn').addEventListener('click', () => {
-  window.location.href = 'index.html';
-});
-
-function pesquisarPlaca(placa) {
-  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-  const vehicle = vehicles.find(v => v.placa === placa);
-
-  if (vehicle) {
-      mostrarDetalhesVeiculo(vehicle);
-  } else {
-      alert(`Veículo com a placa ${placa} não encontrado.`);
-  }
-}
-function mostrarDetalhesVeiculo(vehicle) {
-  const container = document.querySelector('.container');
-  const detailsElement = document.createElement('div');
-  detailsElement.classList.add('vehicle-details');
-  detailsElement.innerHTML = `
-      <h2>Detalhes do Veículo</h2>
-      <p><strong>Placa:</strong> ${vehicle.placa}</p>
-      <p><strong>Marca/Modelo:</strong> ${vehicle.marcaModelo}</p>
-      <p><strong>Entrada:</strong> ${new Date(vehicle.entrada).toLocaleString()}</p>
-      <p><strong>Saída:</strong> ${new Date(vehicle.saida).toLocaleString()}</p>
-  `;
+    const searchPlaca = document.getElementById('searchPlaca').value;
+    const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+    const resultadoPesquisa = vehicles.find(vehicle => vehicle.placa === searchPlaca);
   
-  const existingDetails = document.querySelector('.vehicle-details');
-  if (existingDetails) {
-      container.removeChild(existingDetails);
-  }
+    const resultadoPesquisaContainer = document.getElementById('resultadoPesquisa');
+    resultadoPesquisaContainer.innerHTML = '';
   
-  container.appendChild(detailsElement);
-}
-
-function openNav() {
-  document.getElementById("sidebar").style.width = "200px";
-  document.getElementById("main").style.marginLeft = "200px";
-}
-
-function closeNav() {
-  document.getElementById("sidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft = "0";
-}
-
-document.addEventListener('DOMContentLoaded', (event) => {
-  document.querySelector('.openbtn').addEventListener('click', openNav);
-  document.querySelector('.closebtn').addEventListener('click', closeNav);
-}); 
+    if (resultadoPesquisa) {
+      const li = document.createElement('li');
+      li.textContent = `Placa: ${resultadoPesquisa.placa}, Marca/Modelo: ${resultadoPesquisa.marcaModelo}, Entrada: ${new Date(resultadoPesquisa.entrada).toLocaleString()}`;
+  
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Editar';
+      editBtn.addEventListener('click', () => {
+        editarVeiculo(vehicles.indexOf(resultadoPesquisa));
+      });
+      li.appendChild(editBtn);
+  
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Excluir';
+      deleteBtn.addEventListener('click', () => {
+        excluirVeiculo(vehicles.indexOf(resultadoPesquisa));
+      });
+      li.appendChild(deleteBtn);
+  
+      const payBtn = document.createElement('button');
+      payBtn.textContent = 'Pagamento';
+      payBtn.addEventListener('click', () => {
+        calcularPagamentoVeiculo(resultadoPesquisa);
+      });
+      li.appendChild(payBtn);
+  
+      resultadoPesquisaContainer.appendChild(li);
+    } else {
+      resultadoPesquisaContainer.textContent = 'Veículo não encontrado.';
+    }
+  });

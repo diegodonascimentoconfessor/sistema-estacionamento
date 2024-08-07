@@ -3,7 +3,7 @@ const isElectron = typeof window !== 'undefined' && window.process && window.pro
 const ipcRenderer = isElectron ? require('electron').ipcRenderer : null;
 
 const inputFields = [
-  'menu',
+  
   'marcaModelo',
   'entrada',
   'tolerancia',
