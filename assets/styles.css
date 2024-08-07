@@ -13,6 +13,7 @@ body {
   background-color: #105F71;
   font-family: Arial, sans-serif;
  overflow: hidden;
+ margin-top: 10px;
   
 } 
 
@@ -143,6 +144,7 @@ font-size: 14px;
   box-sizing: border-box;
   border: green solid 1px;
   border: red 1px;
+  margin-top: 200px;
 
 }
 
@@ -312,7 +314,7 @@ h1 {
   /* Estiliza o botão de calcular pagamento */
   #calcPagamentoBtn {
     
- background-color: #105F71;
+ background-color: #f6fcfd;
   color: white;
   padding: 5px 10px; 
   border: none;
