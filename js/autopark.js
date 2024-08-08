@@ -48,8 +48,6 @@ function carregarListaVeiculos() {
         payBtn.textContent = 'pagamento';
         payBtn.addEventListener('click', () => {
           calcularPagamentoVeiculo(vehicle);
-          
-
         });
         li.appendChild(payBtn);
 
@@ -78,13 +76,8 @@ function calcularPagamentoVeiculo(vehicle) {
   const diffHrs = diffMs / (1000 * 60 * 60);
   const valorPagamento = diffHrs * tarifa;
 
-  salvarPagamento(valorPagamento);
-
- 
+  // Redireciona para a página pagamento.html com o valor do pagamento como parâmetro na URL
+  window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
 }
 
-
 window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
-
-window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
-
