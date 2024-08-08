@@ -45,7 +45,7 @@ function carregarListaVeiculos() {
         li.appendChild(deleteBtn);
 
         const payBtn = document.createElement('button');
-        payBtn.textContent = 'Pagamento';
+        payBtn.textContent = 'pagamento';
         payBtn.addEventListener('click', () => {
           calcularPagamentoVeiculo(vehicle);
         });
