@@ -48,6 +48,8 @@ function carregarListaVeiculos() {
         payBtn.textContent = 'pagamento';
         payBtn.addEventListener('click', () => {
           calcularPagamentoVeiculo(vehicle);
+          
+
         });
         li.appendChild(payBtn);
 
@@ -78,7 +80,11 @@ function calcularPagamentoVeiculo(vehicle) {
 
   salvarPagamento(valorPagamento);
 
-  window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
+ 
 }
 
+
 window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
+
+window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
+
