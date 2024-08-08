@@ -13,15 +13,12 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"></a>
     <a href="index.html"><i class="fas fa-home"></i> Início</a>
     <a href="listaveiculos-cadastrados.html"><i class="fas fa-list"></i> Lista de Veículos</a>
-    <a href="pesquisa.html"><i class="fas fa-search"></i
-      > Pesquisar Veículos</a>
+    <a href="pesquisa.html"><i class="fas fa-search"></i> Pesquisar Veículos</a>
     <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
     <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
   </div>
 
   <div id="main">
-    
-    
     <div class="container">
       <figure>
         <img src="../assets/icone-estacionamento.png" alt="Ícone de estacionamento" style="width:18px;height:auto;" title="logo autopark">
@@ -40,16 +37,9 @@
         <label class="label" for="entrada">Entrada</label>
         <input id="entrada" type="datetime-local" placeholder="Entrada">
       </div>
-      <div class="input-group">
-        <label class="label" for="tolerancia">Tolerância 10 Minutos </label>
-        <input id="tolerancia" type="text" placeholder="Tolerância ( 10 minutos)" >
-      </div>
-      <div class="input-group">
-        <label class="label" for="tarifa">Tarifa por Hora 10 R$</label >
-        <input id="tarifa" type="text" placeholder=" 10 Tarifa por Hora"  >
-      </div>
+      
       <button id="addVehicleBtn" class="button">Adicionar Veículo</button>
-      <button id="calcPagamentoBtn" class="button"></button>
+      <button id="calcPagamentoBtn" class="button">Calcular Pagamento</button>
       <div id="vehicleList" class="vehicle-list"></div>
     
     </div>
