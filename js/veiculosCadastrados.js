@@ -1,4 +1,3 @@
-// JavaScript (veiculosCadastrados.js)
 function carregarListaVeiculos() {
   const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
   const veiculosList = document.getElementById('veiculos-list');
@@ -36,6 +35,7 @@ function calcularPagamentoVeiculo(vehicle) {
 
   const valorPagamento = diffHrsComTolerancia * parseFloat(vehicle.tarifa);
 
+  // Corrigido: construir a URL com o valor do pagamento
   window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
 }
 

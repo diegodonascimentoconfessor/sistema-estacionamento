@@ -1,47 +1,16 @@
 const tarifa = 10; // Tarifa fixa por hora
 
-document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
-
-function calcularPagamento() {
-  const entrada = document.getElementById('entrada').value;
-
-  if (!entrada) {
-    alert('Por favor, preencha todos os campos necessários.');
-    return;
-  }
-
-  const entradaDate = new Date(entrada);
-  const saidaDate = new Date();
-  const diffMs = saidaDate - entradaDate;
-  const diffHrs = diffMs / (1000 * 60 * 60);
-
-  const valorPagamento = diffHrs * tarifa;
-
-  salvarPagamento(valorPagamento);
-
-  window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
-}
-
-function salvarPagamento(valorPagamento) {
-  const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
-  const novoPagamento = {
-    id: pagamentos.length + 1,
-    valor: valorPagamento.toFixed(2),
-    data: new Date().toLocaleString()
-  };
-  pagamentos.push(novoPagamento);
-  localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
-}
-
 document.getElementById('addVehicleBtn').addEventListener('click', () => {
   const marcaModelo = document.getElementById('marcaModelo').value;
   const placa = document.getElementById('placa').value;
+  const cor = document.getElementById('cor').value;
   const entrada = document.getElementById('entrada').value;
 
-  if (marcaModelo && placa && entrada) {
+  if (marcaModelo && placa && cor && entrada) {
     const newVehicle = {
       marcaModelo,
       placa,
+      cor,
       entrada
     };
 
@@ -66,7 +35,7 @@ function carregarListaVeiculos() {
     if (vehicles.length > 0) {
       vehicles.forEach((vehicle, index) => {
         const li = document.createElement('li');
-        li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
+        li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Cor: ${vehicle.cor}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Excluir';
