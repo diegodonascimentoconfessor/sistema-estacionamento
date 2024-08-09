@@ -157,7 +157,7 @@ function carregarVeiculos() {
     row.insertCell(2).textContent = new Date(vehicle.entrada).toLocaleString();
     row.insertCell(3).textContent = vehicle.tolerancia;
     row.insertCell(4).textContent = vehicle.tarifa;
-    row.insertCell(5).textContent = vehicle.valorRecebido || 'N/A'; 
+    row.insertCell(5).textContent = vehicle.valorRecebido || 'N/A'; // Adiciona valor recebido, se disponível
   });
 }
 
@@ -252,19 +252,15 @@ function calcularPagamento() {
   localStorage.setItem('vehicles', JSON.stringify(veiculos));
 }
 
-// pagamento.html - Após o usuário confirmar o pagamento
 
-function registrarPagamento(placa, valorRecebido) {
-  const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
-  const dataPagamento = new Date().toLocaleDateString('pt-BR'); // Data no formato brasileiro
+document.addEventListener("DOMContentLoaded", function() {
+  let now = new Date();
+  let year = now.getFullYear();
+  let month = String(now.getMonth() + 1).padStart(2, '0');
+  let day = String(now.getDate()).padStart(2, '0');
+  let hours = String(now.getHours()).padStart(2, '0');
+  let minutes = String(now.getMinutes()).padStart(2, '0');
 
-  const novoPagamento = {
-    id: pagamentos.length + 1,
-    placa: placa,
-    valorRecebido: parseFloat(valorRecebido),
-    dataPagamento: dataPagamento
-  };
-
-  pagamentos.push(novoPagamento);
-  localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
-}
+  let currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+  document.getElementById("entradaPagamento").value = currentDateTime;
+});
