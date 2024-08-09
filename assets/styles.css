@@ -14,6 +14,7 @@ body {
   font-family: Arial, sans-serif;
  overflow: hidden;
  margin-top: 10px;
+ margin-bottom: 200px;
   
 } 
 
@@ -328,7 +329,7 @@ h1 {
 }
   
   #calcPagamentoBtn:hover {
-    background-color:#105F71 ;
+    background-color:#f1f1f1; ;
   }
   
   /* Estiliza a área de valor de pagamento */
