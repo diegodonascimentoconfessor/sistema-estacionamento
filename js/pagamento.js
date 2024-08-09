@@ -157,7 +157,7 @@ function carregarVeiculos() {
     row.insertCell(2).textContent = new Date(vehicle.entrada).toLocaleString();
     row.insertCell(3).textContent = vehicle.tolerancia;
     row.insertCell(4).textContent = vehicle.tarifa;
-    row.insertCell(5).textContent = vehicle.valorRecebido || 'N/A'; // Adiciona valor recebido, se disponível
+    row.insertCell(5).textContent = vehicle.valorRecebido || 'N/A'; 
   });
 }
 
@@ -250,4 +250,21 @@ function calcularPagamento() {
   }
 
   localStorage.setItem('vehicles', JSON.stringify(veiculos));
+}
+
+// pagamento.html - Após o usuário confirmar o pagamento
+
+function registrarPagamento(placa, valorRecebido) {
+  const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
+  const dataPagamento = new Date().toLocaleDateString('pt-BR'); // Data no formato brasileiro
+
+  const novoPagamento = {
+    id: pagamentos.length + 1,
+    placa: placa,
+    valorRecebido: parseFloat(valorRecebido),
+    dataPagamento: dataPagamento
+  };
+
+  pagamentos.push(novoPagamento);
+  localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
 }

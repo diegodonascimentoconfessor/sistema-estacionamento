@@ -3,32 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Relatório de Pagamentos - Autopark</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Link para o arquivo CSS -->
+  <title>Relatório</title>
+  <link rel="stylesheet" href="../assets/relatorio.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <h1>Relatório de Pagamentos</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Placa do Veículo</th>
-        <th>Valor Recebido (R$)</th>
-        <th>Data do Pagamento</th>
-      </tr>
-    </thead>
-    <tbody id="paymentsTableBody">
-      <!-- Pagamentos serão carregados aqui -->
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="2" class="total">Total Recebido:</td>
-        <td id="totalValue" class="total">R$ 0,00</td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
+  <div id="sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"></a>
+    <a href="index.html"><i class="fas fa-home"></i> Início</a>
+    <a href="listaveiculos-cadastrados.html"><i class="fas fa-list"></i> Lista de Veículos</a>
+    <a href="pesquisa.html"><i class="fas fa-search"></i> Pesquisar Veículos</a>
+    <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
+    <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
+    <a href="Financeiro.htm"><i class="fas fa-file-alt"></i> Financeiro</a>
+  </div>
 
-  <script src="scripts.js"></script> <!-- Link para o arquivo JavaScript -->
+  <div class="content-container">
+    <h1>Relatório de Veículos</h1>
+    <table id="vehiclesTable">
+      <thead>
+        <tr>
+          <th>Placa</th>
+          <th>Marca/Modelo</th>
+          <th>Entrada</th>
+          <th>Tolerância</th>
+          <th>Tarifa</th>
+          <th>Pagamento</th> <!-- Coluna para valor de pagamento -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dados serão carregados aqui pelo JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="../js/relatorio.js"></script>
 </body>
 </html>

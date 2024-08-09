@@ -4,9 +4,9 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
   const marcaModelo = document.getElementById('marcaModelo').value;
   const placa = document.getElementById('placa').value;
   const cor = document.getElementById('cor').value;
-  const entrada = document.getElementById('entrada').value;
+  const entrada = new Date().toISOString(); // Gera a entrada automaticamente
 
-  if (marcaModelo && placa && cor && entrada) {
+  if (marcaModelo && placa && cor) {
     const newVehicle = {
       marcaModelo,
       placa,
@@ -81,3 +81,30 @@ function calcularPagamentoVeiculo(vehicle) {
 }
 
 window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
+
+
+// Função para adicionar um veículo e salvar dados no localStorage
+document.getElementById('addVehicleBtn').addEventListener('click', function() {
+  const marcaModelo = document.getElementById('marcaModelo').value;
+  const placa = document.getElementById('placa').value;
+  const cor = document.getElementById('cor').value;
+  
+  if (!marcaModelo || !placa || !cor) {
+    alert('Por favor, preencha todos os campos.');
+    return;
+  }
+  
+  // Salva os dados no localStorage
+  localStorage.setItem('marcaModelo', marcaModelo);
+  localStorage.setItem('placa', placa);
+  localStorage.setItem('cor', cor);
+  
+  // Adiciona o veículo à lista de veículos
+  const vehicleList = document.getElementById('vehicleList');
+  vehicleList.innerHTML += ``;
+  
+  // Limpa os campos após adicionar o veículo
+  document.getElementById('marcaModelo').value = '';
+  document.getElementById('placa').value = '';
+  document.getElementById('cor').value = '';
+});
