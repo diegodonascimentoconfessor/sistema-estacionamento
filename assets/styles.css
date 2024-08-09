@@ -14,11 +14,7 @@ body {
   font-family: Arial, sans-serif;
  overflow: hidden;
  margin-top: 10px;
-<<<<<<< HEAD
  margin-bottom: 200px;
-=======
-
->>>>>>> d32fb1b337360742ccfbe498682e6812b48a36ac
   
 } 
 
@@ -212,8 +208,7 @@ h1 {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   margin-top: 10px;
   font-size: 18px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  margin-bottom: 150px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 #top-info .number {
@@ -272,7 +267,7 @@ h1 {
 
 * Estiliza o container principal do pagamento */
 .container {
-    background-color:#f5f5f5; ;
+    background-color: #fff;
     padding: 0px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -325,6 +320,7 @@ h1 {
   padding: 5px 10px; 
   border: none;
   border-radius: 5px;
+  cursor: pointer;
   font-size: 14px; 
   display: block;
   width: 40%; 
@@ -333,11 +329,7 @@ h1 {
 }
   
   #calcPagamentoBtn:hover {
-<<<<<<< HEAD
     background-color:#f1f1f1; ;
-=======
-    background-color:#fff ;
->>>>>>> d32fb1b337360742ccfbe498682e6812b48a36ac
   }
   
   /* Estiliza a área de valor de pagamento */
