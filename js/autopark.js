@@ -101,3 +101,28 @@ document.getElementById('addVehicleBtn').addEventListener('click', function() {
   localStorage.setItem('veiculo-' + placa, JSON.stringify(vehicle));
   alert('Veículo adicionado com sucesso!');
 });
+
+
+
+
+// atualização 
+
+document.getElementById('addVehicleBtn').addEventListener('click', function() {
+  const marcaModelo = document.getElementById('marcaModelo').value;
+  const placa = document.getElementById('placa').value;
+  const cor = document.getElementById('cor').value;
+
+  if (marcaModelo && placa && cor) {
+    // Armazenar dados do veículo em localStorage
+    localStorage.setItem('selectedVehicle', JSON.stringify({
+      marcaModelo: marcaModelo,
+      placa: placa,
+      cor: cor
+    }));
+
+    // Redirecionar para a página de pagamento
+    window.location.href = 'pagamento.html';
+  } else {
+    alert('Por favor, preencha todos os campos.');
+  }
+});

@@ -1,12 +1,14 @@
+// Variáveis globais
 let valorPagamentoGlobal = 0;
 let entradaGlobal = '';
-let saidaGlobal = ''; // Armazenar a saída global
+let saidaGlobal = '';
 let metodoPagamentoGlobal = '';
 let numeroCartaoGlobal = '';
 let nomeTitularGlobal = '';
 let validadeCartaoGlobal = '';
 let cvvCartaoGlobal = '';
 
+// Evento para exibir os campos de cartão conforme o método de pagamento
 document.getElementById('metodoPagamento').addEventListener('change', function() {
   const metodoPagamento = this.value;
   const cartaoInfo = document.getElementById('cartaoInfo');
@@ -14,12 +16,14 @@ document.getElementById('metodoPagamento').addEventListener('change', function()
   cartaoInfo.style.display = (metodoPagamento === 'credito' || metodoPagamento === 'debito') ? 'block' : 'none';
 });
 
+// Eventos para botões
 document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
 document.getElementById('gerarCupomBtn').addEventListener('click', gerarCupom);
 document.getElementById('voltarBtn').addEventListener('click', function() {
   window.location.href = 'index.html';
 });
 
+// Função para calcular pagamento
 function calcularPagamento() {
   const placaVeiculo = document.getElementById('placaVeiculo').value;
   const entrada = document.getElementById('entradaPagamento').value;
@@ -50,7 +54,7 @@ function calcularPagamento() {
   }
 
   const entradaDate = new Date(entrada);
-  const saidaDate = new Date(); // Data e hora atuais para a saída
+  const saidaDate = new Date();
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
   const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
@@ -58,14 +62,33 @@ function calcularPagamento() {
   const valorPagamento = diffHrsComTolerancia * tarifa;
   valorPagamentoGlobal = valorPagamento;
   entradaGlobal = entrada;
-  saidaGlobal = saidaDate.toISOString(); // Armazena a data de saída globalmente
-
+  saidaGlobal = saidaDate.toISOString();
   metodoPagamentoGlobal = metodoPagamento;
 
-  document.getElementById('valorPagamento').innerText = ` R$ ${valorPagamento.toFixed(2)}`;
+  document.getElementById('valorPagamento').innerText = `R$ ${valorPagamento.toFixed(2)}`;
   document.getElementById('gerarCupomBtn').style.display = 'inline-block';
+
+  // Armazenar o valor de pagamento no localStorage
+  let veiculos = JSON.parse(localStorage.getItem('vehicles')) || [];
+  let veiculoExistente = veiculos.find(v => v.placa === placaVeiculo);
+  
+  if (veiculoExistente) {
+    veiculoExistente.valorRecebido = valorPagamentoGlobal;
+  } else {
+    veiculos.push({
+      placa: placaVeiculo,
+      marcaModelo: document.getElementById('marcaModelo').value,
+      entrada: entradaGlobal,
+      tarifa: document.getElementById('tarifaPagamento').value,
+      tolerancia: document.getElementById('toleranciaPagamento').value,
+      valorRecebido: valorPagamentoGlobal
+    });
+  }
+
+  localStorage.setItem('vehicles', JSON.stringify(veiculos));
 }
 
+// Função para gerar cupom
 function gerarCupom() {
   const placaVeiculo = document.getElementById('placaVeiculo').value;
 
@@ -106,7 +129,7 @@ function gerarCupom() {
   // Armazenar informações de pagamento em localStorage
   let pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
   pagamentos.push({
-    id: pagamentos.length + 1, // Gerar um ID simples para o pagamento
+    id: pagamentos.length + 1,
     placa: placaVeiculo,
     marcaModelo: document.getElementById('marcaModelo').value,
     entrada: entradaGlobal,
@@ -125,6 +148,7 @@ function gerarCupom() {
   localStorage.setItem('pagamentos', JSON.stringify(pagamentos));
 }
 
+// Função para obter o texto do método de pagamento
 function getMetodoPagamentoTexto(metodo) {
   switch (metodo) {
     case 'dinheiro':
@@ -140,11 +164,7 @@ function getMetodoPagamentoTexto(metodo) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  carregarVeiculos();
-  carregarPagamentos();
-});
-
+// Carregar veículos na tabela
 function carregarVeiculos() {
   const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
   const vehiclesTableBody = document.getElementById('vehiclesTable').getElementsByTagName('tbody')[0];
@@ -157,10 +177,11 @@ function carregarVeiculos() {
     row.insertCell(2).textContent = new Date(vehicle.entrada).toLocaleString();
     row.insertCell(3).textContent = vehicle.tolerancia;
     row.insertCell(4).textContent = vehicle.tarifa;
-    row.insertCell(5).textContent = vehicle.valorRecebido || 'N/A'; // Adiciona valor recebido, se disponível
+    row.insertCell(5).textContent = vehicle.valorRecebido || 'N/A';
   });
 }
 
+// Carregar pagamentos na tabela
 function carregarPagamentos() {
   const pagamentos = JSON.parse(localStorage.getItem('pagamentos')) || [];
   const paymentsTableBody = document.getElementById('paymentsTable').getElementsByTagName('tbody')[0];
@@ -174,86 +195,21 @@ function carregarPagamentos() {
   });
 }
 
-
+// Atualizar a página de pagamento com os dados do veículo
 document.addEventListener("DOMContentLoaded", function() {
-  let marcaModelo = localStorage.getItem("marcaModelo");
-  let entrada = localStorage.getItem("entrada");
-  let placa = localStorage.getItem("placa");
+  // Carregar informações do veículo do localStorage
+  let veiculo = JSON.parse(localStorage.getItem('vehicles')).slice(-1)[0]; // Pega o último veículo adicionado
 
-  document.getElementById("marcaModelo").value = marcaModelo;
-  document.getElementById("entradaPagamento").value = entrada;
-  document.getElementById("placaVeiculo").value = placa;
-});
-
-
-
-function calcularPagamento() {
-  const placaVeiculo = document.getElementById('placaVeiculo').value;
-  const entrada = document.getElementById('entradaPagamento').value;
-  const tarifa = parseFloat(document.getElementById('tarifaPagamento').value) || 10;
-  const tolerancia = parseInt(document.getElementById('toleranciaPagamento').value) || 10;
-  const metodoPagamento = document.getElementById('metodoPagamento').value;
-
-  if (!placaVeiculo || !entrada || isNaN(tarifa) || isNaN(tolerancia)) {
-    alert('Por favor, preencha todos os campos necessários.');
-    return;
+  if (veiculo) {
+    // Atualizar os campos da página de pagamento
+    document.getElementById("placaVeiculo").value = veiculo.placa;
+    document.getElementById("marcaModelo").value = veiculo.marcaModelo;
+    document.getElementById("entradaPagamento").value = veiculo.entrada;
+    document.getElementById("tarifaPagamento").value = veiculo.tarifa;
+    document.getElementById("toleranciaPagamento").value = veiculo.tolerancia;
   }
 
-  if (metodoPagamento === 'credito' || metodoPagamento === 'debito') {
-    const numeroCartao = document.getElementById('numeroCartao').value;
-    const nomeTitular = document.getElementById('nomeTitular').value;
-    const validadeCartao = document.getElementById('validadeCartao').value;
-    const cvvCartao = document.getElementById('cvvCartao').value;
-
-    if (!numeroCartao || !nomeTitular || !validadeCartao || !cvvCartao) {
-      alert('Por favor, preencha todos os campos do cartão.');
-      return;
-    }
-
-    numeroCartaoGlobal = numeroCartao;
-    nomeTitularGlobal = nomeTitular;
-    validadeCartaoGlobal = validadeCartao;
-    cvvCartaoGlobal = cvvCartao;
-  }
-
-  const entradaDate = new Date(entrada);
-  const saidaDate = new Date(); // Data e hora atuais para a saída
-  const diffMs = saidaDate - entradaDate;
-  const diffHrs = diffMs / (1000 * 60 * 60);
-  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
-
-  const valorPagamento = diffHrsComTolerancia * tarifa;
-  valorPagamentoGlobal = valorPagamento;
-  entradaGlobal = entrada;
-  saidaGlobal = saidaDate.toISOString(); // Armazena a data de saída globalmente
-
-  metodoPagamentoGlobal = metodoPagamento;
-
-  document.getElementById('valorPagamento').innerText = `R$ ${valorPagamento.toFixed(2)}`;
-  document.getElementById('gerarCupomBtn').style.display = 'inline-block';
-
-  // Armazenar o valor de pagamento no localStorage
-  let veiculos = JSON.parse(localStorage.getItem('vehicles')) || [];
-  let veiculoExistente = veiculos.find(v => v.placa === placaVeiculo);
-  
-  if (veiculoExistente) {
-    veiculoExistente.valorRecebido = valorPagamentoGlobal;
-  } else {
-    veiculos.push({
-      placa: placaVeiculo,
-      marcaModelo: document.getElementById('marcaModelo').value,
-      entrada: entradaGlobal,
-      tarifa: document.getElementById('tarifaPagamento').value,
-      tolerancia: document.getElementById('toleranciaPagamento').value,
-      valorRecebido: valorPagamentoGlobal
-    });
-  }
-
-  localStorage.setItem('vehicles', JSON.stringify(veiculos));
-}
-
-
-document.addEventListener("DOMContentLoaded", function() {
+  // Atualizar a hora de entrada com o horário atual
   let now = new Date();
   let year = now.getFullYear();
   let month = String(now.getMonth() + 1).padStart(2, '0');
@@ -263,4 +219,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
   document.getElementById("entradaPagamento").value = currentDateTime;
+});
+
+// Carregar veículos e pagamentos ao carregar a página
+window.addEventListener('load', function() {
+  carregarVeiculos();
+  carregarPagamentos();
+});
+
+
+
+// atualizção 
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Carregar informações do veículo do localStorage
+  const veiculo = JSON.parse(localStorage.getItem('selectedVehicle'));
+
+  if (veiculo) {
+    document.getElementById("placaVeiculo").value = veiculo.placa;
+    document.getElementById("marcaModelo").value = veiculo.marcaModelo;
+    document.getElementById("cor").value = veiculo.cor;
+    
+    // Atualizar a hora de entrada com o horário atual
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+
+    const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+    document.getElementById("entradaPagamento").value = currentDateTime;
+  }
 });

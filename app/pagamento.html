@@ -18,16 +18,15 @@
     <a href="Financeiro.htm"><i class="fas fa-file-alt"></i> Financeiro</a>
   </div>
 
-  
   <div class="container">
     <h1>Calcular Pagamento</h1>
     <div class="input-group">
       <label for="placaVeiculo">Placa do Veículo</label>
-      <input id="placaVeiculo" type="text" placeholder="Placa do Veículo">
+      <input id="placaVeiculo" type="text" placeholder="Placa do Veículo" readonly>
     </div>
     <div class="input-group">
       <label for="marcaModelo">Marca e Modelo</label>
-      <input id="marcaModelo" type="text" placeholder="Marca e Modelo">
+      <input id="marcaModelo" type="text" placeholder="Marca e Modelo" readonly>
     </div>
     <div class="input-group">
       <label for="entradaPagamento">Entrada</label>
@@ -76,9 +75,8 @@
     <div id="valorPagamento" class="payment-value"></div>
     <button id="gerarCupomBtn" class="button" style="display:none;">Gerar Cupom</button>
     <button id="voltarBtn" class="button" onclick="window.location.href='index.html';">Voltar</button>
-
-
   </div>
+  
   <script src="../js/pagamento.js"></script>
 </body>
 </html>
