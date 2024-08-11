@@ -1,42 +1,48 @@
-document.getElementById('searchBtn').addEventListener('click', () => {
-  const searchPlaca = document.getElementById('searchPlaca').value.toLowerCase();
-  const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-  const resultadoPesquisaContainer = document.getElementById('resultadoPesquisa');
-  
-  resultadoPesquisaContainer.innerHTML = '';
-
-  // Filtra os veículos que contenham a string digitada em qualquer parte da placa
-  const filteredVehicles = vehicles.filter(vehicle => vehicle.placa.toLowerCase().includes(searchPlaca));
-
-  if (filteredVehicles.length > 0) {
-      filteredVehicles.forEach(vehicle => {
-          const li = document.createElement('li');
-          li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Cor: ${vehicle.cor}, Modelo: ${vehicle.modelo}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
-
-          const editBtn = document.createElement('button');
-          editBtn.textContent = 'Editar';
-          editBtn.addEventListener('click', () => {
-              editarVeiculo(vehicles.indexOf(vehicle));
-          });
-          li.appendChild(editBtn);
-
-          const deleteBtn = document.createElement('button');
-          deleteBtn.textContent = 'Excluir';
-          deleteBtn.addEventListener('click', () => {
-              excluirVeiculo(vehicles.indexOf(vehicle));
-          });
-          li.appendChild(deleteBtn);
-
-          const payBtn = document.createElement('button');
-          payBtn.textContent = 'Pagamento';
-          payBtn.addEventListener('click', () => {
-              calcularPagamentoVeiculo(vehicle);
-          });
-          li.appendChild(payBtn);
-
-          resultadoPesquisaContainer.appendChild(li);
-      });
-  } else {
-      resultadoPesquisaContainer.textContent = 'Veículo não encontrado.';
-  }
+document.getElementById('searchPlaca').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+    const filteredVehicles = vehicles.filter(vehicle => 
+        vehicle.placa.toLowerCase().includes(query) ||
+        vehicle.marcaModelo.toLowerCase().includes(query) ||
+        vehicle.cor.toLowerCase().includes(query)
+    );
+    exibirResultadoPesquisa(filteredVehicles);
 });
+
+function exibirResultadoPesquisa(vehicles) {
+    const resultadoPesquisa = document.getElementById('resultadoPesquisa');
+    resultadoPesquisa.innerHTML = '';
+
+    if (vehicles.length > 0) {
+        vehicles.forEach(vehicle => {
+            const div = document.createElement('div');
+            div.classList.add('resultado-item');
+            div.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marcaModelo}, Cor: ${vehicle.cor}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Excluir';
+            deleteBtn.addEventListener('click', () => {
+                excluirVeiculo(vehicle.placa);
+            });
+            div.appendChild(deleteBtn);
+
+            const payBtn = document.createElement('button');
+            payBtn.textContent = 'Pagamento';
+            payBtn.addEventListener('click', () => {
+                window.location.href = `pagamento.html?placa=${vehicle.placa}`;
+            });
+            div.appendChild(payBtn);
+
+            resultadoPesquisa.appendChild(div);
+        });
+    } else {
+        resultadoPesquisa.textContent = 'Nenhum veículo encontrado.';
+    }
+}
+
+function excluirVeiculo(placa) {
+    let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+    vehicles = vehicles.filter(vehicle => vehicle.placa !== placa);
+    localStorage.setItem('vehicles', JSON.stringify(vehicles));
+    document.getElementById('searchPlaca').dispatchEvent(new Event('input')); // Atualiza a lista
+}

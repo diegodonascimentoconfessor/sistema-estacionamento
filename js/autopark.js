@@ -20,6 +20,11 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
 
     alert('Veículo adicionado com sucesso!');
     carregarListaVeiculos();
+
+    // Limpa os campos após adicionar o veículo
+    document.getElementById('marcaModelo').value = '';
+    document.getElementById('placa').value = '';
+    document.getElementById('cor').value = '';
   } else {
     alert('Por favor, preencha todos os campos.');
   }
@@ -47,9 +52,7 @@ function carregarListaVeiculos() {
         const payBtn = document.createElement('button');
         payBtn.textContent = 'Pagamento';
         payBtn.addEventListener('click', () => {
-
-       window.location.href = `pagamento.html?placa=${vehicle.placa}`
-
+          window.location.href = `pagamento.html?placa=${vehicle.placa}`;
           calcularPagamentoVeiculo(vehicle);
         });
         li.appendChild(payBtn);
@@ -83,68 +86,3 @@ function calcularPagamentoVeiculo(vehicle) {
 }
 
 window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
-
-// Função para adicionar um veículo e salvar dados no localStorage
-document.getElementById('addVehicleBtn').addEventListener('click', function() {
-  const marcaModelo = document.getElementById('marcaModelo').value;
-  const placa = document.getElementById('placa').value;
-  const cor = document.getElementById('cor').value;
-  const entrada = new Date().toISOString(); // Salva a data/hora atual
-
-  const vehicle = {
-      marcaModelo,
-      placa,
-      cor,
-      entrada
-  };
-
-  // Salva no localStorage
-  localStorage.setItem('veiculo-' + placa, JSON.stringify(vehicle));
-  
-  carregarListaVeiculos(); // Carrega a lista de veículos após a adição
-});
-
-
-
-// index.html
-
-document.getElementById('addVehicleBtn').addEventListener('click', function() {
-  const marcaModelo = document.getElementById('marcaModelo').value;
-  const placa = document.getElementById('placa').value;
-  const cor = document.getElementById('cor').value;
-
-  if (marcaModelo && placa && cor) {
-    const veiculo = {
-      marcaModelo: marcaModelo,
-      placa: placa,
-      cor: cor,
-      entrada: new Date().toISOString() // Considera a entrada atual como exemplo
-    };
-
-    localStorage.setItem('selectedVehicle', JSON.stringify(veiculo));
-    // index.html
-
-document.getElementById('addVehicleBtn').addEventListener('click', function() {
-  const marcaModelo = document.getElementById('marcaModelo').value;
-  const placa = document.getElementById('placa').value;
-  const cor = document.getElementById('cor').value;
-
-  if (marcaModelo && placa && cor) {
-    const veiculo = {
-      marcaModelo: marcaModelo,
-      placa: placa,
-      cor: cor,
-      entrada: new Date().toISOString() // Considera a entrada atual como exemplo
-    };
-
-    localStorage.setItem('selectedVehicle', JSON.stringify(veiculo));
-    window.location.href = 'index.html'; // Redireciona para a página de pagamento
-  } else {
-    alert('Por favor, preencha todos os campos.');
-  }
-});
-
-  } else {
-    alert('Por favor, preencha todos os campos.');
-  }
-});
