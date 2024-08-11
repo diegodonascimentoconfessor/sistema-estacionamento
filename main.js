@@ -6,7 +6,8 @@ let pagamentoWindow = null;
 let vagasWindow = null;
 let pesquisaWindow = null;
 let listaVeiculosWindow = null;
-let relatoriosWindow = null; // Adicionando a variável para a janela de relatórios financeiros
+let relatoriosWindow = null; // Variável para a janela de relatórios financeiros
+let financeiroWindow = null; // Variável para a nova janela de financeiro
 
 app.on('ready', () => {
   console.log("Iniciando Electron");
@@ -80,6 +81,12 @@ const createMenuTemplate = () => [
           openRelatoriosWindow();
         }
       },
+      {
+        label: 'Relatório Financeiro Detalhado',
+        click: () => {
+          openFinanceiroWindow();
+        }
+      },
       { type: 'separator' },
       {
         label: 'Sair',
@@ -102,26 +109,20 @@ const createMenuTemplate = () => [
         role: 'toggleDevTools'
       },
       {
-        // para separar submenu com uma linha
-         type: 'separator'
-
-    },
+        type: 'separator'
+      },
       {
-        label:'aplicar zoom',
+        label: 'Aplicar Zoom',
         role: 'zoomIn'
-    },
-    {
-        label:'Reduzir',
-        role:'zoomOut'
-    },
-
-    {
-        label: 'Restaurar o zoom',
+      },
+      {
+        label: 'Reduzir',
+        role: 'zoomOut'
+      },
+      {
+        label: 'Restaurar o Zoom',
         role: 'resetZoom'
-    },
-
-  
-
+      }
     ]
   }
 ];
@@ -210,8 +211,8 @@ function openListaVeiculosWindow() {
 function openRelatoriosWindow() {
   if (!relatoriosWindow) {
     relatoriosWindow = new BrowserWindow({
-      width: 400,
-      height: 400,
+      width: 800,
+      height: 600,
       resizable: true,
       icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
       webPreferences: {
@@ -228,6 +229,27 @@ function openRelatoriosWindow() {
   }
 }
 
+function openFinanceiroWindow() {
+  if (!financeiroWindow) {
+    financeiroWindow = new BrowserWindow({
+      width: 800,
+      height: 600,
+      resizable: true,
+      icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false
+      }
+    });
+
+    financeiroWindow.loadFile(path.join(__dirname, 'app', 'financeiro.html'));
+
+    financeiroWindow.on('closed', () => {
+      financeiroWindow = null;
+    });
+  }
+}
+
 ipcMain.on('get-vehicles', (event) => {
   const veiculosCadastrados = [
     { placa: '', marca: '', modelo: '' }
@@ -237,4 +259,3 @@ ipcMain.on('get-vehicles', (event) => {
     listaVeiculosWindow.webContents.send('listaveiculos-cadastrados', veiculosCadastrados);
   }
 });
-
