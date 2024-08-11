@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -29,18 +28,14 @@
       <input id="marcaModelo" type="text" placeholder="Marca e Modelo" readonly>
     </div>
     <div class="input-group">
+      <label for="corVeiculo">Cor</label>
+      <input id="corVeiculo" type="text" placeholder="Cor do Veículo" readonly>
+    </div>
+    <div class="input-group">
       <label for="entradaPagamento">Entrada</label>
       <input id="entradaPagamento" type="datetime-local" readonly>
     </div>
-    <div class="input-group">
-      <label for="tarifaPagamento">Tarifa por Hora</label>
-      <input id="tarifaPagamento" type="number" step="0.01" value="10" readonly>
-    </div>
-    <div class="input-group">
-      <label for="toleranciaPagamento">Tolerância (minutos)</label>
-      <input id="toleranciaPagamento" type="number" value="10" readonly>
-    </div>
-    
+
     <div class="input-group">
       <label for="metodoPagamento">Método de Pagamento</label>
       <select id="metodoPagamento">
@@ -78,5 +73,6 @@
   </div>
   
   <script src="../js/pagamento.js"></script>
+
 </body>
 </html>

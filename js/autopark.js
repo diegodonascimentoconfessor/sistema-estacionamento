@@ -45,8 +45,11 @@ function carregarListaVeiculos() {
         li.appendChild(deleteBtn);
 
         const payBtn = document.createElement('button');
-        payBtn.textContent = 'pagamento';
+        payBtn.textContent = 'Pagamento';
         payBtn.addEventListener('click', () => {
+
+       window.location.href = `pagamento.html?placa=${vehicle.placa}`
+
           calcularPagamentoVeiculo(vehicle);
         });
         li.appendChild(payBtn);
@@ -76,12 +79,10 @@ function calcularPagamentoVeiculo(vehicle) {
   const diffHrs = diffMs / (1000 * 60 * 60);
   const valorPagamento = diffHrs * tarifa;
 
-  // Redireciona para a página pagamento.html com o valor do pagamento como parâmetro na URL
-  window.location.href = `pagamento.html?valor=${valorPagamento.toFixed(2)}`;
+  // Lógica de pagamento pode ser implementada aqui
 }
 
 window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
-
 
 // Função para adicionar um veículo e salvar dados no localStorage
 document.getElementById('addVehicleBtn').addEventListener('click', function() {
@@ -99,13 +100,13 @@ document.getElementById('addVehicleBtn').addEventListener('click', function() {
 
   // Salva no localStorage
   localStorage.setItem('veiculo-' + placa, JSON.stringify(vehicle));
-  alert('Veículo adicionado com sucesso!');
+  
+  carregarListaVeiculos(); // Carrega a lista de veículos após a adição
 });
 
 
 
-
-// atualização 
+// index.html
 
 document.getElementById('addVehicleBtn').addEventListener('click', function() {
   const marcaModelo = document.getElementById('marcaModelo').value;
@@ -113,15 +114,36 @@ document.getElementById('addVehicleBtn').addEventListener('click', function() {
   const cor = document.getElementById('cor').value;
 
   if (marcaModelo && placa && cor) {
-    // Armazenar dados do veículo em localStorage
-    localStorage.setItem('selectedVehicle', JSON.stringify({
+    const veiculo = {
       marcaModelo: marcaModelo,
       placa: placa,
-      cor: cor
-    }));
+      cor: cor,
+      entrada: new Date().toISOString() // Considera a entrada atual como exemplo
+    };
 
-    // Redirecionar para a página de pagamento
-    window.location.href = 'pagamento.html';
+    localStorage.setItem('selectedVehicle', JSON.stringify(veiculo));
+    // index.html
+
+document.getElementById('addVehicleBtn').addEventListener('click', function() {
+  const marcaModelo = document.getElementById('marcaModelo').value;
+  const placa = document.getElementById('placa').value;
+  const cor = document.getElementById('cor').value;
+
+  if (marcaModelo && placa && cor) {
+    const veiculo = {
+      marcaModelo: marcaModelo,
+      placa: placa,
+      cor: cor,
+      entrada: new Date().toISOString() // Considera a entrada atual como exemplo
+    };
+
+    localStorage.setItem('selectedVehicle', JSON.stringify(veiculo));
+    window.location.href = 'index.html'; // Redireciona para a página de pagamento
+  } else {
+    alert('Por favor, preencha todos os campos.');
+  }
+});
+
   } else {
     alert('Por favor, preencha todos os campos.');
   }
