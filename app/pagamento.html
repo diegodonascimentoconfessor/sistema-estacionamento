@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -14,28 +15,31 @@
     <a href="pesquisa.html"><i class="fas fa-search"></i> Pesquisar Veículos</a>
     <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
     <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
-    <a href="Financeiro.htm"><i class="fas fa-file-alt"></i> Financeiro</a>
   </div>
 
+  
   <div class="container">
     <h1>Calcular Pagamento</h1>
     <div class="input-group">
       <label for="placaVeiculo">Placa do Veículo</label>
-      <input id="placaVeiculo" type="text" placeholder="Placa do Veículo" readonly>
+      <input id="placaVeiculo" type="text" placeholder="Placa do Veículo">
     </div>
     <div class="input-group">
       <label for="marcaModelo">Marca e Modelo</label>
-      <input id="marcaModelo" type="text" placeholder="Marca e Modelo" readonly>
-    </div>
-    <div class="input-group">
-      <label for="corVeiculo">Cor</label>
-      <input id="corVeiculo" type="text" placeholder="Cor do Veículo" readonly>
+      <input id="marcaModelo" type="text" placeholder="Marca e Modelo">
     </div>
     <div class="input-group">
       <label for="entradaPagamento">Entrada</label>
-      <input id="entradaPagamento" type="datetime-local" readonly>
+      <input id="entradaPagamento" type="datetime-local">
     </div>
-
+    <div class="input-group">
+      <label for="toleranciaPagamento">Tolerância (minutos)</label>
+      <input id="toleranciaPagamento" type="number" placeholder="Tolerância (minutos)" value="10">
+    </div>
+    <div class="input-group">
+      <label for="tarifaPagamento">Tarifa por Hora</label>
+      <input id="tarifaPagamento" type="number" step="0.01" placeholder="Tarifa por Hora" value="10">
+    </div>
     <div class="input-group">
       <label for="metodoPagamento">Método de Pagamento</label>
       <select id="metodoPagamento">
@@ -71,8 +75,6 @@
     <button id="gerarCupomBtn" class="button" style="display:none;">Gerar Cupom</button>
     <button id="voltarBtn" class="button" onclick="window.location.href='index.html';">Voltar</button>
   </div>
-  
   <script src="../js/pagamento.js"></script>
-
 </body>
 </html>
