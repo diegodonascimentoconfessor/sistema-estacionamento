@@ -135,8 +135,6 @@ function gerarCupom() {
           <p><strong>Entrada:</strong> ${formatarData(entradaGlobal)}</p>
           <p><strong>Saída:</strong> ${formatarData(saidaGlobal)}</p>
           <p><strong>Valor a Pagar:</strong> R$ ${valorPagamentoGlobal.toFixed(2)}</p>
-            <p><strong>Tarifa:</strong> R$ ${tarifa.toFixed(2)}</p>
-          <p><strong>Tolerância:</strong> ${tolerancia} minutos</p>
           <p class="footer">Obrigado e Volte Sempre!</p>
         </div>
       </body>
