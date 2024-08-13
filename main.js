@@ -11,20 +11,21 @@ let financeiroWindow = null; // Variável para a nova janela de financeiro
 
 app.on('ready', () => {
   console.log("Iniciando Electron");
+
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 920,
     resizable: false,
-    icon: 'assets/icone-estacionamento.png',
+    icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
     }
   });
-  
+
   mainWindow.maximize();
   Menu.setApplicationMenu(Menu.buildFromTemplate(createMenuTemplate()));
-  mainWindow.loadFile('app/index.html');
+  mainWindow.loadFile(path.join(__dirname, 'app', 'index.html'));
 });
 
 const createMenuTemplate = () => [
@@ -33,66 +34,46 @@ const createMenuTemplate = () => [
     submenu: [
       {
         label: 'Adicionar Veículo',
-        click: () => {
-          mainWindow.webContents.send('menu-add-vehicle');
-        }
+        click: () => mainWindow.webContents.send('menu-add-vehicle')
       },
       {
         label: 'Editar Veículo',
-        click: () => {
-          mainWindow.webContents.send('menu-edit-vehicle');
-        }
+        click: () => mainWindow.webContents.send('menu-edit-vehicle')
       },
       {
         label: 'Excluir Veículo',
-        click: () => {
-          mainWindow.webContents.send('menu-delete-vehicle');
-        }
+        click: () => mainWindow.webContents.send('menu-delete-vehicle')
       },
       {
         label: 'Pesquisar Placa',
-        click: () => {
-          openPesquisaWindow();
-        }
+        click: openPesquisaWindow
       },
       {
         label: 'Calcular Pagamento',
-        click: () => {
-          openPagamentoWindow();
-        }
+        click: openPagamentoWindow
       },
       {
         label: 'Vagas',
-        click: () => {
-          openVagasWindow();
-        }
+        click: openVagasWindow
       },
       { type: 'separator' },
       {
         label: 'Lista de Veículos Cadastrados',
-        click: () => {
-          openListaVeiculosWindow();
-        }
+        click: openListaVeiculosWindow
       },
       { type: 'separator' },
       {
         label: 'Relatórios Financeiros',
-        click: () => {
-          openRelatoriosWindow();
-        }
+        click: openRelatoriosWindow
       },
       {
         label: 'Relatório Financeiro Detalhado',
-        click: () => {
-          openFinanceiroWindow();
-        }
+        click: openFinanceiroWindow
       },
       { type: 'separator' },
       {
         label: 'Sair',
-        click: () => {
-          app.quit();
-        },
+        click: () => app.quit(),
         accelerator: 'Alt+F4'
       }
     ]
@@ -108,9 +89,7 @@ const createMenuTemplate = () => [
         label: 'Ferramentas de Desenvolvedor',
         role: 'toggleDevTools'
       },
-      {
-        type: 'separator'
-      },
+      { type: 'separator' },
       {
         label: 'Aplicar Zoom',
         role: 'zoomIn'
@@ -127,8 +106,8 @@ const createMenuTemplate = () => [
   }
 ];
 
-function openPesquisaWindow() {
-  pesquisaWindow = new BrowserWindow({
+function createWindow(windowName, filePath) {
+  const win = new BrowserWindow({
     width: 800,
     height: 600,
     resizable: true,
@@ -139,120 +118,47 @@ function openPesquisaWindow() {
     }
   });
 
-  pesquisaWindow.loadFile(path.join(__dirname, 'app', 'pesquisa.html'));
+  win.loadFile(path.join(__dirname, 'app', filePath));
 
-  pesquisaWindow.on('closed', () => {
-    pesquisaWindow = null;
+  win.on('closed', () => {
+    if (windowName === 'pagamento') pagamentoWindow = null;
+    if (windowName === 'vagas') vagasWindow = null;
+    if (windowName === 'pesquisa') pesquisaWindow = null;
+    if (windowName === 'listaveiculos') listaVeiculosWindow = null;
+    if (windowName === 'relatorios') relatoriosWindow = null;
+    if (windowName === 'financeiro') financeiroWindow = null;
   });
+
+  return win;
+}
+
+function openPesquisaWindow() {
+  if (!pesquisaWindow) pesquisaWindow = createWindow('pesquisa', 'pesquisa.html');
 }
 
 function openPagamentoWindow() {
-  if (!pagamentoWindow) {
-    pagamentoWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
-      resizable: true,
-      icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
-      webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false
-      }
-    });
-
-    pagamentoWindow.loadFile(path.join(__dirname, 'app', 'pagamento.html'));
-
-    pagamentoWindow.on('closed', () => {
-      pagamentoWindow = null;
-    });
-  }
+  if (!pagamentoWindow) pagamentoWindow = createWindow('pagamento', 'pagamento.html');
 }
 
 function openVagasWindow() {
-  if (!vagasWindow) {
-    vagasWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
-      resizable: true,
-      webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false
-      }
-    });
-
-    vagasWindow.loadFile(path.join(__dirname, 'app', 'vagas.html'));
-
-    vagasWindow.on('closed', () => {
-      vagasWindow = null;
-    });
-  }
+  if (!vagasWindow) vagasWindow = createWindow('vagas', 'vagas.html');
 }
 
 function openListaVeiculosWindow() {
-  if (!listaVeiculosWindow) {
-    listaVeiculosWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
-      resizable: true,
-      icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
-      webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false
-      }
-    });
-
-    listaVeiculosWindow.loadFile(path.join(__dirname, 'app', 'listaveiculos-cadastrados.html'));
-
-    listaVeiculosWindow.on('closed', () => {
-      listaVeiculosWindow = null;
-    });
-  }
+  if (!listaVeiculosWindow) listaVeiculosWindow = createWindow('listaveiculos', 'listaveiculos-cadastrados.html');
 }
 
 function openRelatoriosWindow() {
-  if (!relatoriosWindow) {
-    relatoriosWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
-      resizable: true,
-      icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
-      webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false
-      }
-    });
-
-    relatoriosWindow.loadFile(path.join(__dirname, 'app', 'relatorio.html'));
-
-    relatoriosWindow.on('closed', () => {
-      relatoriosWindow = null;
-    });
-  }
+  if (!relatoriosWindow) relatoriosWindow = createWindow('relatorios', 'relatorio.html');
 }
 
 function openFinanceiroWindow() {
-  if (!financeiroWindow) {
-    financeiroWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
-      resizable: true,
-      icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
-      webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false
-      }
-    });
-
-    financeiroWindow.loadFile(path.join(__dirname, 'app', 'financeiro.html'));
-
-    financeiroWindow.on('closed', () => {
-      financeiroWindow = null;
-    });
-  }
+  if (!financeiroWindow) financeiroWindow = createWindow('financeiro', 'financeiro.html');
 }
 
 ipcMain.on('get-vehicles', (event) => {
   const veiculosCadastrados = [
-    { placa: '', marca: '', modelo: '' }
+    { placa: 'ABC1234', marca: 'Marca', modelo: 'Modelo' } // Exemplo de dados
   ];
 
   if (listaVeiculosWindow) {

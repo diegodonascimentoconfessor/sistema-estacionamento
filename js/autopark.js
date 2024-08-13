@@ -35,7 +35,7 @@ function carregarListaVeiculos() {
   const veiculosList = document.getElementById('veiculosCadastrados');
 
   if (veiculosList) {
-    veiculosList.innerHTML = ''; 
+    veiculosList.innerHTML = '';
 
     if (vehicles.length > 0) {
       vehicles.forEach((vehicle, index) => {
@@ -52,8 +52,7 @@ function carregarListaVeiculos() {
         const payBtn = document.createElement('button');
         payBtn.textContent = 'Pagamento';
         payBtn.addEventListener('click', () => {
-          window.location.href = `pagamento.html?placa=${vehicle.placa}`;
-          calcularPagamentoVeiculo(vehicle);
+          window.location.href = `pagamento.html?placa=${vehicle.placa}&marcaModelo=${vehicle.marcaModelo}&cor=${vehicle.cor}`;
         });
         li.appendChild(payBtn);
 
@@ -73,16 +72,6 @@ function excluirVeiculo(index) {
   vehicles.splice(index, 1);
   localStorage.setItem('vehicles', JSON.stringify(vehicles));
   carregarListaVeiculos();
-}
-
-function calcularPagamentoVeiculo(vehicle) {
-  const entradaDate = new Date(vehicle.entrada);
-  const saidaDate = new Date();
-  const diffMs = saidaDate - entradaDate;
-  const diffHrs = diffMs / (1000 * 60 * 60);
-  const valorPagamento = diffHrs * tarifa;
-
-  // Lógica de pagamento pode ser implementada aqui
 }
 
 window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
