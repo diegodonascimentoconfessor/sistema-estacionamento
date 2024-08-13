@@ -1,98 +1,22 @@
-/* Estilizando o corpo */
+/* Estilo geral do corpo */
 body {
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+  height: 100vh;
+  background-color: #105F71;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4; /* Cor de fundo mais clara */
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Alinha o container no topo da página */
-  height: 100vh; /* Ajusta a altura para ocupar toda a tela */
 }
 
-/* Estilizando o container principal */
-.container {
-  max-width: 800px;
-  width: 100%;
-  margin-top: 20px; /* Espaçamento superior */
-  padding: 20px;
-  background-color: #ffffff; /* Fundo branco para contraste */
-  border: 1px solid #ccc; /* Borda leve para destacar o container */
-  border-radius: 5px; /* Cantos arredondados */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
-  text-align: center;
-}
-
-/* Estilizando o título */
-h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #105F71; /* Cor do texto do título */
-}
-
-/* Estilizando a tabela */
-table {
-  max-width: 700px; /* Ajusta a largura máxima da tabela */
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0; /* Remove a margem superior da tabela */
-  background-color: #ffffff; /* Fundo branco para a tabela */
-  margin-left: auto; /* Centraliza a tabela */
-  margin-right: auto; /* Centraliza a tabela */
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-}
-
-thead {
-  background-color: #105F71; /* Cor de fundo do cabeçalho da tabela */
-  color: #ffffff; /* Cor do texto do cabeçalho */
-}
-
-tfoot {
-  font-weight: bold;
-}
-
-tfoot td.total {
-  background-color: #f9f9f9;
-  border-top: 2px solid #ccc;
-}
-
-tfoot td#totalValue {
-  color: #2c3e50;
-}
-
-/* Estilizando a linha do rodapé */
-tfoot tr {
-  background-color: #f9f9f9;
-}
-
-/* Estilizando os botões */
-button {
-  margin: 5px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  background-color: #105F71; /* Cor de fundo dos botões */
-  color: #ffffff; /* Cor do texto dos botões */
-}
-
-button:hover {
-  background-color: #0e4a60; /* Cor do fundo ao passar o mouse */
-}
-
-/* Estilizando a barra lateral */
 .sidebar {
   height: 100%;
   width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
-  left: 0; /* Move a barra lateral para a esquerda */
+  left: 0;
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
@@ -115,8 +39,80 @@ button:hover {
 .closebtn {
   position: absolute;
   top: 0;
-  left: 25px; /* Ajusta a posição do botão de fechar para a esquerda */
+  right: 25px;
   font-size: 36px;
-  margin-right: 50px; /* Adiciona margem direita */
+  margin-left: 50px;
 }
 
+/* Conteúdo principal */
+#main {
+  margin-left: 200px;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: rgb(17, 16, 16);
+  margin-bottom: 20px;
+}
+
+.content-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 240px); /* Ajusta a largura considerando a sidebar */
+  max-width: 800px;          /* Limita a largura máxima */
+  margin: 20px auto 0;       /* Centraliza horizontalmente e adiciona margem superior */
+  margin-left: 200px;        /* Considera o espaço da sidebar */
+}
+
+/* Tabelas */
+table {
+  width: 100%; /* Ocupar 100% da largura disponível */
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff; /* Define o fundo da tabela como branco */
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #fff; /* Define o fundo dos cabeçalhos como branco */
+}
+
+/* Botões */
+.button {
+  background-color: #0a0a0a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: #105F71;
+}
+
+/* Ajuste para impressão */
+@media print {
+  .sidebar, .button {
+    display: none;
+  }
+
+  #main {
+    margin: 0;
+    padding: 0;
+  }
+}

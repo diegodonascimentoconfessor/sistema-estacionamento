@@ -83,7 +83,7 @@ const createMenuTemplate = () => [
     submenu: [
       {
         label: 'Manual do Usuário',
-        click: () => shell.openExternal('https://drive.google.com/file/d/12JhKKndXFXm_xFKNp9yiLbwvQTBijOdm/view?usp=sharing')
+        click: () => shell.openExternal('https://drive.google.com/file/d/1yOPaGUdoVa6EREQv_9WIk0vtju8kv1XU/view?usp=sharing')
       },
       {
         label: 'Ferramentas de Desenvolvedor',
