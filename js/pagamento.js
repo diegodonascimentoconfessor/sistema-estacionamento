@@ -29,9 +29,8 @@ function calcularPagamento() {
   const entrada = document.getElementById('entradaPagamento').value;
   const metodoPagamento = document.getElementById('metodoPagamento').value;
 
-  // Definindo valores fixos para tarifa e tolerância
-  const tarifa = 10; // Valor fixo
-  const tolerancia = 10; // Valor fixo
+  // Definindo valor fixo para tarifa por segundo
+  const tarifaPorSegundo = 0.00278; // Valor fixo por segundo
 
   if (!placaVeiculo || !entrada) {
     alert('Por favor, preencha todos os campos necessários.');
@@ -59,10 +58,9 @@ function calcularPagamento() {
   const saidaDate = new Date(); // Data e hora atuais para a saída
 
   const diffMs = saidaDate - entradaDate;
-  const diffHrs = diffMs / (1000 * 60 * 60);
-  const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
+  const diffSegundos = diffMs / 1000; // Convertendo milissegundos para segundos
 
-  const valorPagamento = diffHrsComTolerancia * tarifa;
+  const valorPagamento = diffSegundos * tarifaPorSegundo;
   valorPagamentoGlobal = valorPagamento;
   entradaGlobal = entrada;
   saidaGlobal = saidaDate.toISOString(); // Armazenar a data de saída globalmente
