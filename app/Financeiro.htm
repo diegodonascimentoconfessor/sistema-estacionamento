@@ -6,8 +6,6 @@
   <title>Financeiro - Autopark</title>
   <link rel="stylesheet" href="../assets/financeiro.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
- 
 </head>
 <body>
   <div id="sidebar" class="sidebar">
@@ -17,32 +15,32 @@
     <a href="pesquisa.html"><i class="fas fa-search"></i> Pesquisar Veículos</a>
     <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
     <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
-    <a href="Financeiro.htm"><i class="fas fa-file-alt"></i> Financeiro</a>
+    <a href="financeiro.html"><i class="fas fa-file-alt"></i> Financeiro</a>
   </div>
 
-
-</head>
-<body>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Placa do Veículo</th>
-        <th>Valor Recebido (R$)</th>
-        <th>Data do Pagamento</th>
-      </tr>
-    </thead>
-    <tbody id="paymentsTableBody">
-      <!-- Pagamentos serão carregados aqui -->
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="2" class="total">Total Recebido:</td>
-        <td id="totalValue" class="total">R$ 0,00</td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Placa do Veículo</th>
+          <th>Valor Recebido (R$)</th>
+          <th>Data do Pagamento</th>
+          <th>Horário de Saída</th>
+          <th>Tempo (segundos)</th>
+        </tr>
+      </thead>
+      <tbody id="paymentsTableBody">
+        <!-- Pagamentos serão carregados aqui -->
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="total">Total Recebido:</td>
+          <td id="totalValue" class="total">R$ 0,00</td>
+        </tr>
+      </tfoot>
+    </table>
+  </main>
 
   <script src="../js/financeiro.js"></script>
 </body>

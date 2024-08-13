@@ -57,6 +57,7 @@ function calcularPagamento() {
 
   const entradaDate = new Date(entrada);
   const saidaDate = new Date(); // Data e hora atuais para a saída
+
   const diffMs = saidaDate - entradaDate;
   const diffHrs = diffMs / (1000 * 60 * 60);
   const diffHrsComTolerancia = Math.max(diffHrs - (tolerancia / 60), 0);
@@ -64,7 +65,7 @@ function calcularPagamento() {
   const valorPagamento = diffHrsComTolerancia * tarifa;
   valorPagamentoGlobal = valorPagamento;
   entradaGlobal = entrada;
-  saidaGlobal = saidaDate.toISOString(); // Armazena a data de saída globalmente
+  saidaGlobal = saidaDate.toISOString(); // Armazenar a data de saída globalmente
 
   metodoPagamentoGlobal = metodoPagamento;
 
@@ -134,6 +135,8 @@ function gerarCupom() {
           <p><strong>Entrada:</strong> ${formatarData(entradaGlobal)}</p>
           <p><strong>Saída:</strong> ${formatarData(saidaGlobal)}</p>
           <p><strong>Valor a Pagar:</strong> R$ ${valorPagamentoGlobal.toFixed(2)}</p>
+            <p><strong>Tarifa:</strong> R$ ${tarifa.toFixed(2)}</p>
+          <p><strong>Tolerância:</strong> ${tolerancia} minutos</p>
           <p class="footer">Obrigado e Volte Sempre!</p>
         </div>
       </body>
