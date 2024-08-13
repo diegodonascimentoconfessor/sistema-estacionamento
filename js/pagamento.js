@@ -19,6 +19,11 @@ document.getElementById('voltarBtn').addEventListener('click', function() {
   window.location.href = 'index.html';
 });
 
+function formatarData(data) {
+  const opcoes = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+  return new Intl.DateTimeFormat('pt-BR', opcoes).format(new Date(data));
+}
+
 function calcularPagamento() {
   const placaVeiculo = document.getElementById('placaVeiculo').value;
   const entrada = document.getElementById('entradaPagamento').value;
@@ -86,20 +91,57 @@ function calcularPagamento() {
 }
 
 function gerarCupom() {
-  // Função para gerar o cupom, ajustada conforme necessário
   const cupom = `
-    <h2>Cupom de Pagamento</h2>
-    <p><strong>Placa:</strong> ${document.getElementById('placaVeiculo').value}</p>
-    <p><strong>Marca e Modelo:</strong> ${document.getElementById('marcaModelo').value}</p>
-    <p><strong>Cor:</strong> ${document.getElementById('cor').value}</p>
-    <p><strong>Entrada:</strong> ${entradaGlobal}</p>
-    <p><strong>Saída:</strong> ${saidaGlobal}</p>
-    <p><strong>Valor a Pagar:</strong> R$ ${valorPagamentoGlobal.toFixed(2)}</p>
+    <html>
+      <head>
+        <title>Cupom</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFFE0; /* Fundo amarelo claro */
+            color: #000000; /* Texto preto para contraste */
+            padding: 20px;
+          }
+          .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #000000; /* Borda preta */
+            border-radius: 5px;
+            background-color: #FFFFFF; /* Fundo branco para a área do cupom */
+          }
+          h2 {
+            text-align: center;
+            color: #000000; /* Cor do título */
+            margin-bottom: 20px;
+          }
+          p {
+            margin: 5px 0; /* Espaçamento entre parágrafos */
+          }
+          .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h2>Cupom de Pagamento AutoPark</h2>
+          <p><strong>Placa:</strong> ${document.getElementById('placaVeiculo').value}</p>
+          <p><strong>Marca e Modelo:</strong> ${document.getElementById('marcaModelo').value}</p>
+          <p><strong>Cor:</strong> ${document.getElementById('cor').value}</p>
+          <p><strong>Entrada:</strong> ${formatarData(entradaGlobal)}</p>
+          <p><strong>Saída:</strong> ${formatarData(saidaGlobal)}</p>
+          <p><strong>Valor a Pagar:</strong> R$ ${valorPagamentoGlobal.toFixed(2)}</p>
+          <p class="footer">Obrigado e Volte Sempre!</p>
+        </div>
+      </body>
+    </html>
   `;
+  
   const printWindow = window.open('', '', 'height=600,width=800');
-  printWindow.document.write('<html><head><title>Cupom</title></head><body>');
   printWindow.document.write(cupom);
-  printWindow.document.write('</body></html>');
   printWindow.document.close();
   printWindow.print();
 }

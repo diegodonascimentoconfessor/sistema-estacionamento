@@ -1,70 +1,122 @@
+/* Estilizando o corpo */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4; /* Cor de fundo mais clara */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinha o container no topo da página */
+  height: 100vh; /* Ajusta a altura para ocupar toda a tela */
+}
+
 /* Estilizando o container principal */
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background-color: #105F71;
-  }
-  
-  /* Estilizando o título */
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    background-color: #105F71;
-  }
-  
-  /* Estilizando a tabela */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color:#ddd
-   
-  }
-  
-  th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  thead {
-    background-color: #f4f4f4;
-  }
-  
-  thead th {
-    font-weight: bold;
-  }
-  
-  tfoot {
-    font-weight: bold;
-  }
-  
-  tfoot td.total {
-    background-color: #f9f9f9;
-    border-top: 2px solid #ccc;
-  }
-  
-  tfoot td#totalValue {
-    color: #2c3e50;
-  }
-  
-  /* Estilizando a linha do rodapé */
-  tfoot tr {
-    background-color: #f9f9f9;
-  }
-  
-  /* Botões */
-  button {
-    margin: 5px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #ddd;
-  }
-  
+  max-width: 800px;
+  width: 100%;
+  margin-top: 20px; /* Espaçamento superior */
+  padding: 20px;
+  background-color: #ffffff; /* Fundo branco para contraste */
+  border: 1px solid #ccc; /* Borda leve para destacar o container */
+  border-radius: 5px; /* Cantos arredondados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  text-align: center;
+}
+
+/* Estilizando o título */
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #105F71; /* Cor do texto do título */
+}
+
+/* Estilizando a tabela */
+table {
+  max-width: 700px; /* Ajusta a largura máxima da tabela */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0; /* Remove a margem superior da tabela */
+  background-color: #ffffff; /* Fundo branco para a tabela */
+  margin-left: auto; /* Centraliza a tabela */
+  margin-right: auto; /* Centraliza a tabela */
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+thead {
+  background-color: #105F71; /* Cor de fundo do cabeçalho da tabela */
+  color: #ffffff; /* Cor do texto do cabeçalho */
+}
+
+tfoot {
+  font-weight: bold;
+}
+
+tfoot td.total {
+  background-color: #f9f9f9;
+  border-top: 2px solid #ccc;
+}
+
+tfoot td#totalValue {
+  color: #2c3e50;
+}
+
+/* Estilizando a linha do rodapé */
+tfoot tr {
+  background-color: #f9f9f9;
+}
+
+/* Estilizando os botões */
+button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #105F71; /* Cor de fundo dos botões */
+  color: #ffffff; /* Cor do texto dos botões */
+}
+
+button:hover {
+  background-color: #0e4a60; /* Cor do fundo ao passar o mouse */
+}
+
+/* Estilizando a barra lateral */
+.sidebar {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0; /* Move a barra lateral para a esquerda */
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+  transition: 0.5s;
+}
+
+.sidebar a {
+  padding: 35px 35px 35px 36px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.closebtn {
+  position: absolute;
+  top: 0;
+  left: 25px; /* Ajusta a posição do botão de fechar para a esquerda */
+  font-size: 36px;
+  margin-right: 50px; /* Adiciona margem direita */
+}
+
