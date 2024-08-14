@@ -1,4 +1,53 @@
-const tarifaPorSegundo = 0.00278; // Valor por segundo
+window.onload = function() {
+    function getQueryParams() {
+      var params = {};
+      var search = window.location.search.substring(1);
+      var queries = search.split("&");
+
+      for (var i = 0; i < queries.length; i++) {
+        var pair = queries[i].split("=");
+        params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+      }
+
+      return params;
+    }
+
+    var params = getQueryParams();
+
+    // Preencha os campos com os valores dos parâmetros
+    if (params.marcaModelo) {
+      document.getElementById('marcaModelo').value = params.marcaModelo;
+    }
+    if (params.placa) {
+      document.getElementById('placaVeiculo').value = params.placa;
+    }
+    if (params.cor) {
+      document.getElementById('cor').value = params.cor;
+    }
+
+   
+    function updateDateTime() {
+      var now = new Date();
+      var offset = -3; 
+      var localTime = new Date(now.getTime() + (offset * 60 * 60 * 1000));
+      var isoString = localTime.toISOString().slice(0, 16); 
+      document.getElementById('entradaPagamento').value = isoString;
+    }
+
+    
+    updateDateTime();
+
+    setInterval(updateDateTime, 1000);
+  };
+
+
+
+
+
+
+
+
+const tarifaPorSegundo = 0.00278; 
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
@@ -34,7 +83,7 @@ function calcularPagamento() {
             return;
         }
 
-        // Armazena as informações do cartão globalmente se necessário
+        
         localStorage.setItem('numeroCartao', numeroCartao);
         localStorage.setItem('nomeTitular', nomeTitular);
         localStorage.setItem('validadeCartao', validadeCartao);
@@ -42,14 +91,14 @@ function calcularPagamento() {
     }
 
     const entradaDate = new Date(entrada);
-    const saidaDate = new Date(); // Data e hora atuais para a saída
+    const saidaDate = new Date(); 
 
     const diffMs = saidaDate - entradaDate;
-    const diffSegundos = diffMs / 1000; // Convertendo milissegundos para segundos
+    const diffSegundos = diffMs / 1000; 
 
     const valorPagamento = diffSegundos * tarifaPorSegundo;
 
-    // Armazenar os dados no localStorage
+
     const pagamentoData = {
         placaVeiculo,
         entrada: entradaDate.toISOString(),
@@ -143,10 +192,10 @@ function calcularPagamento() {
   }
 
   const entradaDate = new Date(entrada);
-  const saidaDate = new Date(); // Data e hora atuais para a saída
+  const saidaDate = new Date(); 
 
   const diffMs = saidaDate - entradaDate;
-  const diffSegundos = diffMs / 1000; // Convertendo milissegundos para segundos
+  const diffSegundos = diffMs / 1000;
 
   const valorPagamento = diffSegundos * tarifaPorSegundo;
 

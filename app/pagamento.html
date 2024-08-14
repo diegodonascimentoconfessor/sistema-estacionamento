@@ -72,50 +72,7 @@
     <button id="voltarBtn" class="button" onclick="window.location.href='index.html';">Voltar</button>
   </div>
 
-  <script>
-    window.onload = function() {
-      function getQueryParams() {
-        var params = {};
-        var search = window.location.search.substring(1);
-        var queries = search.split("&");
-
-        for (var i = 0; i < queries.length; i++) {
-          var pair = queries[i].split("=");
-          params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-        }
-
-        return params;
-      }
-
-      var params = getQueryParams();
-
-      // Preencha os campos com os valores dos parâmetros
-      if (params.marcaModelo) {
-        document.getElementById('marcaModelo').value = params.marcaModelo;
-      }
-      if (params.placa) {
-        document.getElementById('placaVeiculo').value = params.placa;
-      }
-      if (params.cor) {
-        document.getElementById('cor').value = params.cor;
-      }
-
-      // Função para definir a hora atual no campo de entrada no horário de Brasília
-      function updateDateTime() {
-        var now = new Date();
-        var offset = -3; // Horário de Brasília é UTC-3
-        var localTime = new Date(now.getTime() + (offset * 60 * 60 * 1000));
-        var isoString = localTime.toISOString().slice(0, 16); // 'YYYY-MM-DDTHH:MM'
-        document.getElementById('entradaPagamento').value = isoString;
-      }
-
-      // Atualize o campo imediatamente ao carregar a página
-      updateDateTime();
-
-      // Atualize o campo a cada segundo
-      setInterval(updateDateTime, 1000);
-    };
-  </script>
+  
   <script src="../js/pagamento.js"></script>
 </body>
 </html>
