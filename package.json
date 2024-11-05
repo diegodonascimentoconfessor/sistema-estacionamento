@@ -1,7 +1,6 @@
 {
   "name": "electron",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,10 +11,16 @@
   "dependencies": {
     "-": "^0.0.1",
     "electron-store": "^10.0.0",
-    "g": "^2.0.1"
+    "express": "^4.21.1",
+    "firebase": "^11.0.1",
+    "firebase-admin": "^12.7.0",
+    "g": "^2.0.1",
+    "pg": "^8.13.1"
   },
   "devDependencies": {
     "@electron/packager": "^18.3.3",
     "electron": "^31.0.0"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
