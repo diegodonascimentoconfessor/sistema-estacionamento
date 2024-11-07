@@ -7,6 +7,7 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
   const placa = document.getElementById('placa').value;
   const cor = document.getElementById('cor').value;
   const entrada = new Date().toISOString(); // Gera a entrada automaticamente
+
   if (marcaModelo && placa && cor) {
     const newVehicle = { marcaModelo, placa, cor, entrada };
 
