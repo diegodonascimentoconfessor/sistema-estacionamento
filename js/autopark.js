@@ -1,5 +1,5 @@
 const tarifa = 10; // Tarifa fixa por hora
-const SHEETS_DB_API_URL = "https://sheetdb.io/api/v1/zmsbzglp8ic7m";
+const SHEETS_DB_API_URL = "https://sheetdb.io/api/v1/l08nk3bd4w72f";
 
 // Função para adicionar um veículo
 document.getElementById('addVehicleBtn').addEventListener('click', () => {
@@ -7,7 +7,6 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
   const placa = document.getElementById('placa').value;
   const cor = document.getElementById('cor').value;
   const entrada = new Date().toISOString(); // Gera a entrada automaticamente
-
   if (marcaModelo && placa && cor) {
     const newVehicle = { marcaModelo, placa, cor, entrada };
 

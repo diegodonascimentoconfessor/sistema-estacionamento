@@ -1,14 +1,9 @@
-const express = require('express');
-const { Pool } = require('pg');
-const path = require('path');
 
-const app = express();
-const port = 3000;
 
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'Autopark',  // Alterado para o nome do banco de dados do estacionamento
+    database: 'Autopark',  
     password: 'BemVindo!',
     port: 5432,
 });
@@ -18,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rota principal (tela inicial)
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.sendFile(path.join(__dirname, 'app', 'index.html'));
 });
 
@@ -39,7 +34,7 @@ app.post('/veiculo', async (req, res) => {
 });
 
 // Rota para listar todos os veículos cadastrados
-app.get('/veiculo', async (req, res) => {
+app.get('/veiculo', async (_req, res) => {
     try {
         const result = await pool.query('SELECT * FROM veiculo');
         res.json(result.rows);
@@ -95,7 +90,7 @@ app.post('/pagamento', async (req, res) => {
 });
 
 // Rota para listar todos os pagamentos
-app.get('/pagamento', async (req, res) => {
+app.get('/pagamento', async (_req, res) => {
     try {
         const result = await pool.query('SELECT * FROM pagamento');
         res.json(result.rows);
@@ -105,7 +100,7 @@ app.get('/pagamento', async (req, res) => {
 });
 
 // Página de dados (relatórios, etc)
-app.get('/dados', (req, res) => {
+app.get('/dados', (_req, res) => {
     res.sendFile(path.join(__dirname, 'app', 'indexl'));
 });
 
