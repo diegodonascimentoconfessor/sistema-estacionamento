@@ -40,15 +40,7 @@ window.onload = function() {
     setInterval(updateDateTime, 1000);
   };
 
-
-
-
-
-
-
-
 const tarifaPorSegundo = 0.00278; 
-
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('calcPagamentoBtn').addEventListener('click', calcularPagamento);
     document.getElementById('gerarCupomBtn').addEventListener('click', gerarCupom);
@@ -83,7 +75,6 @@ function calcularPagamento() {
             return;
         }
 
-        
         localStorage.setItem('numeroCartao', numeroCartao);
         localStorage.setItem('nomeTitular', nomeTitular);
         localStorage.setItem('validadeCartao', validadeCartao);
@@ -97,7 +88,6 @@ function calcularPagamento() {
     const diffSegundos = diffMs / 1000; 
 
     const valorPagamento = diffSegundos * tarifaPorSegundo;
-
 
     const pagamentoData = {
         placaVeiculo,
@@ -167,7 +157,6 @@ function gerarCupom() {
     printWindow.document.close();
     printWindow.print();
 }
-
 
 function calcularPagamento() {
   const placaVeiculo = document.getElementById('placaVeiculo').value;

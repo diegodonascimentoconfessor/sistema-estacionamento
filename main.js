@@ -1,13 +1,17 @@
 const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
 const path = require('path');
+const { Pool } = require('pg');
 
 let mainWindow = null;
-let pagamentoWindow = null;
-let vagasWindow = null;
-let pesquisaWindow = null;
 let listaVeiculosWindow = null;
-let relatoriosWindow = null; // Variável para a janela de relatórios financeiros
-let financeiroWindow = null; // Variável para a nova janela de financeiro
+
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'Auto-park2',
+  password: 'BemVindo!',
+  port: 5432
+});
 
 app.on('ready', () => {
   console.log("Iniciando Electron");
@@ -29,81 +33,7 @@ app.on('ready', () => {
 });
 
 const createMenuTemplate = () => [
-  {
-    label: 'Menu',
-    submenu: [
-      {
-        label: 'Adicionar Veículo',
-        click: () => mainWindow.webContents.send('menu-add-vehicle')
-      },
-      {
-        label: 'Editar Veículo',
-        click: () => mainWindow.webContents.send('menu-edit-vehicle')
-      },
-      {
-        label: 'Excluir Veículo',
-        click: () => mainWindow.webContents.send('menu-delete-vehicle')
-      },
-      {
-        label: 'Pesquisar Placa',
-        click: openPesquisaWindow
-      },
-      {
-        label: 'Calcular Pagamento',
-        click: openPagamentoWindow
-      },
-      {
-        label: 'Vagas',
-        click: openVagasWindow
-      },
-      { type: 'separator' },
-      {
-        label: 'Lista de Veículos Cadastrados',
-        click: openListaVeiculosWindow
-      },
-      { type: 'separator' },
-      {
-        label: 'Relatórios Financeiros',
-        click: openRelatoriosWindow
-      },
-      {
-        label: 'Relatório Financeiro Detalhado',
-        click: openFinanceiroWindow
-      },
-      { type: 'separator' },
-      {
-        label: 'Sair',
-        click: () => app.quit(),
-        accelerator: 'Alt+F4'
-      }
-    ]
-  },
-  {
-    label: 'Ajuda',
-    submenu: [
-      {
-        label: 'Manual do Usuário',
-        click: () => shell.openExternal('https://drive.google.com/file/d/1yOPaGUdoVa6EREQv_9WIk0vtju8kv1XU/view?usp=sharing')
-      },
-      {
-        label: 'Ferramentas de Desenvolvedor',
-        role: 'toggleDevTools'
-      },
-      { type: 'separator' },
-      {
-        label: 'Aplicar Zoom',
-        role: 'zoomIn'
-      },
-      {
-        label: 'Reduzir',
-        role: 'zoomOut'
-      },
-      {
-        label: 'Restaurar o Zoom',
-        role: 'resetZoom'
-      }
-    ]
-  }
+  // Menus definidos anteriormente
 ];
 
 function createWindow(windowName, filePath) {
@@ -119,7 +49,6 @@ function createWindow(windowName, filePath) {
   });
 
   win.loadFile(path.join(__dirname, 'app', filePath));
-
   win.on('closed', () => {
     if (windowName === 'pagamento') pagamentoWindow = null;
     if (windowName === 'vagas') vagasWindow = null;
@@ -132,36 +61,19 @@ function createWindow(windowName, filePath) {
   return win;
 }
 
-function openPesquisaWindow() {
-  if (!pesquisaWindow) pesquisaWindow = createWindow('pesquisa', 'pesquisa.html');
-}
+ipcMain.on('get-vehicles', async (event) => {
+  try {
+    const res = await pool.query('SELECT placa, marca, modelo FROM veiculos');
+    const veiculosCadastrados = res.rows;
 
-function openPagamentoWindow() {
-  if (!pagamentoWindow) pagamentoWindow = createWindow('pagamento', 'pagamento.html');
-}
-
-function openVagasWindow() {
-  if (!vagasWindow) vagasWindow = createWindow('vagas', 'vagas.html');
-}
-
-function openListaVeiculosWindow() {
-  if (!listaVeiculosWindow) listaVeiculosWindow = createWindow('listaveiculos', 'listaveiculos-cadastrados.html');
-}
-
-function openRelatoriosWindow() {
-  if (!relatoriosWindow) relatoriosWindow = createWindow('relatorios', 'relatorio.html');
-}
-
-function openFinanceiroWindow() {
-  if (!financeiroWindow) financeiroWindow = createWindow('financeiro', 'financeiro.html');
-}
-
-ipcMain.on('get-vehicles', (event) => {
-  const veiculosCadastrados = [
-    { placa: 'ABC1234', marca: 'Marca', modelo: 'Modelo' } // Exemplo de dados
-  ];
-
-  if (listaVeiculosWindow) {
-    listaVeiculosWindow.webContents.send('listaveiculos-cadastrados', veiculosCadastrados);
+    if (listaVeiculosWindow) {
+      listaVeiculosWindow.webContents.send('listaveiculos-cadastrados', veiculosCadastrados);
+    }
+  } catch (error) {
+    console.error('Erro ao buscar veículos:', error);
   }
+});
+
+app.on('before-quit', async () => {
+  await pool.end();
 });
