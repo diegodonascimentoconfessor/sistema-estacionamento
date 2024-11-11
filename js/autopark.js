@@ -1,5 +1,6 @@
 const { Client } = require('pg');
 const tarifa = 10; // Tarifa fixa por hora
+const capacidadeTotal = 100; // Defina a capacidade total de vagas
 
 // Configuração da conexão com o PostgreSQL
 const client = new Client({
@@ -38,6 +39,7 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
     .then(() => {
       console.log('Veículo adicionado ao PostgreSQL');
       alert('Veículo adicionado com sucesso! Salvo no localStorage e no PostgreSQL.');
+      atualizarVagas(); // Atualizar vagas após adicionar veículo
     })
     .catch(error => {
       console.error('Erro ao adicionar no PostgreSQL:', error);
@@ -54,6 +56,20 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
     alert('Por favor, preencha todos os campos.');
   }
 });
+
+// Função para atualizar vagas
+function atualizarVagas() {
+  client.query('SELECT COUNT(*) FROM veiculos')
+    .then(result => {
+      const vagasOcupadas = parseInt(result.rows[0].count, 10);
+      const vagasDisponiveis = capacidadeTotal - vagasOcupadas;
+
+      // Atualizar elementos na página
+      document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
+      document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
+    })
+    .catch(error => console.error('Erro ao calcular vagas:', error));
+}
 
 // Função para carregar a lista de veículos do PostgreSQL
 function carregarListaVeiculos() {
@@ -99,6 +115,7 @@ function excluirVeiculo(placa) {
   vehicles = vehicles.filter(vehicle => vehicle.placa !== placa);
   localStorage.setItem('vehicles', JSON.stringify(vehicles));
   carregarListaVeiculos();
+  atualizarVagas(); // Atualizar vagas após excluir veículo
 
   // Excluir do PostgreSQL
   client.query('DELETE FROM veiculos WHERE placa = $1', [placa])
@@ -110,39 +127,12 @@ function excluirVeiculo(placa) {
 document.getElementById('searchPlaca').addEventListener('input', function() {
   const query = this.value.toLowerCase();
   client.query('SELECT * FROM veiculos WHERE LOWER(placa) LIKE $1 OR LOWER(marca_modelo) LIKE $1 OR LOWER(cor) LIKE $1', [`%${query}%`])
-    .then(result => {
-      const filteredVehicles = result.rows;
-      exibirResultadoPesquisa(filteredVehicles);
-    })
-    .catch(error => console.error('Erro ao buscar no PostgreSQL:', error));
+    .then(result => renderVeiculos(result.rows))
+    .catch(error => console.error('Erro ao pesquisar veículos:', error));
 });
 
-// Função para exibir o resultado da pesquisa
-function exibirResultadoPesquisa(vehicles) {
-  const resultadoPesquisa = document.getElementById('resultadoPesquisa');
-  resultadoPesquisa.innerHTML = '';
-
-  vehicles.forEach(vehicle => {
-    const div = document.createElement('div');
-    div.classList.add('resultado-item');
-    div.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marca_modelo}, Cor: ${vehicle.cor}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Excluir';
-    deleteBtn.addEventListener('click', () => {
-      excluirVeiculo(vehicle.placa);
-    });
-    div.appendChild(deleteBtn);
-
-    const payBtn = document.createElement('button');
-    payBtn.textContent = 'Pagamento';
-    payBtn.addEventListener('click', () => {
-      window.location.href = `pagamento.html?placa=${vehicle.placa}&marcaModelo=${vehicle.marca_modelo}&cor=${vehicle.cor}`;
-    });
-    div.appendChild(payBtn);
-
-    resultadoPesquisa.appendChild(div);
-  });
-}
-
-window.addEventListener('DOMContentLoaded', carregarListaVeiculos);
+// Carregar lista de veículos e atualizar vagas ao carregar a página
+window.addEventListener('DOMContentLoaded', () => {
+  carregarListaVeiculos();
+  atualizarVagas();
+});
