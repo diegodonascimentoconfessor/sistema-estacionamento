@@ -202,28 +202,28 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center; 
-  background-color: #105F71;
+  background-color: #fff;
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 0 0 15px #105F71(0, 0, 0, 0.767);
+  box-shadow: 0 0 15px #ffffff(0, 0, 0, 0.767);
   margin-top: 10px;
   font-size: 18px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  margin-bottom: 50px;
-  color: #105F71;
+  margin-top: 195px;
+  color: #0e0c0c;
 
 }
 
 #top-info .number {
   font-size: 36px; 
   font-weight: bold; 
-  color: #105F71; 
+  color: #ffffff; 
   margin-bottom: 10px; 
 }
 
 #top-info .label {
   font-size: 14px; 
-  color: #105F71; 
+  color: #1f1010; 
 }
 
 
