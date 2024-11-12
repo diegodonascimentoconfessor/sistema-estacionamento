@@ -1,10 +1,7 @@
 * {
   margin:0;
   padding:0;
-  
   }
-
-
 body {
   display: flex;
   flex-direction: column;
@@ -13,15 +10,13 @@ body {
   background-color: #105F71;
   font-family: Arial, sans-serif;
  margin-top: 10px;
- margin-bottom: 200px;
-  
+ margin-bottom: 200px;  
 } 
-
 .sidebar {
   height: 100%;
   width: 200px; 
-  position: fixed; 
-  z-index: 1;
+  position: absolute; 
+  z-index: 0;
   top: 0;
   left: 0;
   background-color: #111;
@@ -29,20 +24,17 @@ body {
   padding-top: 20px;
   transition: 0.5s;
 }
-
 .sidebar a {
-  padding: 35px 35px 35px 36px;
+  padding: 35px 35px 35px 35px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
   display: block;
   transition: 0.3s;
 }
-
 .sidebar a:hover {
   color: #f1f1f1;
 }
-
 .closebtn {
   position: absolute;
   top: 0;
@@ -50,13 +42,11 @@ body {
   font-size: 36px;
   margin-left: 50px;
 }
-
 #main {
   transition: margin-left .5s;
   padding: 16px;
   margin-left: 200px; 
 }
-
 .openbtn {
   font-size: 20px;
   cursor: pointer;
@@ -65,43 +55,28 @@ body {
   padding: 10px 15px;
   border: none;
 }
-
 .openbtn:hover {
   background-color: #444;
 }
-
 .p{
 display: flex;
 flex-direction: column;
 font-size: 14px;
-
-}
-
-
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-  width: 100%;
-  
 }
 
 .input-group {
   margin-bottom: 10px;
 }
-
 .input-group label {
   display: block;
   margin-bottom: 5px;
   font-size: 10px;
 }
-
 .input-group input {
   width: 100%;
   padding: 5px;
   font-size: 10px;
 }
-
 .button {
   padding: 5px 10px;
   font-size: 10px;
@@ -109,15 +84,10 @@ font-size: 14px;
   margin-top: 5px;
   margin-bottom: 100px;
 }
-
-
 .vehicle-list, #resultadoPesquisa {
   margin-top: 20px;
   font-size: 14px;
 }
-
-
-
 #main {
   display: flex;
   flex-direction: row;
@@ -125,9 +95,7 @@ font-size: 14px;
   width: 80%;
   border-radius: 10px;
   border: red 1px;
-
 }
-
 .container {
   background-color: #fff;
   padding: 10px;
@@ -140,21 +108,17 @@ font-size: 14px;
   border: green solid 1px;
   border: red 1px;
   margin-top: 100px;
-
 }
-
 .input-group {
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
 }
-
 .input-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
-
 .input-group input[type="text"],
 .input-group input[type="datetime-local"] {
   width: 100%;
@@ -165,12 +129,10 @@ font-size: 14px;
   background-color: #ffffff;
   color: #000000;
 }
-
 h1 {
   text-align: center;
   margin-bottom: 20px;
 }
-
 .button {
   background-color: #0a0a0a;
   color: white;
@@ -185,11 +147,9 @@ h1 {
   margin: 5px ;
   margin-bottom: 80px;
 }
-
 .button:hover {
   background-color: #105F71;
 }
-
 #top-info {
 width: 150px;
 height: 100px;
@@ -199,62 +159,36 @@ align-items: center;
 justify-content: center;
 background-color: #fff;
 padding:10px;
-/* Bordas arredondadas */
-
+flex-direction: row-reverse;
 font-size: 18px;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 color: #0e0c0c;
 margin-top: 10px;
 padding-bottom: 60px;
-
-
-
 }
-
 #top-info .number {
   font-size: 36px; 
   font-weight: bold; 
   color: #0e0d0d; 
   margin-bottom: 10px; 
+  text-align: center;
 }
-
-#top-info .label {
-  font-size: 14px; 
-  color: #1f1010; 
-}
-
-
 .vehicle-list {
   max-height: 100px; 
   overflow-y: auto; 
   margin-bottom: 20px; 
 }
-
 #veiculosCadastrados {
   max-height: 200px; 
   overflow-y: auto; 
   margin-bottom: 20px; 
   text-decoration: none;
 }
-
-.container-row {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-
-
-
-
 #listaVeiculos {
   display: flex;
   text-align: center; 
   margin-bottom: 10px;
 }
-
-
 .container {
   display: flex;
   flex-direction: column;
@@ -262,36 +196,19 @@ padding-bottom: 60px;
   padding: 20px;
   background-color: #fff;
 }
-
-
-
 * Estiliza o container principal do pagamento */
-.container {
-    background-color: #fff;
-    padding: 0px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: calc(100% - 220px); 
-    height: 100px;
-    margin-left: 220px; 
-    box-sizing: border-box;
-    max-width: 800px; 
-  }
-  
-  
+
   .container h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #0f0f0f;
   }
-  
   /* Estiliza o grupo de inputs */
   .input-group {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
   }
-  
   /* Estiliza o label dos inputs */
   .input-group label {
     font-size: 14px;
@@ -311,10 +228,8 @@ padding-bottom: 60px;
     font-size: 14px;
     color: #333;
   }
-  
   /* Estiliza o botão de calcular pagamento */
-  #calcPagamentoBtn {
-    
+  #calcPagamentoBtn {  
  background-color: #f6fcfd;
   color: white;
   padding: 5px 10px; 
@@ -327,11 +242,10 @@ padding-bottom: 60px;
   text-align: center;
   margin: 5px auto;
 }
-  
   #calcPagamentoBtn:hover {
     background-color:#f1f1f1; ;
   }
-  
+
   /* Estiliza a área de valor de pagamento */
   #valorPagamento {
     text-align: center;
@@ -359,23 +273,11 @@ padding-bottom: 60px;
   }
   
   /* Estiliza o botão de voltar */
-  #voltarBtn {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-  }
+
   
   #voltarBtn:hover {
     background-color: #222;
   }
-  
   /* Estiliza a página de cupom */
   @media print {
     .container {
@@ -383,15 +285,27 @@ padding-bottom: 60px;
       margin: 0;
       padding: 10px;
     }
-    
     .button {
       display: none;
     }
-    
     #valorPagamento {
       font-size: 20px;
     }
   }
-  
 
-  
+  #top-info {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 20px;
+    }
+    #top-info p {
+      margin: 0;
+      font-weight: bold;
+    }
+    #vagasDisponiveis, #vagasOcupadas {
+      font-size: 24px;
+      text-align: center;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }

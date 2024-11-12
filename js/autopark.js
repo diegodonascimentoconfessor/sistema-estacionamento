@@ -65,8 +65,15 @@ function atualizarVagas() {
       const vagasDisponiveis = capacidadeTotal - vagasOcupadas;
 
       // Atualizar elementos na página
-      document.getElementById('vagasDisponiveis').textContent = vagasDisponiveis;
-      document.getElementById('vagasOcupadas').textContent = vagasOcupadas;
+      const vagasDisponiveisEl = document.getElementById('vagasDisponiveis');
+      const vagasOcupadasEl = document.getElementById('vagasOcupadas');
+
+      vagasDisponiveisEl.textContent = vagasDisponiveis;
+      vagasOcupadasEl.textContent = vagasOcupadas;
+
+      // Aplicar cores: verde para vagas disponíveis e vermelho para vagas ocupadas
+      vagasDisponiveisEl.style.color = 'green';
+      vagasOcupadasEl.style.color = 'red';
     })
     .catch(error => console.error('Erro ao calcular vagas:', error));
 }
@@ -120,19 +127,11 @@ function excluirVeiculo(placa) {
   // Excluir do PostgreSQL
   client.query('DELETE FROM veiculos WHERE placa = $1', [placa])
     .then(() => console.log('Veículo excluído do PostgreSQL'))
-    .catch(error => console.error('Erro ao excluir do PostgreSQL:', error));
+    .catch(error => console.error('Erro ao excluir veículo do PostgreSQL:', error));
 }
 
-// Função de pesquisa de veículos
-document.getElementById('searchPlaca').addEventListener('input', function() {
-  const query = this.value.toLowerCase();
-  client.query('SELECT * FROM veiculos WHERE LOWER(placa) LIKE $1 OR LOWER(marca_modelo) LIKE $1 OR LOWER(cor) LIKE $1', [`%${query}%`])
-    .then(result => renderVeiculos(result.rows))
-    .catch(error => console.error('Erro ao pesquisar veículos:', error));
-});
-
-// Carregar lista de veículos e atualizar vagas ao carregar a página
-window.addEventListener('DOMContentLoaded', () => {
+// Carregar a lista de veículos e atualizar vagas ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
   carregarListaVeiculos();
   atualizarVagas();
 });

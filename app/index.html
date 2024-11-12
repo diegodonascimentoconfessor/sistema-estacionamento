@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="../assets/reset.css">
   <link rel="stylesheet" href="../assets/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
 <body>
+  <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
     <a href="index.html"><i class="fas fa-home"></i> Início</a>
@@ -16,9 +16,10 @@
     <a href="pesquisa.html"><i class="fas fa-search"></i> Pesquisar Veículos</a>
     <a href="pagamento.html"><i class="fas fa-credit-card"></i> Pagamento</a>
     <a href="relatorio.html"><i class="fas fa-file-alt"></i> Relatório</a>
-    <a href="Financeiro.htm"><i class="fas fa-file-alt"></i> Financeiro</a>
+    <a href="financeiro.html"><i class="fas fa-file-alt"></i> Financeiro</a>
   </div>
 
+  <!-- Main Content -->
   <div id="main">
     <div class="container">
       <figure>
@@ -27,10 +28,11 @@
       <h1>Autopark</h1>
 
       <div id="top-info" class="top-info">
-        <p>Vagas Disponíveis: <span id="vagasDisponiveis"></span></p>
-        <p>Vagas Ocupadas: <span id="vagasOcupadas"></span></p>
+        <p>Vagas Disponíveis: <span id="vagasDisponiveis" style="color: green;"></span></p>
+        <p>Vagas Ocupadas: <span id="vagasOcupadas" style="color: red;"></span></p>
       </div>
 
+      <!-- Formulário de Cadastro de Veículos -->
       <div class="input-group">
         <label class="label" for="marcaModelo">Marca/Modelo</label>
         <input id="marcaModelo" type="text" placeholder="Marca/Modelo">
@@ -46,9 +48,9 @@
       
       <button id="addVehicleBtn" class="button">Adicionar Veículo</button>
       <div id="vehicleList" class="vehicle-list"></div>
-    
     </div>
 
+    <!-- Pesquisa e Relatório -->
     <div class="container">
       <div class="container-row">
         <div id="pesquisaVeiculos">
