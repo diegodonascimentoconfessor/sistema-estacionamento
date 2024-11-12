@@ -199,14 +199,14 @@ align-items: center;
 justify-content: center;
 background-color: #fff;
 padding:10px;
-border-radius: 20px; /* Bordas arredondadas */
-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra mais suave */
+/* Bordas arredondadas */
+
 font-size: 18px;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 color: #0e0c0c;
 margin-top: 10px;
 padding-bottom: 60px;
-border: green solid 1px;
+
 
 
 }
