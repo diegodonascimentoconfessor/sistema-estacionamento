@@ -126,12 +126,36 @@ function excluirVeiculo(placa) {
 
   // Excluir do PostgreSQL
   client.query('DELETE FROM veiculos WHERE placa = $1', [placa])
-    .then(() => console.log('Veículo excluído do PostgreSQL'))
+    .then(() => console.log(`Veículo com a placa ${placa} excluído do PostgreSQL`))
     .catch(error => console.error('Erro ao excluir veículo do PostgreSQL:', error));
 }
 
-// Carregar a lista de veículos e atualizar vagas ao carregar a página
-document.addEventListener('DOMContentLoaded', () => {
-  carregarListaVeiculos();
-  atualizarVagas();
+// Função para buscar veículos no localStorage
+document.getElementById('searchBtn').addEventListener('click', () => {
+  const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase();
+  let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+
+  const filteredVehicles = vehicles.filter(vehicle => vehicle.placa.toUpperCase().includes(searchPlaca));
+
+  mostrarResultadoPesquisa(filteredVehicles);
 });
+
+// Exibir resultados da pesquisa
+function mostrarResultadoPesquisa(vehicles) {
+  const resultadoContainer = document.getElementById('resultadoPesquisa');
+  resultadoContainer.innerHTML = '';
+
+  if (vehicles.length > 0) {
+    vehicles.forEach(vehicle => {
+      const div = document.createElement('div');
+      div.classList.add('vehicle-result');
+      div.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marca_modelo}, Cor: ${vehicle.cor}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
+      resultadoContainer.appendChild(div);
+    });
+  } else {
+    resultadoContainer.textContent = 'Nenhum veículo encontrado com a placa fornecida.';
+  }
+}
+
+carregarListaVeiculos();
+atualizarVagas();
