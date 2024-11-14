@@ -43,7 +43,6 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
     })
     .catch(error => {
       console.error('Erro ao adicionar no PostgreSQL:', error);
-      ;
     });
 
     carregarListaVeiculos();
@@ -52,8 +51,6 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
     document.getElementById('marcaModelo').value = '';
     document.getElementById('placa').value = '';
     document.getElementById('cor').value = '';
-  } else {
-    
   }
 });
 
@@ -89,30 +86,25 @@ function carregarListaVeiculos() {
     .catch(error => console.error('Erro ao carregar veículos do PostgreSQL:', error));
 }
 
-// Função para renderizar a lista de veículos
+// Função para renderizar a lista de veículos cadastrados em tabela
 function renderVeiculos(vehicles) {
   const veiculosList = document.getElementById('veiculosCadastrados');
-  veiculosList.innerHTML = '';
+  veiculosList.innerHTML = ''; // Limpar a lista antes de renderizar os dados
 
-  vehicles.forEach((vehicle, index) => {
-    const li = document.createElement('li');
-    li.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marca_modelo}, Cor: ${vehicle.cor}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Excluir';
-    deleteBtn.addEventListener('click', () => {
-      excluirVeiculo(vehicle.placa);
-    });
-    li.appendChild(deleteBtn);
-
-    const payBtn = document.createElement('button');
-    payBtn.textContent = 'Pagamento';
-    payBtn.addEventListener('click', () => {
-      window.location.href = `pagamento.html?placa=${vehicle.placa}&marcaModelo=${vehicle.marca_modelo}&cor=${vehicle.cor}`;
-    });
-    li.appendChild(payBtn);
-
-    veiculosList.appendChild(li);
+  // Iterar sobre os veículos e renderizar cada um na tabela
+  vehicles.forEach(vehicle => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${vehicle.placa}</td> <!-- Exibir placa -->
+      <td>${vehicle.marca_modelo}</td>
+      <td>${vehicle.cor}</td> <!-- Exibir cor -->
+      <td>${new Date(vehicle.entrada).toLocaleString()}</td>
+      <td>
+        <button onclick="excluirVeiculo('${vehicle.placa}')">Excluir</button>
+        <button onclick="window.location.href='pagamento.html?placa=${vehicle.placa}&marcaModelo=${vehicle.marca_modelo}&cor=${vehicle.cor}'">Pagamento</button>
+      </td>
+    `;
+    veiculosList.appendChild(tr); // Adicionar a linha à tabela
   });
 }
 
@@ -149,69 +141,13 @@ function mostrarResultadoPesquisa(vehicles) {
     vehicles.forEach(vehicle => {
       const div = document.createElement('div');
       div.classList.add('vehicle-result');
-      div.textContent = `Placa: ${vehicle.placa}, Marca/Modelo: ${vehicle.marca_modelo}, Cor: ${vehicle.cor}, Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
+      div.textContent = `Placa: ${vehicle.placa},  Marca/Modelo: ${vehicle.marca_modelo},  Cor: ${vehicle.cor} , Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
       resultadoContainer.appendChild(div);
     });
   } else {
     resultadoContainer.textContent = 'Nenhum veículo encontrado com a placa fornecida.';
   }
 }
-
-carregarListaVeiculos();
-atualizarVagas();
-
-
-// Função para mostrar resultado da pesquisa em tabela
-function mostrarResultadoPesquisa(vehicles) {
-  const resultadoTable = document.getElementById('resultadoPesquisa');
-  resultadoTable.innerHTML = '';
-
-  if (vehicles.length > 0) {
-    vehicles.forEach(vehicle => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${vehicle.placa}</td>
-        <td>${vehicle.marca_modelo}</td>
-        <td>${vehicle.cor}</td>
-        <td>${new Date(vehicle.entrada).toLocaleString()}</td>
-      `;
-      resultadoTable.appendChild(tr);
-    });
-  } else {
-    resultadoTable.innerHTML = `<tr><td colspan="4">Nenhum veículo encontrado com a placa fornecida.</td></tr>`;
-  }
-}
-
-// Função para renderizar a lista de veículos cadastrados em tabela
-function renderVeiculos(vehicles) {
-  const veiculosList = document.getElementById('veiculosCadastrados');
-  veiculosList.innerHTML = '';
-
-  vehicles.forEach(vehicle => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${vehicle.placa}</td>
-      <td>${vehicle.marca_modelo}</td>
-      <td>${vehicle.cor}</td>
-      <td>${new Date(vehicle.entrada).toLocaleString()}</td>
-      <td>
-        <button onclick="excluirVeiculo('${vehicle.placa}')">Excluir</button>
-        <button onclick="window.location.href='pagamento.html?placa=${vehicle.placa}&marcaModelo=${vehicle.marca_modelo}&cor=${vehicle.cor}'">Pagamento</button>
-      </td>
-    `;
-    veiculosList.appendChild(tr);
-  });
-}
-
-// Evento para o botão de pesquisa
-document.getElementById('searchBtn').addEventListener('click', () => {
-  const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase();
-  let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-
-  const filteredVehicles = vehicles.filter(vehicle => vehicle.placa.toUpperCase().includes(searchPlaca));
-
-  mostrarResultadoPesquisa(filteredVehicles);
-});
 
 carregarListaVeiculos();
 atualizarVagas();
