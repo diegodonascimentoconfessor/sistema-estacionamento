@@ -1,3 +1,14 @@
+// Função para adicionar um veículo ao banco de dados
+const adicionarVeiculo = async (client, { placa, marca_modelo, cor, entrada }) => {
+  try {
+    const query = 'INSERT INTO veiculos (placa, marca_modelo, cor, entrada) VALUES ($1, $2, $3, $4)';
+    await client.query(query, [placa, marca_modelo, cor, entrada]);
+    return true;
+  } catch (error) {
+    throw new Error('Erro ao adicionar veículo');
+  }
+};
+
 const atualizarVagas = async (client, capacidadeTotal) => {
     try {
       const result = await client.query('SELECT COUNT(*) FROM veiculos');
@@ -28,5 +39,5 @@ const atualizarVagas = async (client, capacidadeTotal) => {
     }
   };
   
-  module.exports = { atualizarVagas, carregarListaVeiculos, excluirVeiculo };
+  module.exports = { adicionarVeiculo, atualizarVagas, carregarListaVeiculos, excluirVeiculo };
   
