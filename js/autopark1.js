@@ -4,6 +4,7 @@ const adicionarVeiculo = async (client, { placa, marca_modelo, cor, entrada }) =
     const query = 'INSERT INTO veiculos (placa, marca_modelo, cor, entrada) VALUES ($1, $2, $3, $4)';
     await client.query(query, [placa, marca_modelo, cor, entrada]);
     return true;
+  // eslint-disable-next-line no-unused-vars
   } catch (error) {
     throw new Error('Erro ao adicionar veículo');
   }
@@ -16,6 +17,7 @@ const atualizarVagas = async (client, capacidadeTotal) => {
     const vagasDisponiveis = capacidadeTotal - vagasOcupadas;
 
     return { vagasDisponiveis, vagasOcupadas };
+  // eslint-disable-next-line no-unused-vars
   } catch (error) {
     throw new Error('Erro ao calcular vagas');
   }
@@ -26,6 +28,7 @@ const carregarListaVeiculos = async (client) => {
   try {
     const result = await client.query('SELECT * FROM veiculos');
     return result.rows;
+  // eslint-disable-next-line no-unused-vars
   } catch (error) {
     throw new Error('Erro ao carregar veículos');
   }
@@ -34,6 +37,7 @@ const excluirVeiculo = async (client, placa) => {
   try {
     await client.query('DELETE FROM veiculos WHERE placa = $1', [placa]);
     return true;
+  // eslint-disable-next-line no-unused-vars
   } catch (error) {
     throw new Error('Erro ao excluir veículo');
   }

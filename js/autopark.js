@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-const tarifa = 10; // Tarifa fixa por hora
+
 const capacidadeTotal = 100; // Defina a capacidade total de vagas
 
 // Configuração da conexão com o PostgreSQL
@@ -109,18 +109,6 @@ function renderVeiculos(vehicles) {
 }
 
 // Função para excluir veículo
-function excluirVeiculo(placa) {
-  let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-  vehicles = vehicles.filter(vehicle => vehicle.placa !== placa);
-  localStorage.setItem('vehicles', JSON.stringify(vehicles));
-  carregarListaVeiculos();
-  atualizarVagas(); // Atualizar vagas após excluir veículo
-
-  // Excluir do PostgreSQL
-  client.query('DELETE FROM veiculos WHERE placa = $1', [placa])
-    .then(() => console.log(`Veículo com a placa ${placa} excluído do PostgreSQL`))
-    .catch(error => console.error('Erro ao excluir veículo do PostgreSQL:', error));
-}
 
 // Função para buscar veículos no localStorage
 document.getElementById('searchBtn').addEventListener('click', () => {

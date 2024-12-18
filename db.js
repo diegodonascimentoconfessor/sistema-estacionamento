@@ -9,6 +9,7 @@ const dbSimulado = {
   
     switch (comando) {
       case 'INSERT':
+        // eslint-disable-next-line no-case-declarations
         const novoVeiculo = {
           placa: params[0],
           marca_modelo: params[1],
@@ -25,13 +26,13 @@ const dbSimulado = {
         return { rows: dbSimulado.veiculos };
   
       case 'DELETE':
-        const placa = params[0];
+        { const placa = params[0];
         const index = dbSimulado.veiculos.findIndex((v) => v.placa === placa);
         if (index !== -1) {
           dbSimulado.veiculos.splice(index, 1);
           return { rowCount: 1 };
         }
-        return { rowCount: 0 };
+        return { rowCount: 0 }; }
   
       default:
         throw new Error('Comando SQL não suportado na simulação');
