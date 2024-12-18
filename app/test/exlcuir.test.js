@@ -1,4 +1,4 @@
-const { excluirVeiculo } = require('../../js/app');  // Ajuste o caminho conforme necessário
+const { excluirVeiculo } = require('../../js/autopark1');  // Ajuste o caminho conforme necessário
 const client = {
   query: jest.fn(),  // Mock da função query do cliente
 };
