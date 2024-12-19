@@ -1,4 +1,4 @@
-const { excluirVeiculo } = require('../../js/autopark1');  // Ajuste o caminho conforme necessário
+const { excluirVeiculo } = require('../../js/excluir');  // Ajuste o caminho conforme necessário
 const client = {
   // eslint-disable-next-line no-undef
   query: jest.fn(),  // Mock da função query do cliente

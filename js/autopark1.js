@@ -8,8 +8,7 @@ const adicionarVeiculo = async (client, { placa, marca_modelo, cor, entrada }) =
   } catch (error) {
     throw new Error('Erro ao adicionar veículo');
   }
-};
-// Função para atualizar as vagas
+}
 const atualizarVagas = async (client, capacidadeTotal) => {
   try {
     const result = await client.query('SELECT COUNT(*) FROM veiculos');
