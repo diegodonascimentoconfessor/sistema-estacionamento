@@ -16,6 +16,7 @@ const atualizarVagas = async (client, capacidadeTotal) => {
     const vagasDisponiveis = capacidadeTotal - vagasOcupadas;
 
     return { vagasDisponiveis, vagasOcupadas };
+  //
   // eslint-disable-next-line no-unused-vars
   } catch (error) {
     throw new Error('Erro ao calcular vagas');
