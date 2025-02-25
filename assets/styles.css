@@ -1,7 +1,8 @@
 * {
-  margin:0;
-  padding:0;
-  }
+  margin: 0;
+  padding: 0;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -9,15 +10,15 @@ body {
   height: 100vh;
   background-color: #105F71;
   font-family: Arial, sans-serif;
- margin-top: 10px;
- margin-bottom: 200px;  
- overflow: hidden; /* Desativa a rolagem */
- 
-} 
+  margin-top: 10px;
+  margin-bottom: 200px;
+  overflow: hidden; /* Desativa a rolagem */
+}
+
 .sidebar {
   height: 100%;
-  width: 200px; 
-  position: absolute; 
+  width: 200px;
+  position: absolute;
   z-index: 0;
   top: 0;
   left: 0;
@@ -26,6 +27,7 @@ body {
   padding-top: 20px;
   transition: 0.5s;
 }
+
 .sidebar a {
   padding: 35px 35px 35px 35px;
   text-decoration: none;
@@ -34,9 +36,11 @@ body {
   display: block;
   transition: 0.3s;
 }
+
 .sidebar a:hover {
   color: #f1f1f1;
 }
+
 .closebtn {
   position: absolute;
   top: 0;
@@ -44,11 +48,13 @@ body {
   font-size: 36px;
   margin-left: 50px;
 }
+
 #main {
-  transition: margin-left .5s;
+  transition: margin-left 0.5s;
   padding: 16px;
-  margin-left: 200px; 
+  margin-left: 200px;
 }
+
 .openbtn {
   font-size: 20px;
   cursor: pointer;
@@ -57,38 +63,58 @@ body {
   padding: 10px 15px;
   border: none;
 }
+
 .openbtn:hover {
   background-color: #444;
 }
-.p{
-display: flex;
-flex-direction: column;
-font-size: 14px;
+
+.p {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
 }
 
 .input-group {
   margin-bottom: 10px;
 }
+
 .input-group label {
   display: block;
   margin-bottom: 5px;
   font-size: 10px;
 }
+
 .input-group input {
   width: 100%;
   padding: 5px;
   font-size: 10px;
 }
+
+/* Botões padronizados */
 .button {
-  padding: 5px 10px;
-  font-size: 10px;
-  margin-top: 5px;
-  margin-bottom: 100px;
+  background-color: #0a0a0a;
+  color: white;
+  padding: 10px 20px; /* Padding padronizado */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: block;
+  width: 100%; /* Largura total */
+  text-align: center;
+  margin: 10px 0; /* Margem padronizada */
 }
-.vehicle-list, #resultadoPesquisa {
+
+.button:hover {
+  background-color: #105F71;
+}
+
+.vehicle-list,
+#resultadoPesquisa {
   margin-top: 20px;
   font-size: 14px;
 }
+
 #main {
   display: flex;
   flex-direction: row;
@@ -97,6 +123,7 @@ font-size: 14px;
   border-radius: 10px;
   border: red 1px;
 }
+
 .container {
   background-color: #fff;
   padding: 10px;
@@ -110,63 +137,52 @@ font-size: 14px;
   border: red 1px;
   margin-top: 100px;
 }
+
 .input-group {
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
 }
+
 .input-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
+
 .input-group input[type="text"],
 .input-group input[type="datetime-local"] {
   width: 100%;
   padding: 5px;
-  border: 1px solid #FFF;
+  border: 1px solid #fff;
   border-radius: 5px;
   box-sizing: border-box;
   background-color: #ffffff;
   color: #000000;
 }
+
 h1 {
   text-align: center;
   margin-bottom: 20px;
 }
-.button {
-  background-color: #0a0a0a;
-  color: white;
-  padding: 5px 1px; 
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px; 
-  display: block;
-  width: 40%; 
-  text-align: center;
-  margin: 5px ;
-  margin-bottom: 80px;
-}
-.button:hover {
-  background-color: #105F71;
-}
+
 #top-info {
-width: 150px;
-height: 100px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-background-color: #fff;
-padding:10px;
-flex-direction: row-reverse;
-font-size: 18px;
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-color: #0e0c0c;
-margin-top: 10px;
-padding-bottom: 60px;
+  width: 150px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 10px;
+  flex-direction: row-reverse;
+  font-size: 18px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #0e0c0c;
+  margin-top: 10px;
+  padding-bottom: 60px;
 }
+
 #resultadoPesquisa {
   margin-bottom: 120px;
   flex-direction: column;
@@ -175,31 +191,35 @@ padding-bottom: 60px;
   flex-direction: row;
   align-items: center;
   border: orange solid 1px;
- 
 }
+
 #top-info .number {
-  font-size: 36px; 
-  font-weight: bold; 
-  color: #0e0d0d; 
-  margin-bottom: 10px; 
+  font-size: 36px;
+  font-weight: bold;
+  color: #0e0d0d;
+  margin-bottom: 10px;
   text-align: center;
 }
+
 .vehicle-list {
-  max-height: 100px; 
-  overflow-y: auto; 
-  margin-bottom: 20px; 
+  max-height: 100px;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
+
 #veiculosCadastrados {
-  max-height: 200px; 
-  overflow-y: auto; 
-  margin-bottom: 20px; 
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 20px;
   text-decoration: none;
 }
+
 #listaVeiculos {
   display: flex;
-  text-align: center; 
+  text-align: center;
   margin-bottom: 10px;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -207,133 +227,156 @@ padding-bottom: 60px;
   padding: 20px;
   background-color: #fff;
 }
-* Estiliza o container principal do pagamento */
 
-  .container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #0f0f0f;
-  }
-  /* Estiliza o grupo de inputs */
-  .input-group {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-  }
-  /* Estiliza o label dos inputs */
-  .input-group label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  /* Estiliza os inputs */
-  .input-group input[type="text"],
-  .input-group input[type="datetime-local"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
-    color: #333;
-  }
-  /* Estiliza o botão de calcular pagamento */
-  #calcPagamentoBtn {  
- background-color: #f6fcfd;
+/* Estiliza o container principal do pagamento */
+.container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0f0f0f;
+}
+
+/* Estiliza o grupo de inputs */
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estiliza o label dos inputs */
+.input-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Estiliza os inputs */
+.input-group input[type="text"],
+.input-group input[type="datetime-local"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Estiliza o botão de calcular pagamento */
+#calcPagamentoBtn {
+  background-color: #f6fcfd;
   color: white;
-  padding: 5px 10px; 
+  padding: 10px 20px; /* Padding padronizado */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px; 
+  font-size: 14px;
   display: block;
-  width: 40%; 
+  width: 100%; /* Largura total */
   text-align: center;
-  margin: 5px auto;
+  margin: 10px 0; /* Margem padronizada */
 }
-  #calcPagamentoBtn:hover {
-    background-color:#f1f1f1; ;
-  }
 
-  /* Estiliza a área de valor de pagamento */
-  #valorPagamento {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 20px;
-    font-weight: bold;
-  }
-  
-  /* Estiliza o botão de gerar cupom */
-  #gerarCupomBtn {
-    background-color: #020505;
-    color: white;
+#calcPagamentoBtn:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estiliza a área de valor de pagamento */
+#valorPagamento {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Estiliza o botão de gerar cupom */
+#gerarCupomBtn {
+  background-color: #020505;
+  color: white;
+  padding: 10px 20px; /* Padding padronizado */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  width: 100%; /* Largura total */
+  text-align: center;
+  margin: 10px 0; /* Margem padronizada */
+}
+
+#gerarCupomBtn:hover {
+  background-color: #0a0a0a;
+}
+
+/* Estiliza o botão de voltar */
+#voltarBtn {
+  background-color: #0a0a0a;
+  color: white;
+  padding: 10px 20px; /* Padding padronizado */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: block;
+  width: 100%; /* Largura total */
+  text-align: center;
+  margin: 10px 0; /* Margem padronizada */
+}
+
+#voltarBtn:hover {
+  background-color: #222;
+}
+
+/* Estiliza a página de cupom */
+@media print {
+  .container {
+    width: 100%;
+    margin: 0;
     padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    display: block;
-    width: 50%;
-    margin-top: 10px;
   }
-  
-  #gerarCupomBtn:hover {
-    background-color: #0a0a0a;
+  .button {
+    display: none;
   }
-  
-  /* Estiliza o botão de voltar */
-
-  
-  #voltarBtn:hover {
-    background-color: #222;
+  #valorPagamento {
+    font-size: 20px;
   }
-  /* Estiliza a página de cupom */
-  @media print {
-    .container {
-      width: 100%;
-      margin: 0;
-      padding: 10px;
-    }
-    .button {
-      display: none;
-    }
-    #valorPagamento {
-      font-size: 20px;
-    }
-  }
+}
 
-  #top-info {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      font-size: 20px;
-    }
-    #top-info p {
-      margin: 0;
-      font-weight: bold;
-    }
-    #vagasDisponiveis, #vagasOcupadas {
-      font-size: 24px;
-      text-align: center;
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
-    
+#top-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 20px;
+}
 
+#top-info p {
+  margin: 0;
+  font-weight: bold;
+}
 
-    #searchBtn {
-      background-color: #0a0a0a;
-      color: white;
-      padding: 5px 1px; 
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px; 
-      display: block;
-      width: 120%; 
-      text-align: center;
-      margin-right: 100px;
-      margin-bottom: 80px;
-    }
+#vagasDisponiveis,
+#vagasOcupadas {
+  font-size: 24px;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Botão de pesquisa padronizado */
+#searchBtn {
+  background-color: #0a0a0a;
+  color: white;
+  padding: 10px 20px; /* Padding padronizado */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: block;
+  width: 100%; /* Largura total */
+  text-align: center;
+  margin: 10px 0; /* Margem padronizada */
+}
+
+#searchBtn:hover {
+  background-color: #105F71;
+}
