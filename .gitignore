@@ -45,3 +45,6 @@ yarn.lock
 package-lock.json
 Package.json
 " > .gitignore
+
+
+firebase-config.js
