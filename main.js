@@ -1,17 +1,27 @@
-const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
-const { Pool } = require('pg');
+
+// Importações do Firebase
+const { initializeApp } = require('firebase/app');
+const { getFirestore, collection, getDocs } = require('firebase/firestore');
 
 let mainWindow = null;
 let listaVeiculosWindow = null;
 
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'Auto-park2',
-  password: 'BemVindo!',
-  port: 5432
-});
+// Configuração do Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCcRmayK-UWND1AhvNFi2JVMTCdcfzenME",
+  authDomain: "estacionamento-2477b.firebaseapp.com",
+  projectId: "estacionamento-2477b",
+  storageBucket: "estacionamento-2477b.firebasestorage.app",
+  messagingSenderId: "980586413038",
+  appId: "1:980586413038:web:097cf122a5b9654064ecff",
+  measurementId: "G-GKPZ3B2TT7"
+};
+
+// Inicialize o Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 
 app.on('ready', () => {
   console.log("Iniciando Electron");
@@ -36,35 +46,11 @@ const createMenuTemplate = () => [
   // Menus definidos anteriormente
 ];
 
-function createWindow(windowName, filePath) {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    resizable: true,
-    icon: path.join(__dirname, 'assets', 'icone-estacionamento.png'),
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
-    }
-  });
-
-  win.loadFile(path.join(__dirname, 'app', filePath));
-  win.on('closed', () => {
-    if (windowName === 'pagamento') pagamentoWindow = null;
-    if (windowName === 'vagas') vagasWindow = null;
-    if (windowName === 'pesquisa') pesquisaWindow = null;
-    if (windowName === 'listaveiculos') listaVeiculosWindow = null;
-    if (windowName === 'relatorios') relatoriosWindow = null;
-    if (windowName === 'financeiro') financeiroWindow = null;
-  });
-
-  return win;
-}
-
-ipcMain.on('get-vehicles', async (event) => {
+ipcMain.on('get-vehicles', async () => {
   try {
-    const res = await pool.query('SELECT placa, marca, modelo FROM veiculos');
-    const veiculosCadastrados = res.rows;
+    const veiculosCollection = collection(db, 'veiculos');
+    const veiculosSnapshot = await getDocs(veiculosCollection);
+    const veiculosCadastrados = veiculosSnapshot.docs.map(doc => doc.data());
 
     if (listaVeiculosWindow) {
       listaVeiculosWindow.webContents.send('listaveiculos-cadastrados', veiculosCadastrados);
@@ -74,6 +60,6 @@ ipcMain.on('get-vehicles', async (event) => {
   }
 });
 
-app.on('before-quit', async () => {
-  await pool.end();
+app.on('before-quit', () => {
+  // Não há necessidade de encerrar uma conexão com o Firebase, pois ele é stateless.
 });

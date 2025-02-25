@@ -1,23 +1,11 @@
-const { Client } = require('pg');
+// Importações do Firestore
+import { db } from '../firebase-config.js';
+import { collection, addDoc, getDocs, query, where, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const capacidadeTotal = 100; // Defina a capacidade total de vagas
 
-// Configuração da conexão com o PostgreSQL
-const client = new Client({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'Auto-park2',
-  password: 'BemVindo!',
-  port: 5432,
-});
-
-// Conectar ao PostgreSQL
-client.connect()
-  .then(() => console.log('Conectado ao PostgreSQL'))
-  .catch(err => console.error('Erro ao conectar ao PostgreSQL', err));
-
 // Função para adicionar um veículo
-document.getElementById('addVehicleBtn').addEventListener('click', () => {
+document.getElementById('addVehicleBtn').addEventListener('click', async () => {
   const marcaModelo = document.getElementById('marcaModelo').value;
   const placa = document.getElementById('placa').value;
   const cor = document.getElementById('cor').value;
@@ -26,26 +14,15 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
   if (marcaModelo && placa && cor) {
     const newVehicle = { marcaModelo, placa, cor, entrada };
 
-    // Salvar no localStorage
-    let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
-    vehicles.push(newVehicle);
-    localStorage.setItem('vehicles', JSON.stringify(vehicles));
-
-    // Salvar no PostgreSQL
-    client.query(
-      'INSERT INTO veiculos (marca_modelo, placa, cor, entrada) VALUES ($1, $2, $3, $4)',
-      [marcaModelo, placa, cor, entrada]
-    )
-    .then(() => {
-      console.log('Veículo adicionado ao PostgreSQL');
-      
+    // Salvar no Firebase Firestore
+    try {
+      await addDoc(collection(db, 'veiculos'), newVehicle);
+      console.log('Veículo adicionado ao Firebase Firestore');
       atualizarVagas(); // Atualizar vagas após adicionar veículo
-    })
-    .catch(error => {
-      console.error('Erro ao adicionar no PostgreSQL:', error);
-    });
-
-    carregarListaVeiculos();
+      carregarListaVeiculos(); // Recarregar a lista de veículos
+    } catch (error) {
+      console.error('Erro ao adicionar no Firebase Firestore:', error);
+    }
 
     // Limpar os campos após adicionar o veículo
     document.getElementById('marcaModelo').value = '';
@@ -55,35 +32,39 @@ document.getElementById('addVehicleBtn').addEventListener('click', () => {
 });
 
 // Função para atualizar vagas
-function atualizarVagas() {
-  client.query('SELECT COUNT(*) FROM veiculos')
-    .then(result => {
-      const vagasOcupadas = parseInt(result.rows[0].count, 10);
-      const vagasDisponiveis = capacidadeTotal - vagasOcupadas;
+async function atualizarVagas() {
+  try {
+    const veiculosCollection = collection(db, 'veiculos');
+    const veiculosSnapshot = await getDocs(veiculosCollection);
+    const vagasOcupadas = veiculosSnapshot.size;
+    const vagasDisponiveis = capacidadeTotal - vagasOcupadas;
 
-      // Atualizar elementos na página
-      const vagasDisponiveisEl = document.getElementById('vagasDisponiveis');
-      const vagasOcupadasEl = document.getElementById('vagasOcupadas');
+    // Atualizar elementos na página
+    const vagasDisponiveisEl = document.getElementById('vagasDisponiveis');
+    const vagasOcupadasEl = document.getElementById('vagasOcupadas');
 
-      vagasDisponiveisEl.textContent = vagasDisponiveis;
-      vagasOcupadasEl.textContent = vagasOcupadas;
+    vagasDisponiveisEl.textContent = vagasDisponiveis;
+    vagasOcupadasEl.textContent = vagasOcupadas;
 
-      // Aplicar cores: verde para vagas disponíveis e vermelho para vagas ocupadas
-      vagasDisponiveisEl.style.color = 'green';
-      vagasOcupadasEl.style.color = 'red';
-    })
-    .catch(error => console.error('Erro ao calcular vagas:', error));
+    // Aplicar cores: verde para vagas disponíveis e vermelho para vagas ocupadas
+    vagasDisponiveisEl.style.color = 'green';
+    vagasOcupadasEl.style.color = 'red';
+  } catch (error) {
+    console.error('Erro ao calcular vagas:', error);
+  }
 }
 
-// Função para carregar a lista de veículos do PostgreSQL
-function carregarListaVeiculos() {
-  client.query('SELECT * FROM veiculos')
-    .then(result => {
-      const vehicles = result.rows;
-      localStorage.setItem('vehicles', JSON.stringify(vehicles)); // Atualiza o localStorage com os dados do PostgreSQL
-      renderVeiculos(vehicles);
-    })
-    .catch(error => console.error('Erro ao carregar veículos do PostgreSQL:', error));
+// Função para carregar a lista de veículos do Firebase Firestore
+async function carregarListaVeiculos() {
+  try {
+    const veiculosCollection = collection(db, 'veiculos');
+    const veiculosSnapshot = await getDocs(veiculosCollection);
+    const vehicles = veiculosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    renderVeiculos(vehicles); // Renderizar a lista de veículos
+  } catch (error) {
+    console.error('Erro ao carregar veículos do Firebase Firestore:', error);
+  }
 }
 
 // Função para renderizar a lista de veículos cadastrados em tabela
@@ -95,13 +76,13 @@ function renderVeiculos(vehicles) {
   vehicles.forEach(vehicle => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${vehicle.placa}</td> <!-- Exibir placa -->
-      <td>${vehicle.marca_modelo}</td>
-      <td>${vehicle.cor}</td> <!-- Exibir cor -->
+      <td>${vehicle.placa}</td>
+      <td>${vehicle.marcaModelo}</td>
+      <td>${vehicle.cor}</td>
       <td>${new Date(vehicle.entrada).toLocaleString()}</td>
       <td>
-        <button onclick="excluirVeiculo('${vehicle.placa}')">Excluir</button>
-        <button onclick="window.location.href='pagamento.html?placa=${vehicle.placa}&marcaModelo=${vehicle.marca_modelo}&cor=${vehicle.cor}'">Pagamento</button>
+        <button onclick="excluirVeiculo('${vehicle.id}')">Excluir</button>
+        <button onclick="window.location.href='pagamento.html?placa=${vehicle.placa}&marcaModelo=${vehicle.marcaModelo}&cor=${vehicle.cor}'">Pagamento</button>
       </td>
     `;
     veiculosList.appendChild(tr); // Adicionar a linha à tabela
@@ -109,15 +90,31 @@ function renderVeiculos(vehicles) {
 }
 
 // Função para excluir veículo
+window.excluirVeiculo = async function (id) {
+  try {
+    await deleteDoc(doc(db, 'veiculos', id));
+    console.log('Veículo excluído do Firebase Firestore');
+    carregarListaVeiculos(); // Recarregar a lista de veículos
+    atualizarVagas(); // Atualizar vagas após exclusão
+  } catch (error) {
+    console.error('Erro ao excluir veículo:', error);
+  }
+};
 
-// Função para buscar veículos no localStorage
-document.getElementById('searchBtn').addEventListener('click', () => {
+// Função para buscar veículos no Firebase Firestore
+document.getElementById('searchBtn').addEventListener('click', async () => {
   const searchPlaca = document.getElementById('searchPlaca').value.toUpperCase();
-  let vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
 
-  const filteredVehicles = vehicles.filter(vehicle => vehicle.placa.toUpperCase().includes(searchPlaca));
+  try {
+    const veiculosCollection = collection(db, 'veiculos');
+    const q = query(veiculosCollection, where('placa', '>=', searchPlaca), where('placa', '<=', searchPlaca + '\uf8ff'));
+    const veiculosSnapshot = await getDocs(q);
+    const filteredVehicles = veiculosSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-  mostrarResultadoPesquisa(filteredVehicles);
+    mostrarResultadoPesquisa(filteredVehicles);
+  } catch (error) {
+    console.error('Erro ao buscar veículos:', error);
+  }
 });
 
 // Exibir resultados da pesquisa
@@ -129,7 +126,7 @@ function mostrarResultadoPesquisa(vehicles) {
     vehicles.forEach(vehicle => {
       const div = document.createElement('div');
       div.classList.add('vehicle-result');
-      div.textContent = `Placa: ${vehicle.placa},  Marca/Modelo: ${vehicle.marca_modelo},  Cor: ${vehicle.cor} , Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
+      div.textContent = `Placa: ${vehicle.placa},  Marca/Modelo: ${vehicle.marcaModelo},  Cor: ${vehicle.cor} , Entrada: ${new Date(vehicle.entrada).toLocaleString()}`;
       resultadoContainer.appendChild(div);
     });
   } else {
@@ -137,5 +134,6 @@ function mostrarResultadoPesquisa(vehicles) {
   }
 }
 
+// Carregar lista de veículos e atualizar vagas ao carregar a página
 carregarListaVeiculos();
 atualizarVagas();

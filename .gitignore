@@ -5,6 +5,7 @@ node_modules/
 # Diretórios de build
 dist/
 build/
+.env firebaseConfig.js
 
 # Arquivos de log
 npm-debug.log*
